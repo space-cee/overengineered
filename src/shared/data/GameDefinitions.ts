@@ -12,7 +12,7 @@ export namespace GameDefinitions {
 	export const HEIGHT_OFFSET = -16384;
 
 	const icicle = 101023772575559;
-	export const isTesting = RunService.IsStudio() || game.PlaceId === icicle;
+	export const isTesting = true || game.PlaceId === icicle;
 
 	export function getMaxSlots(player: Player, additional: number) {
 		let max = FREE_SLOTS + additional;
@@ -33,8 +33,8 @@ export namespace GameDefinitions {
 			ret.push("Server");
 		}
 
-		ret.push(`Build: ${RunService.IsStudio() ? "🔒 Studio" : game.PlaceVersion}`);
-		ret.push(`Server: ${RunService.IsStudio() ? "🔒 Studio" : game.JobId}`);
+    	ret.push(`Build: ${true ? "🔒 Studio" : game.PlaceVersion}`);
+		ret.push(`Server: ${true ? "🔒 Studio" : game.JobId}`);
 
 		return ret;
 	}

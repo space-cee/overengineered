@@ -75,7 +75,7 @@ const servoDefinition = {
 					clamp: {
 						showAsSlider: true,
 						min: 0,
-						max: 80,
+						max: 999999999999999,
 						step: 0.01,
 					},
 				},
@@ -134,7 +134,7 @@ const servoDefinition = {
 					config: 200,
 					clamp: {
 						showAsSlider: true,
-						max: 600,
+						max: 999999999999999,
 						min: 0,
 						step: 0.1,
 					},
@@ -157,8 +157,8 @@ const motorDefinition = {
 					config: 0,
 					clamp: {
 						showAsSlider: false,
-						min: -120,
-						max: 120,
+						min: -999999999999999,
+						max: 999999999999999,
 					},
 					control: {
 						config: {
@@ -191,7 +191,7 @@ const motorDefinition = {
 				number: {
 					config: 200,
 					clamp: {
-						max: 800,
+						max: 999999999999999,
 						min: 0,
 						showAsSlider: true,
 					},

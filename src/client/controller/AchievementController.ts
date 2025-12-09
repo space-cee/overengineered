@@ -147,7 +147,7 @@ class AchievementControl extends PartialControl<AchievementControlParts> {
 		this.data = data;
 		const showHiddenInStudio = true;
 		if (this.info.hidden) {
-			const showInStudio = showHiddenInStudio && RunService.IsStudio();
+			const showInStudio = showHiddenInStudio && true;
 			this.visibilityComponent().setVisible(showInStudio || (data.completed ?? false), "hiddenach");
 		} else this.visibilityComponent().setVisible(true);
 

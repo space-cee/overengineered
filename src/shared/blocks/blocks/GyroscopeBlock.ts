@@ -236,7 +236,7 @@ export const GyroscopeBlock = {
 	id: "gyroscope",
 	displayName: "Gyroscope",
 	description: "Makes your things rotate to desired angle. Has different modes.",
-	limit: 40,
+	limit: 100000,
 
 	logic: { definition, ctor: Logic },
 } as const satisfies BlockBuilder;

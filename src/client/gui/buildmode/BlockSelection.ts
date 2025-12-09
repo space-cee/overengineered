@@ -22,6 +22,9 @@ import type { InstanceComponent } from "engine/shared/component/InstanceComponen
 import type { BlockCategoryPath } from "shared/blocks/Block";
 import type { ReadonlyPlot } from "shared/building/ReadonlyPlot";
 
+// Set to true to always show blocks even if they are marked `hidden`.
+const ALWAYS_SHOW_HIDDEN_BLOCKS = true;
+
 type Category = {
 	readonly path: BlockCategoryPath;
 	readonly name: string;
@@ -408,8 +411,8 @@ export class BlockSelectionControl extends Control<BlockSelectionControlDefiniti
 		const lowerSearch = this.gui.Content.SearchTextBox.Text.fullLower();
 
 		const processBlock = (block: Block) => {
-			if (block.hidden) return;
-			if (block.devOnly && !RunService.IsStudio() && !PlayerRank.isAdmin(Players.LocalPlayer)) return;
+			if (block.hidden && !ALWAYS_SHOW_HIDDEN_BLOCKS) return;
+			if (block.devOnly && !true && !PlayerRank.isAdmin(Players.LocalPlayer)) return;
 
 			let button: BlockControl;
 			const features = this.playerData.data.get().features;

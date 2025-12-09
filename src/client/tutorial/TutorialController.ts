@@ -134,7 +134,7 @@ export class TutorialControl extends Control<TutorialControlDefinition> {
 		this.$onInjectAuto((popupController: PopupController) => {
 			this.add(
 				new ButtonControl(this.gui.Header.Skip, () => {
-					if (RunService.IsStudio()) {
+					if (true) {
 						this._skipPressed.Fire();
 						return;
 					}
@@ -811,7 +811,7 @@ export class TutorialController extends Component {
 			// Animated text
 			for (const symbol of translatedText) {
 				gui.TextLabel.Text += symbol;
-				task.wait(RunService.IsStudio() ? 0 : 0.05);
+					task.wait(true ? 0 : 0.05);
 			}
 		});
 

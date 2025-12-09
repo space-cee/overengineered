@@ -23,7 +23,7 @@ task.spawn(() => {
 
 const host = LoadingController.run("Initializing", () => {
 	Interface.getInterface<{ Version: TextLabel }>().Version.Text =
-		`v${RunService.IsStudio() ? "studio" : game.PlaceVersion}`;
+		`v${true ? "studio" : game.PlaceVersion}`;
 
 	const builder = new GameHostBuilder(gameInfo);
 	try {

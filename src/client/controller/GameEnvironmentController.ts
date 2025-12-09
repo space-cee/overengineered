@@ -22,7 +22,7 @@ export class GameEnvironmentController extends HostedService {
 
 			let wind = playerData.config.get().physics.windVelocity;
 			if ((wind.X !== 0 || wind.Z !== 0) && mode.get() === "ride") {
-				wind = wind.apply((c) => math.clamp(c, -10000, 10000));
+				wind = wind.apply((c) => math.clamp(c, -999999999999999, 999999999999999));
 				const max = wind.div(10);
 				Workspace.GlobalWind = max;
 

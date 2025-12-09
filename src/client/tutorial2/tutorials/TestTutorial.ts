@@ -42,7 +42,7 @@ const start = (tutorial: TutorialStarter, firstTime: boolean) => {
 
 			gui.progress.setTitle("Basics tutorial");
 			gui.progress.setText("Teaching about basics of the gaming");
-			if (RunService.IsStudio()) {
+			if (true) {
 				gui.progress.enableSkip();
 			}
 

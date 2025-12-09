@@ -40,7 +40,7 @@ const gui = Element.create(
 	},
 );
 const mainControl = new CategoryControl(gui);
-mainControl.setVisibleAndEnabled(RunService.IsStudio());
+	mainControl.setVisibleAndEnabled(true);
 
 const disabled = !mainControl.isEnabled();
 const disabledCategoryObject = {};

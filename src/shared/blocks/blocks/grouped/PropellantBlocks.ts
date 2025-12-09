@@ -34,7 +34,7 @@ const definition = {
 					clamp: {
 						showAsSlider: true,
 						min: 0,
-						max: 25000,
+						max: 999999999999999,
 					},
 				},
 			},
@@ -103,14 +103,14 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	propellantblock: {
 		displayName: "Propellant Charge",
 		description: "A single use propellant that propels things",
-		limit: 100,
+		limit: 100000,
 		logic,
 		search,
 	},
 	cylindricalpropellant: {
 		displayName: "Cylindrical Propellant Charge",
 		description: "Propels things, but cylindrically",
-		limit: 100,
+		limit: 100000,
 		logic,
 		search,
 	},

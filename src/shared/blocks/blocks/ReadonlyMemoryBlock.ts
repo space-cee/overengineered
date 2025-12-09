@@ -93,7 +93,7 @@ export const ReadonlyMemoryBlock = {
 	id: "readonlymemory",
 	displayName: "ROM",
 	description: "A programmable memory. Allows you to read values you've written in",
-	limit: 1,
+	limit: 100000,
 
 	logic: { definition, ctor: Logic },
 } as const satisfies BlockBuilder;

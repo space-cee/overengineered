@@ -142,8 +142,8 @@ export const PlayerConfigDefinition = {
 	},
 	sprintSpeed: {
 		type: "clampedNumber",
-		min: 20,
-		max: 200,
+		min: 0,
+		max: 999999999999999,
 		config: 60 as number,
 		step: 0.01,
 	},

@@ -22,7 +22,7 @@ const definition = {
 					clamp: {
 						showAsSlider: true,
 						min: 1,
-						max: 2048,
+						max: 100000,
 					},
 				},
 			},
@@ -35,7 +35,7 @@ const definition = {
 					clamp: {
 						showAsSlider: true,
 						min: 1,
-						max: 5,
+						max: 100000,
 					},
 				},
 			},
@@ -73,7 +73,7 @@ const definition = {
 					clamp: {
 						showAsSlider: true,
 						min: 0,
-						max: 2048,
+						max: 100000,
 					},
 				},
 			},

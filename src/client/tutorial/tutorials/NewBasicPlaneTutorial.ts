@@ -34,7 +34,7 @@ export class NewBasicPlaneTutorial implements TutorialDescriber {
 				t.partText(
 					"Welcome to",
 					" ",
-					"OverEngineered!",
+					"OverEngineered!", // <--------- STUPID        GAME ™
 					"!",
 					"\n",
 					"This tutorial will teach you how to build a basic plane.",

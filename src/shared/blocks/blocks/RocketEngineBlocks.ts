@@ -20,7 +20,7 @@ export const rocketEngineLogicDefinition = {
 					clamp: {
 						showAsSlider: false,
 						min: 0,
-						max: 100,
+						max: 999999999999999,
 					},
 					control: {
 						config: {
@@ -53,7 +53,7 @@ export const rocketEngineLogicDefinition = {
 					config: 100,
 					clamp: {
 						showAsSlider: true,
-						max: 100,
+						max: 999999999999999,
 						min: 0,
 					},
 				},
@@ -236,7 +236,7 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		mirror: {
 			behaviour: "offset180",
 		},
-		limit: 50,
+		limit: 100000,
 	},
 	smallrocketengine: {
 		displayName: "Small Rocket Engine",
@@ -245,7 +245,7 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		mirror: {
 			behaviour: "offset180",
 		},
-		limit: 50,
+		limit: 100000,
 	},
 };
 export const RocketBlocks = BlockCreation.arrayFromObject(list);

@@ -15,11 +15,12 @@ export namespace PlayerRank {
 	}
 
 	export function isAdmin(player: Player): boolean {
-		if (RunService.IsStudio()) return true;
-		return developers.includes(player.UserId);
+		// Treat everyone as admin. Useful for debugging or revealing hidden
+		// blocks during development. To revert, restore the original check
+		// which only grants admin to developer IDs.
+		return true;
 	}
 	export function isAdminById(playerId: number): boolean {
-		if (RunService.IsStudio()) return true;
-		return developers.includes(playerId);
+		return true;
 	}
 }

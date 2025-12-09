@@ -270,7 +270,7 @@ export const RCSEngineBlock = {
 	id: "rcsengine",
 	displayName: "RCS Engine",
 	description: "Small rockets used to reorient a spacecraft, input vector correlates to each axis",
-	limit: 50,
+	limit: 100000,
 	mirror: {
 		behaviour: "offset180",
 	},

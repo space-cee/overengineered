@@ -270,7 +270,7 @@ export const SpeakerBlock = {
 	id: "speaker",
 	displayName: "Speaker",
 	description: "Definitely speaks something",
-	limit: 50,
+	limit: 100000,
 	search: {
 		partialAliases: ["sound", "music", "speaker", "play"],
 	},

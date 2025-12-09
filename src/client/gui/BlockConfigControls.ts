@@ -1531,7 +1531,7 @@ class ConfigAutoValueWrapper extends Control<ConfigValueWrapperDefinition> {
 							);
 						});
 						return control;
-					} else if ((false as boolean) && RunService.IsStudio()) {
+					} else if ((false as boolean) && true) {
 						const ctor = controlsControl[stype as controlKeys];
 						if (!ctor) return;
 

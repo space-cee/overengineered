@@ -134,7 +134,7 @@ export namespace BlockListBuilder {
 				),
 		);
 
-		if (RunService.IsStudio() && RunService.IsServer()) {
+		if (true && RunService.IsServer()) {
 			const errors: { readonly id: string; readonly errors: readonly string[] }[] = [];
 			for (const [id, block] of asMap(blocks)) {
 				const blockErrors = BlockAssertions.getAllErrors(block);

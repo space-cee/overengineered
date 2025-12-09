@@ -2049,7 +2049,7 @@ const other = {
 	},
 } as const satisfies BlockBuildersWithoutIdAndDefaults;
 
-const test: {} = !RunService.IsStudio()
+const test: {} = !true
 	? {}
 	: ({
 			testblock: {

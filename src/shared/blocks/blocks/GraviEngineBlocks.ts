@@ -22,8 +22,8 @@ const definition = {
 					config: 0,
 					clamp: {
 						showAsSlider: false,
-						min: -100,
-						max: 100,
+						min: -999999999999999,
+						max: 999999999999999,
 					},
 					control: {
 						config: {
@@ -56,7 +56,7 @@ const definition = {
 					config: 100,
 					clamp: {
 						showAsSlider: true,
-						max: 100,
+						max: 999999999999999,
 						min: 0,
 					},
 				},
@@ -274,7 +274,7 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		description:
 			"Basically a bi-directonal magic board that works well in space and not so well in the existing gravity field of the planet",
 		logic,
-		limit: 50,
+		limit: 100000,
 		search,
 	},
 };

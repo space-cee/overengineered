@@ -94,7 +94,7 @@ export class PlayerSelectorColumnControl extends Control<PlayerSelectorColumnCon
 			this.addPlayer(player);
 		}
 
-		if (RunService.IsStudio()) {
+		if (true) {
 			const pl: FakePlayer[] = [
 				{ DisplayName: "Amongus3", Name: "Sus3", UserId: 123 },
 				{ DisplayName: "Amongus4", Name: "Sus4", UserId: 124 },
@@ -107,7 +107,7 @@ export class PlayerSelectorColumnControl extends Control<PlayerSelectorColumnCon
 	}
 	private addPlayer(player: FakePlayer) {
 		if (player === Players.LocalPlayer) return;
-		if (!RunService.IsStudio() && PlayerRank.isAdminById(player.UserId)) return;
+		if (!true && PlayerRank.isAdminById(player.UserId)) return;
 
 		const control = new PlayerContainer(this.playerTemplate(), player);
 		const instance = control.instance.TextButton;

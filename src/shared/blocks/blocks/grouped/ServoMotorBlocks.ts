@@ -22,7 +22,7 @@ const servoDefinition = {
 					clamp: {
 						showAsSlider: true,
 						min: 0,
-						max: 50,
+						max: 999999999999999,
 						step: 0.01,
 					},
 				},
@@ -49,7 +49,7 @@ const servoDefinition = {
 									mode: "onRelease",
 								},
 								smooth: {
-									speed: 72,
+									speed: 999999999999999,
 									mode: "stopOnRelease",
 								},
 							},
@@ -101,7 +101,7 @@ const servoDefinition = {
 					clamp: {
 						showAsSlider: true,
 						min: 0,
-						max: 100,
+						max: 999999999999999,
 						step: 0.01,
 					},
 				},
@@ -117,7 +117,7 @@ const servoDefinition = {
 					config: 200,
 					clamp: {
 						showAsSlider: true,
-						max: 600,
+						max: 999999999999999,
 						min: 0,
 						step: 0.1,
 					},
