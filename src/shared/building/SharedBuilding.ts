@@ -48,8 +48,6 @@ export namespace SharedBuilding {
 		const blockCenter = block.GetPivot();
 
 		const update = (instance: Instance, origInstance: Instance) => {
-			// assuming no duplicate instance names on a single layer
-
 			for (const origChild of origInstance.GetChildren()) {
 				const name = origChild.Name;
 				const child = instance.WaitForChild(name);
@@ -90,10 +88,8 @@ export namespace SharedBuilding {
 				BlockManager.manager.material.set(block, material);
 				PartUtils.switchDescendantsMaterial(block, material);
 
-				// Make glass material transparent
-				if (material === Enum.Material.Glass) {
-					PartUtils.switchDescendantsTransparency(block, 0.3);
-				} else if (!byBuild) {
+				// ❌ Removed glass-only transparency rule
+				if (!byBuild) {
 					PartUtils.switchDescendantsTransparency(block, 0);
 				}
 
@@ -121,9 +117,8 @@ export namespace SharedBuilding {
 				BlockManager.manager.color.set(block, color);
 				PartUtils.switchDescendantsColor(block, color.color);
 
-				if (material === Enum.Material.Glass && color.alpha >= 0.99) {
-					PartUtils.switchDescendantsTransparency(block, 0.3);
-				} else if (!byBuild) {
+				// ❌ Removed glass-only transparency rule
+				if (!byBuild) {
 					PartUtils.switchDescendantsTransparency(block, 1 - color.alpha);
 				}
 			}
@@ -153,6 +148,7 @@ export namespace SharedBuilding {
 			}
 		}
 	}
+
 	export function applyWelds(block: BlockModel, plot: ReadonlyPlot, welds: BlockWelds) {
 		const wi = (...data: readonly unknown[]) => warn("[ignorable]", ...data);
 

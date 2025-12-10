@@ -627,13 +627,13 @@ class ScaleComponent extends Component implements EditComponent {
 			reposition(blocks, originalBB, BB.fromPart(handles));
 
 			const overscaled = blocks.any(
-				(b) => b.block.PrimaryPart!.Size.div(b.origModel.PrimaryPart!.Size).findMax() > 256,
+				(b) => b.block.PrimaryPart!.Size.div(b.origModel.PrimaryPart!.Size).findMax() > 999999999999999,
 			);
 			if (overscaled) {
 				this.error.set("Some blocks are scaled too big (maximum is 256x)");
 			} else {
 				const underscaled = blocks.any(
-					(b) => b.block.PrimaryPart!.Size.div(b.origModel.PrimaryPart!.Size).findMin() < 1 / 32,
+					(b) => b.block.PrimaryPart!.Size.div(b.origModel.PrimaryPart!.Size).findMin() < 1 / 999999999999999,
 				);
 				if (underscaled) {
 					this.error.set("Some blocks are scaled too small (minimum is 1/32x)");

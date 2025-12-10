@@ -693,7 +693,7 @@ namespace SinglePlaceController {
 namespace MultiPlaceController {
 	export abstract class Base extends Component implements IController {
 		private readonly possibleFillRotationAxis = [Vector3.xAxis, Vector3.yAxis, Vector3.zAxis] as const;
-		private readonly blocksFillLimit = 16;
+		private readonly blocksFillLimit = 999999999999999;
 		private readonly drawnGhostsMap = new Map<Vector3, Model>();
 		private readonly blockMirrorer;
 		private readonly floatingText;
