@@ -21,7 +21,7 @@ const sps = [
 	["crusher", { name: "Crusher", pos: cf(775.5, -16348.143, -973.5) }],
 	["stadium", { name: "Stadium?", pos: cf(2630.937, -16183.715, -32.289) }],
 	["quarry", { name: "Quarry?", pos: cf(1410.5, -16360.775, -1399) }],
-	["runway1", { name: "Runway 1", pos: cf(-95.001, -16382.999, -2400.25, 90) }],
+	["runway1", { name: "Runway 1", pos: cf(-95.001, -16382.999, -2000.25, 90) }],
 	["runway2", { name: "Runway 2", pos: cf(-95.007, -16382.417, 1572.948, -90) }],
 	["house", { name: "HOUSE", pos: cf(644.5, -16380.433, -2129.5) }],
 ] as const satisfies readonly sps[];

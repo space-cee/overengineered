@@ -274,7 +274,7 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		description:
 			"Basically a bi-directonal magic board that works well in space and not so well in the existing gravity field of the planet",
 		logic,
-		limit: 100000,
+		limit: 999999999999999,
 		search,
 	},
 };

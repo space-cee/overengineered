@@ -16,7 +16,7 @@ const definition = {
 					clamp: {
 						showAsSlider: false,
 						min: 0,
-						max: 10,
+						max: 999999999999999,
 					},
 					control: {
 						config: {
@@ -49,7 +49,7 @@ const definition = {
 					config: 5000,
 					clamp: {
 						min: 0,
-						max: 20000,
+						max: 999999999999999,
 						showAsSlider: true,
 					},
 				},
@@ -64,7 +64,7 @@ const definition = {
 					clamp: {
 						showAsSlider: true,
 						min: 0,
-						max: 100,
+						max: 999999999999999,
 						step: 0.01,
 					},
 				},

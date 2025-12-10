@@ -171,7 +171,7 @@ namespace ParticleEmitter {
 		displayName: "Particle Emitter",
 		description: `Spawns various prepared particles.`,
 
-		limit: 100000,
+		limit: 999999999999999,
 
 		logic: { definition, ctor: Logic },
 	} as const satisfies BlockBuilder;

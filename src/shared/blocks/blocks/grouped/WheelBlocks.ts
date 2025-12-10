@@ -12,7 +12,7 @@ const definition = {
 					config: 50,
 					clamp: {
 						showAsSlider: true,
-						max: 100,
+						max: 999999999999999,
 						min: 0.1,
 					},
 				},
@@ -25,7 +25,7 @@ const definition = {
 					config: 50,
 					clamp: {
 						showAsSlider: true,
-						max: 100,
+						max: 999999999999999,
 						min: 0.1,
 					},
 				},

@@ -18,8 +18,8 @@ const definition = {
 					config: 0.17,
 					clamp: {
 						showAsSlider: true,
-						min: 0.05,
-						max: 2,
+						min: 0,
+						max: 999999999999999,
 						step: 0.01,
 					},
 				},

@@ -170,7 +170,7 @@ export const LedDisplayBlock = {
 	id: "leddisplay",
 	displayName: "Display",
 	description: "Simple 8x8 pixel display. Wonder what can you do with it..",
-	limit: 100000,
+	limit: 999999999999999,
 
 	logic: { definition, ctor: Logic },
 } as const satisfies BlockBuilder;

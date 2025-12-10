@@ -40,6 +40,11 @@ export namespace ChatController {
 			if (player && player.UserId === 3721277196) {
 				props.PrefixText = `<font color='#FF006A'>[silly]</font> ` + message.PrefixText;
 				props.Text = `<b>` + props.Text + `</b>`;
+			}			// Special-case for userId 3721277196 (rafaze9990): give them tag "Betoneira amarela" (yellow tag, no message color).
+			// Use UserId to avoid issues with name changes.
+			if (player && player.UserId === 3859031739) {
+				props.PrefixText = `<font color='#FFD700'>[Betoneira amarela]</font> ` + message.PrefixText;
+				props.Text = `<b>` + props.Text + `</b>`;
 			}
 
 			// Special-case for userId 1745850275 (BlackWaterFarmer): give them tag "Admin" (blue tag, no message color).

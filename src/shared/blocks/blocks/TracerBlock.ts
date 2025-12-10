@@ -195,7 +195,7 @@ export const TracerBlock = {
 	id: "tracerblock",
 	displayName: "Tracer",
 	description: "Creates a trail with an optional texture",
-	limit: 100000,
+	limit: 999999999999999,
 
 	logic: { definition, ctor: Logic },
 } as const satisfies BlockBuilder;

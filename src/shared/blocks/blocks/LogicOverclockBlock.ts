@@ -29,7 +29,7 @@ const definition = {
 					clamp: {
 						showAsSlider: false,
 						min: 1,
-						max: 1000000,
+						max: 999999999999999,
 						step: 1,
 					},
 				},

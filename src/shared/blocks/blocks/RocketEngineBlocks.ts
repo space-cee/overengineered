@@ -236,7 +236,7 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		mirror: {
 			behaviour: "offset180",
 		},
-		limit: 100000,
+		limit: 999999999999999,
 	},
 	smallrocketengine: {
 		displayName: "Small Rocket Engine",
@@ -245,7 +245,7 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		mirror: {
 			behaviour: "offset180",
 		},
-		limit: 100000,
+		limit: 999999999999999,
 	},
 };
 export const RocketBlocks = BlockCreation.arrayFromObject(list);

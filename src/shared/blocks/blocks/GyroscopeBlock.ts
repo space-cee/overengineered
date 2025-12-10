@@ -80,10 +80,10 @@ const definition = {
 			tooltip: "The amount of rotational force applied to the gyroscope",
 			types: {
 				number: {
-					config: 100000,
+					config: 999999999999999,
 					clamp: {
 						min: 0,
-						max: 50_000_000,
+						max: 999_999_999_999_999,
 						showAsSlider: true,
 					},
 				},
@@ -236,7 +236,7 @@ export const GyroscopeBlock = {
 	id: "gyroscope",
 	displayName: "Gyroscope",
 	description: "Makes your things rotate to desired angle. Has different modes.",
-	limit: 100000,
+	limit: 999999999999999,
 
 	logic: { definition, ctor: Logic },
 } as const satisfies BlockBuilder;

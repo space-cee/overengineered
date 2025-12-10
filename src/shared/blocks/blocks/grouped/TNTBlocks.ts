@@ -32,7 +32,7 @@ const definition = {
 					clamp: {
 						showAsSlider: true,
 						min: 1,
-						max: 100000,
+						max: 999999999999999,
 					},
 				},
 			},
@@ -45,7 +45,7 @@ const definition = {
 					clamp: {
 						showAsSlider: true,
 						min: 0,
-						max: 100000,
+						max: 999999999999999,
 					},
 				},
 			},
@@ -117,25 +117,25 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	tnt: {
 		displayName: "TNT",
 		description: "A box of explosives. DO NOT HIT!",
-		limit: 1000000,
+		limit: 999999999999999,
 		logic,
 	},
 	cylindricaltnt: {
 		displayName: "Cylindrical TNT",
 		description: "Not a boxed version",
-		limit: 100000,
+		limit: 999999999999999,
 		logic,
 	},
 	sphericaltnt: {
 		displayName: "Spherical TNT",
 		description: "Catch this, anarchid boy!",
-		limit: 100000,
+		limit: 999999999999999,
 		logic,
 	},
 	halfsphericaltnt: {
 		displayName: "Half Spherical TNT",
 		description: "Had to cut corners. Unfortunately, sphere doesn't have corners.. So we sliced it in half!",
-		limit: 100000,
+		limit: 999999999999999,
 		logic,
 	},
 };

@@ -301,7 +301,7 @@ export const BackMountBlock = {
 	id: "backmount",
 	displayName: "Back Mount",
 	description: "A mountable backpack. You can weld stuff to it and wear it.",
-	limit: 100000,
+	limit: 999999999999999,
 
 	search: {
 		partialAliases: ["body", "backpack"],

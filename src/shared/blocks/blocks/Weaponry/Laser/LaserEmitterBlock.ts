@@ -12,9 +12,7 @@ const definition = {
 		projectileColor: {
 			displayName: "Projectile Color",
 			types: {
-				color: {
-					config: Colors.pink,
-				},
+				color: { config: Colors.pink },
 			},
 		},
 		fireTrigger: {
@@ -40,11 +38,11 @@ const definition = {
 } satisfies BlockLogicFullBothDefinitions;
 
 export type { Logic as LaserEmitterBlockLogic };
+
 class Logic extends InstanceBlockLogic<typeof definition> {
 	constructor(block: InstanceBlockLogicArgs) {
 		super(definition, block);
 
-		// get outputs and the module
 		const relativeOuts = new Map<BasePart, CFrame>();
 		const module = WeaponModule.allModules[this.instance.Name];
 
@@ -57,6 +55,7 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 			(this.instance.FindFirstChild("Lens") as BasePart).Color = projectileColor;
 		});
 
+		// ======== CLEANUP FUNCTION ========
 		const destroyProjectile = () => {
 			for (const e of module.parentCollection.calculatedOutputs) {
 				for (const o of e.outputs) {
@@ -70,12 +69,12 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 		// disable markers
 		module.parentCollection.setMarkersVisibility(false);
 
-		// get relative directions
+		// store relative marker positions
 		for (const p of module.parentCollection.calculatedOutputs)
 			for (const o of p.outputs)
 				relativeOuts.set(o.markerInstance, this.instance.GetPivot().ToObjectSpace(o.markerInstance.CFrame));
 
-		//update marker positions
+		// update marker positions every frame
 		this.event.subscribe(RunService.Heartbeat, () => {
 			const pivo = this.instance.GetPivot();
 			for (const e of module.parentCollection.calculatedOutputs) {
@@ -83,6 +82,13 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 					o.markerInstance.PivotTo(pivo.ToWorldSpace(relativeOuts.get(o.markerInstance)!));
 				}
 			}
+		});
+
+		// cleanup when block is disabled/broken
+		this.onDisable(() => {
+			sound?.Stop();
+			destroyProjectile();
+			module.parentCollection.setMarkersVisibility(false);
 		});
 
 		// fire on button press
@@ -95,6 +101,7 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 
 			for (const e of module.parentCollection.calculatedOutputs) {
 				if (sound) sound.pitch.Octave = math.random(1000, 1200) / 10000;
+
 				for (const o of e.outputs) {
 					sound?.Play();
 					LaserProjectile.spawnProjectile.send({
@@ -119,18 +126,11 @@ export const LaserEmitterBlock = {
 	weaponConfig: {
 		type: "CORE",
 		modifier: {
-			speedModifier: {
-				value: 10,
-			},
+			speedModifier: { value: 10 },
 		},
 		markers: {
-			inputMarker: {
-				allowedBlockIds: [],
-			},
-			marker1: {
-				emitsProjectiles: true,
-				allowedBlockIds: ["laserlens"],
-			},
+			inputMarker: { allowedBlockIds: [] },
+			marker1: { emitsProjectiles: true, allowedBlockIds: ["laserlens"] },
 		},
 	},
 
