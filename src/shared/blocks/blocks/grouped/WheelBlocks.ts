@@ -104,5 +104,11 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		logic,
 		physics,
 	},
+	tire: {
+		displayName: "tire",
+		description: "woah! tire with no brim!",
+		logic,
+		physics,
+	},
 };
 export const WheelBlocks = BlockCreation.arrayFromObject(list);
