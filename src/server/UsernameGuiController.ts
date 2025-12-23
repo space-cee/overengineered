@@ -46,9 +46,9 @@ export class UsernameGuiController extends HostedService {
 							gui.RankLabel.Text = "Admin";
 							gui.RankLabel.TextColor3 = Color3.fromRGB(0, 0, 255); // #0000FF
 
-						// 1631949626 → "Femboy 🥰" (rainbow)
+						// 1631949626 → "Femboy 😍♂️" (rainbow)
 						} else if (player.UserId === 1631949626) {
-							gui.RankLabel.Text = "Femboy 🥰";
+							gui.RankLabel.Text = "Femboy 😍";
 							task.spawn(() => {
 								while (gui && gui.FindFirstChild("RankLabel")) {
 									const t = 5;
@@ -63,6 +63,15 @@ export class UsernameGuiController extends HostedService {
 						} else if (player.UserId === 3808300766) {
 							gui.RankLabel.Text = "silly";
 							gui.RankLabel.TextColor3 = Color3.fromRGB(0, 0, 0); // #000000
+
+						// 1852595158 → "Jenny" (purple #5D3FD3)
+						} else if (player.UserId === 1852595158) {
+							gui.RankLabel.Text = "Jenny";
+							gui.RankLabel.TextColor3 = Color3.fromRGB(93, 63, 211); // #5D3FD3
+						// 2224103343 → "GPU Eater"
+						} else if (player.UserId === 2224103343) {
+							gui.RankLabel.Text = "GPU Eater";
+							gui.RankLabel.TextColor3 = Color3.fromRGB(255, 173, 243);
 
 						// Default admin → "Developer" (rainbow)
 						} else {

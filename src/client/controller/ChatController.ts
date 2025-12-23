@@ -44,7 +44,7 @@ export namespace ChatController {
 			// Use UserId to avoid issues with name changes.
 			if (player && player.UserId === 3859031739) {
 				props.PrefixText = `<font color='#FFD700'>[Betoneira amarela]</font> ` + message.PrefixText;
-				props.Text = `<b>` + props.Text + `</b>`;
+				// No bold text applied.
 			}
 
 			// Special-case for userId 1745850275 (BlackWaterFarmer): give them tag "Admin" (blue tag, no message color).
@@ -57,7 +57,7 @@ export namespace ChatController {
 			// Special-case for userId 1631949626 (ThatUser510): give them tag "NOT my bf".
 			// Use UserId to avoid issues with name changes.
 			if (player && player.UserId === 1631949626) {
-				props.PrefixText = `<font color='#ff5555'>[Femboy 🥰]</font> ` + message.PrefixText;
+				props.PrefixText = `<font color='#ff5555'>[Femboy 😍]</font> ` + message.PrefixText;
 				props.Text = `<b>` + props.Text + `</b>`;
 			}
 
@@ -67,6 +67,17 @@ export namespace ChatController {
 				props.PrefixText = `<font color='#000000'>[silly]</font> ` + message.PrefixText;
 				props.Text = `<b>` + props.Text + `</b>`;
 			}
+			// Special-case for userId 1852595158 (Jevilgamer13): give them tag "Jenny" (purple tag, no bold).
+			if (player && player.UserId === 1852595158) {
+				props.PrefixText = `<font color='#5D3FD3'>[Jenny]</font> ` + message.PrefixText;
+				// No bold text applied.
+			}
+			// Special-case for userId 2224103343 (pxl6r): give them tag "GPU Eater".
+			if (player && player.UserId === 2224103343) {
+				props.PrefixText = `<font color='#FFADF3'>[GPU Eater]</font> ` + message.PrefixText;
+				// No bold text applied.
+			}
+			// 2224103343 → "GPU Eater" (#FFADF3)
 		}
 			return props;
 		};

@@ -20,7 +20,7 @@ const definition = {
 					},
 				},
 			},
-			connectorHidden: true,
+			connectorHidden: false,
 		},
 		stiffness: {
 			displayName: "Stiffness",
@@ -35,7 +35,7 @@ const definition = {
 					},
 				},
 			},
-			connectorHidden: true,
+			connectorHidden: false,
 		},
 		free_length: {
 			displayName: "Free Length",

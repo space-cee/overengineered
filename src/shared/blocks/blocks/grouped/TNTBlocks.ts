@@ -117,25 +117,25 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	tnt: {
 		displayName: "TNT",
 		description: "A box of explosives. DO NOT HIT!",
-		limit: 999999999999999,
+		limit: 200,
 		logic,
 	},
 	cylindricaltnt: {
 		displayName: "Cylindrical TNT",
 		description: "Not a boxed version",
-		limit: 999999999999999,
+		limit: 200,
 		logic,
 	},
 	sphericaltnt: {
 		displayName: "Spherical TNT",
 		description: "Catch this, anarchid boy!",
-		limit: 999999999999999,
+		limit: 200,
 		logic,
 	},
 	halfsphericaltnt: {
 		displayName: "Half Spherical TNT",
 		description: "Had to cut corners. Unfortunately, sphere doesn't have corners.. So we sliced it in half!",
-		limit: 999999999999999,
+		limit: 200,
 		logic,
 	},
 };

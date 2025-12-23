@@ -87,7 +87,7 @@ const definition = {
 					config: false,
 				},
 			},
-			connectorHidden: true,
+			connectorHidden: false,
 		},
 	},
 	output: {},

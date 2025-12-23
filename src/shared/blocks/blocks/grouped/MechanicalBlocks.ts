@@ -47,6 +47,14 @@ const blocks: BlockBuildersWithoutIdAndDefaults = {
 		displayName: "Helical Gear",
 		description: "Tilted Beveled Gear",
 	},
+	wormgear: {
+		displayName: "Worm Gear",
+		description: "A screw-shaped gear used for large reductions in speed. (unstable)",
+		search: {
+			partialAliases: ["worm", "gear", "worm drive"],
+		},
+	},
+
 	gearrack: {
 		displayName: "Rack (Gear)",
 		description: "It's like a flat gear.. I mean gears are already flat but this one is a different way",
@@ -68,6 +76,7 @@ const blocks: BlockBuildersWithoutIdAndDefaults = {
 		description: "An evil brother of the wing rounding",
 	},
 };
+
 
 //
 

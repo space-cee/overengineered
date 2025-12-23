@@ -101,7 +101,7 @@ const servoDefinition = {
 					clamp: {
 						showAsSlider: true,
 						min: 0,
-						max: 999999999999999,
+						max: 100,
 						step: 0.01,
 					},
 				},
