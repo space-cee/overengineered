@@ -1,7 +1,10 @@
 import { Players } from "@rbxts/services";
 import { Db } from "engine/server/Database";
+import { isNotAdmin_AutoBanned } from "server/BanAdminExploiter";
+import { ExternalDatabase } from "server/database/ExternalDatabase";
 import { BlocksSerializer } from "shared/building/BlocksSerializer";
 import { GameDefinitions } from "shared/data/GameDefinitions";
+import { CustomRemotes } from "shared/Remotes";
 import { SlotsMeta } from "shared/SlotsMeta";
 import type { DatabaseBackend } from "engine/server/backend/DatabaseBackend";
 import type { PlayerDatabase } from "server/database/PlayerDatabase";
@@ -49,6 +52,15 @@ export class SlotDatabase {
 				this.blocksdb.free(keys, key);
 			}
 		});
+
+		CustomRemotes.admin.adminUpdateMeta.invoked.Connect((invoker, arg) => {
+			if (isNotAdmin_AutoBanned(invoker, "adm_update_meta")) return;
+			this.setMeta(arg.plrID, this.getMeta(arg.plrID) ?? []);
+		});
+		CustomRemotes.admin.adminWipeData.invoked.Connect((invoker, plrID) => {
+			if (isNotAdmin_AutoBanned(invoker, "adm_wipe_data")) return;
+			this.setMeta(plrID, []);
+		});
 	}
 
 	private ensureValidSlotIndex(userId: number, index: number) {
@@ -71,9 +83,17 @@ export class SlotDatabase {
 		throw "Invalid slot index " + index;
 	}
 
+	private notEmpty = (arr: readonly SlotMeta[] | undefined): arr is readonly SlotMeta[] =>
+		arr !== undefined && arr.size() > 0;
+
 	private getMeta(userId: number) {
-		return this.players.get(userId).slots ?? [];
+		const get = this.players.get(userId)?.slots;
+		if (this.notEmpty(get)) return get;
+		const external = ExternalDatabase.GetPlayer(userId)?.slots;
+		if (this.notEmpty(external)) return external;
+		return [];
 	}
+
 	private setMeta(userId: number, slots: readonly SlotMeta[]) {
 		this.players.set(userId, {
 			...this.players.get(userId),

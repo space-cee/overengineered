@@ -36,6 +36,7 @@ const definition = {
 } satisfies BlockLogicFullBothDefinitions;
 
 export type { Logic as WheelBlockLogic };
+
 class Logic extends InstanceBlockLogic<typeof definition> {
 	constructor(block: InstanceBlockLogicArgs) {
 		super(definition, block);
@@ -62,6 +63,7 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 }
 
 const logic: BlockLogicInfo = { definition, ctor: Logic };
+
 const physics = {
 	impactDamageStrength: 1200,
 	forcedDamageThreshold: 0.15,
@@ -111,4 +113,5 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		physics,
 	},
 };
+
 export const WheelBlocks = BlockCreation.arrayFromObject(list);

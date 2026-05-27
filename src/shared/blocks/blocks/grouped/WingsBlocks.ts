@@ -215,5 +215,11 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		logic,
 		mirror: { behaviour: "wedgeWing" },
 	},
+	airfoil: {
+		displayName: "Airfoil",
+		description: "wing thing",
+		logic,
+		mirror: { behaviour: "wedgeWing" },
+	},
 };
 export const WingBlocks = BlockCreation.arrayFromObject(list);

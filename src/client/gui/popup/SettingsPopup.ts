@@ -23,15 +23,15 @@ import type { PlayModeController } from "client/modes/PlayModeController";
 import type { PlayerDataStorage } from "client/PlayerDataStorage";
 import type { Component } from "engine/shared/component/Component";
 
-type SidebarButton = GuiButton & {
+export type SidebarButton = GuiButton & {
 	readonly ImageLabel: ImageLabel;
 	readonly TextLabel: TextLabel;
 };
 
-type SidebarDefinition = ScrollingFrame & {
+export type SidebarDefinition = ScrollingFrame & {
 	readonly Template: SidebarButton;
 };
-class Sidebar extends Control<SidebarDefinition> {
+export class Sidebar extends Control<SidebarDefinition> {
 	private readonly buttonTemplate;
 
 	constructor(gui: SidebarDefinition) {
@@ -66,10 +66,10 @@ class Sidebar extends Control<SidebarDefinition> {
 	}
 }
 
-type ContentDefinition = GuiObject & {
+export type ContentDefinition = GuiObject & {
 	readonly ScrollingFrame: ScrollingFrame & ConfigControlTemplateList;
 };
-class Content extends Control<ContentDefinition> {
+export class Content extends Control<ContentDefinition> {
 	private readonly content;
 
 	constructor(gui: ContentDefinition, config: ObservableValue<PlayerConfig>) {
@@ -112,7 +112,7 @@ const template = Interface.getInterface<{ Popups: { Crossplatform: { Settings: S
 	.Crossplatform.Settings;
 template.Visible = false;
 
-type SettingsPopup2Definition = GuiObject & {
+export type SettingsPopup2Definition = GuiObject & {
 	readonly Content: GuiObject & {
 		readonly Sidebar: GuiObject & {
 			readonly ScrollingFrame: SidebarDefinition;
@@ -137,7 +137,7 @@ export class SettingsPopup extends Control<SettingsPopup2Definition> {
 			const content = this.parent(new Content(gui.Content.Content, playerData.config));
 			const sidebar = this.parent(new Sidebar(gui.Content.Sidebar.ScrollingFrame));
 
-			sidebar.addButton("achievements", 18627409276, () => content.set(PlayerSettingsAchievements));
+			sidebar.addButton("achievements", 13321838559, () => content.set(PlayerSettingsAchievements));
 			sidebar.addButton("general", 18627409276, () => content.set(PlayerSettingsGeneral));
 			sidebar.addButton("interface", 18627409276, () => content.set(PlayerSettingsInterface));
 			sidebar.addButton("camera", 18627409276, () => content.set(PlayerSettingsCamera));

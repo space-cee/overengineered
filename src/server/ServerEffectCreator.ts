@@ -2,7 +2,7 @@ import { HostedService } from "engine/shared/di/HostedService";
 import { BidirectionalRemoteEvent } from "engine/shared/event/PERemoteEvent";
 import { PlayerConfigDefinition } from "shared/config/PlayerConfig";
 import type { CreatableRemoteEvents } from "engine/shared/event/PERemoteEvent";
-import type { PlayerDatabase } from "server/database/PlayerDatabase";
+import type { PlayerDatabase } from "server/database/PlayerDatabase copy";
 import type { ServerPlayersController } from "server/ServerPlayersController";
 import type { SharedPlots } from "shared/building/SharedPlots";
 import type { EEEffect, EffectCreator } from "shared/effects/EffectBase";

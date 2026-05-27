@@ -3,8 +3,11 @@ import { ConfigControlColor } from "client/gui/configControls/ConfigControlColor
 import { ConfigControlDivider } from "client/gui/configControls/ConfigControlDivider";
 import { ConfigControlKey } from "client/gui/configControls/ConfigControlKey";
 import { ConfigControlMaterial } from "client/gui/configControls/ConfigControlMaterial";
+import { ConfigControlNumber } from "client/gui/configControls/ConfigControlNumber";
 import { ConfigControlSlider } from "client/gui/configControls/ConfigControlSlider";
+import { ConfigControlString } from "client/gui/configControls/ConfigControlString";
 import { ConfigControlSwitch } from "client/gui/configControls/ConfigControlSwitch";
+import { ConfigControlText } from "client/gui/configControls/ConfigControlText";
 import { ConfigControlToggle } from "client/gui/configControls/ConfigControlToggle";
 import { ConfigControlVector3 } from "client/gui/configControls/ConfigControlVector3";
 import { Control } from "engine/client/gui/Control";
@@ -34,6 +37,15 @@ export class ConfigControlList extends Control<ScrollingFrame & ConfigControlTem
 
 	protected addCategory(...args: ArgsOfSkip1<typeof ConfigControlDivider>) {
 		return this.parent(new ConfigControlDivider(clone(this.gui.Divider), ...args));
+	}
+	protected addLine(...args: ArgsOfSkip1<typeof ConfigControlText>) {
+		return this.parent(new ConfigControlText(clone(this.gui.Text), ...args));
+	}
+	protected addNumber(...args: ArgsOfSkip1<typeof ConfigControlNumber>) {
+		return this.parent(new ConfigControlNumber(clone(this.gui.Number), ...args));
+	}
+	protected addString(...args: ArgsOfSkip1<typeof ConfigControlString>) {
+		return this.parent(new ConfigControlString(clone(this.gui.String), ...args));
 	}
 	protected addSlider(...args: ArgsOfSkip1<typeof ConfigControlSlider>) {
 		return this.parent(new ConfigControlSlider(clone(this.gui.Slider), ...args));

@@ -8,7 +8,7 @@ import { BlocksSerializer } from "shared/building/BlocksSerializer";
 import { CustomRemotes } from "shared/Remotes";
 import { PlayerDataRemotes } from "shared/remotes/PlayerDataRemotes";
 import { SlotsMeta } from "shared/SlotsMeta";
-import type { PlayerDatabase } from "server/database/PlayerDatabase";
+import type { PlayerDatabase } from "server/database/PlayerDatabase copy";
 import type { SlotDatabase } from "server/database/SlotDatabase";
 import type { PlayModeController } from "server/modes/PlayModeController";
 import type { BuildingPlot } from "shared/building/BuildingPlot";

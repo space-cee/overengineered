@@ -8,6 +8,7 @@ import {
 } from "engine/shared/event/PERemoteEvent";
 import type { damageType } from "engine/shared/BlockDamageController";
 import type { baseAchievementStats } from "server/Achievement";
+import type { MigrationResponse } from "server/database/ExternalDatabase";
 import type { PlayerFeature } from "server/database/PlayerDatabase";
 import type { AchievementData } from "shared/AchievementData";
 import type { SpawnPosition } from "shared/SpawnPositions";
@@ -140,9 +141,29 @@ export interface PlayerInitResponse {
 }
 
 export const CustomRemotes = {
+	// all the remotes are here
 	initPlayer: new C2S2CRemoteFunction<undefined, Response<PlayerInitResponse>>("player_init"),
 	playerLoaded: new C2SRemoteEvent("player_loaded"),
-	adminDataFor: new C2S2CRemoteFunction<number, Response<PlayerInitResponse>>("player_init_admin"),
+
+	admin: {
+		adminDataFor: new C2S2CRemoteFunction<number, Response<PlayerInitResponse>>("player_init_admin"),
+		adminToggleMimic: new C2SRemoteEvent<boolean>("adm_toggle_mimic"), // Toggle avatar mimic
+		adminUpdateMeta: new C2SRemoteEvent<{ plrID: number }>("adm_update_meta"), // Get and Set
+		adminMigrateRequest: new C2SRemoteEvent<{ from: number; to: number }>("adm_migration_request"), // Request Migration of playerdata
+		adminMigrateReply: new S2CRemoteEvent<MigrationResponse>("adm_migration_reply"), // Callback
+		adminWipeData: new C2SRemoteEvent<number>("adm_wipe_meta"), // Delete player metadata
+		adminKickPlayer: new C2SRemoteEvent<{
+			plrID: number;
+			displayReason: string;
+			privateReason: string;
+		}>("adm_kick_player"), // Kick player
+		adminBanPlayer: new C2SRemoteEvent<{
+			plrID: number;
+			duration: number;
+			displayReason: string;
+			privateReason: string;
+		}>("adm_ban_player"), // Ban player
+	},
 
 	chat: {
 		systemMessage: new S2CRemoteEvent<string>("chat_sysmsg", "RemoteEvent"),
@@ -162,6 +183,7 @@ export const CustomRemotes = {
 			"chat_ach_unlock",
 			"RemoteEvent",
 		),
+		isAfk: new C2SRemoteEvent<boolean>("pl_achs_isAfk"),
 	},
 
 	damageSystem: {

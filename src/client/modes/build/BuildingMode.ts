@@ -94,7 +94,7 @@ export class BuildingModeScene extends Scene {
 
 			this.onDisable(() => contol.hide());
 
-			const runtp = this.parent(mainScreen.top.main.addButton("Teleport", { text: "?" }))
+			const runtp = this.parent(mainScreen.top.main.addButton("Teleport", { iconId: 134399639839028 }))
 				.addButtonAction(() => contol.setVisibleAndEnabled(!contol.isInstanceVisible()))
 				.subscribeVisibilityFrom({ main_enabled: this.enabledState });
 		}
@@ -125,6 +125,10 @@ export class BuildingModeScene extends Scene {
 			.themeButton(theme, "buttonNormal")
 			.subscribeToAction(mode.teleportToPlotAction)
 			.subscribeVisibilityFrom({ main_enabled: this.enabledState });
+
+		this.parent(mainScreen.top.main.addButton("Update Logs", { iconId: 98943721557973 })) //
+			.subscribeToAction(mode.openUpdateLogsAction)
+			.subscribeVisibilityFrom({ main_enabled: this.enabledState });
 	}
 }
 
@@ -133,6 +137,8 @@ export type EditMode = "global" | "local";
 @injectable
 export class BuildingMode extends PlayMode {
 	readonly openSavePopupAction = this.parent(new Action());
+	readonly openUpdateLogsAction = this.parent(new Action());
+
 	readonly runAction = this.parent(
 		new Action<[runLogic?: boolean]>((runLogic = true) => {
 			RideMode.runWithoutLogicThisTime = !runLogic;
@@ -345,9 +351,7 @@ export class BuildingMode extends PlayMode {
 		}
 
 		const tp = () => {
-			if (!this.playerData.config.get().autoPlotTeleport) {
-				return;
-			}
+			if (!this.playerData.config.get().autoPlotTeleport) return;
 
 			const rootPart = LocalPlayer.rootPart.get();
 			if (!rootPart) return;

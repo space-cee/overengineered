@@ -1,3 +1,7 @@
+import { Colors } from "shared/Colors";
+import { GameEnvironment } from "shared/data/GameEnvironment";
+import { GetUnloadables } from "shared/MapLoadingConfigurator";
+
 declare global {
 	type DayCycleConfiguration = {
 		readonly automatic: boolean;
@@ -33,12 +37,37 @@ declare global {
 		readonly wireTransparency: number;
 		readonly wireThicknessMultiplier: number;
 	};
+	type LogicDebugColorConfig = {
+		readonly fontSize: number;
+		readonly textStroke: Color4;
+		readonly boldText: boolean;
+		readonly AVAILATER: Color4;
+		readonly GARBAGE: Color4;
+		readonly DISABLED: Color4;
+		readonly nan: Color4;
+		readonly true: Color4;
+		readonly false: Color4;
+		readonly numberZero: Color4;
+		readonly numberPositive: Color4;
+		readonly numberNegative: Color4;
+		readonly colorAsColor: boolean;
+	};
 	type VisualsConfiguration = {
 		readonly selection: VisualsSelectionBox;
 		readonly multiSelection: VisualsSelectionBox;
 		readonly wires: WireSelectionConfig;
+		readonly logicDebug: LogicDebugColorConfig;
 	};
-
+	type UnitsConfiguration = {
+		readonly targetSpeed: number;
+		readonly speed: "Studs/s" | "m/s" | "km/h" | "MPH" | "Mach";
+		readonly altitude: "Studs" | "Meters" | "Kilometers" | "Feet";
+		readonly position: "Studs" | "Meters" | "Kilometers" | "Miles";
+		readonly gravity: "Studs/s²" | "Meters/s²";
+	};
+	type MapUnloadConfiguration = {
+		[k in string]: boolean;
+	};
 	type TerrainConfiguration = {
 		readonly kind: "Classic" | "Triangle" | "Flat" | "Water" | "Lava" | "Void";
 		readonly resolution: number;
@@ -64,6 +93,7 @@ declare global {
 		readonly autoRecoveryByMoving: boolean;
 	};
 	type PhysicsConfiguration = {
+		readonly customGravity: number;
 		readonly simplified_aerodynamics: boolean;
 		readonly advanced_aerodynamics: boolean;
 		readonly windVelocity: Vector3;
@@ -87,6 +117,8 @@ declare global {
 		export type Camera = ConfigType<"camera", CameraConfiguration>;
 		export type Graphics = ConfigType<"graphics", GraphicsConfiguration>;
 		export type Visuals = ConfigType<"visuals", VisualsConfiguration>;
+		export type Units = ConfigType<"units", UnitsConfiguration>;
+		export type MapUnload = ConfigType<"mapUnload", MapUnloadConfiguration>;
 		export type Terrain = ConfigType<"terrain", TerrainConfiguration>;
 		export type Tutorial = ConfigType<"tutorial", TutorialConfiguration>;
 		export type Ragdoll = ConfigType<"ragdoll", RagdollConfiguration>;
@@ -104,6 +136,8 @@ declare global {
 			readonly camera: Camera;
 			readonly graphics: Graphics;
 			readonly visuals: Visuals;
+			readonly units: Units;
+			readonly mapUnload: MapUnload;
 			readonly terrain: Terrain;
 			readonly tutorial: Tutorial;
 			readonly ragdoll: Ragdoll;
@@ -130,9 +164,13 @@ export const PlayerConfigDefinition = {
 	},
 	publicSpeakers: {
 		type: "bool",
-		config: false as boolean,
+		config: true as boolean,
 	},
 	publicParticles: {
+		type: "bool",
+		config: true as boolean,
+	},
+	publicTracers: {
 		type: "bool",
 		config: true as boolean,
 	},
@@ -142,9 +180,16 @@ export const PlayerConfigDefinition = {
 	},
 	sprintSpeed: {
 		type: "clampedNumber",
-		min: 0,
-		max: 999999999999999,
+		min: 20,
+		max: 1000,
 		config: 60 as number,
+		step: 0.01,
+	},
+	jumpPower: {
+		type: "clampedNumber",
+		min: 0,
+		max: 200,
+		config: 50 as number,
 		step: 0.01,
 	},
 	betterCamera: {
@@ -207,6 +252,20 @@ export const PlayerConfigDefinition = {
 		max: 1.5,
 		step: 0.01,
 	},
+	units: {
+		type: "units",
+		config: {
+			targetSpeed: 800,
+			speed: "Studs/s" as UnitsConfiguration["speed"],
+			altitude: "Studs" as UnitsConfiguration["altitude"],
+			position: "Studs" as UnitsConfiguration["position"],
+			gravity: "Studs/s²" as UnitsConfiguration["gravity"],
+		},
+	},
+	mapUnload: {
+		type: "mapUnload",
+		config: asObject(GetUnloadables().mapToMap((e) => $tuple(e.Name, true))), // i3ym
+	},
 	terrain: {
 		type: "terrain",
 		config: {
@@ -263,11 +322,27 @@ export const PlayerConfigDefinition = {
 				markerTransparency: 0.6,
 				wireThicknessMultiplier: 1,
 			},
+			logicDebug: {
+				fontSize: 14,
+				textStroke: { color: Colors.white, alpha: 0 },
+				boldText: true,
+				AVAILATER: { color: Colors.yellow, alpha: 1 },
+				GARBAGE: { color: Color3.fromHex("#964A00"), alpha: 1 },
+				DISABLED: { color: Colors.red, alpha: 1 },
+				nan: { color: Colors.red, alpha: 1 },
+				true: { color: new Color3(0.3, 0.6, 1), alpha: 1 },
+				false: { color: new Color3(0.1, 0.2, 0.65), alpha: 1 },
+				numberZero: { color: Color3.fromHex("#222222"), alpha: 1 },
+				numberPositive: { color: new Color3(0.5, 1, 0.5), alpha: 1 },
+				numberNegative: { color: new Color3(1, 0.5, 0.5), alpha: 1 },
+				colorAsColor: true,
+			},
 		},
 	},
 	physics: {
 		type: "physics",
 		config: {
+			customGravity: GameEnvironment.EarthGravity,
 			advanced_aerodynamics: false as boolean,
 			simplified_aerodynamics: true as boolean,
 			windVelocity: Vector3.zero,

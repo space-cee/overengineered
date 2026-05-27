@@ -6,7 +6,7 @@ import { Logger } from "engine/shared/Logger";
 import { AchievementController } from "server/AchievementController";
 import { BadgeController } from "server/BadgeController";
 import { ServerBlockLogicController } from "server/blocks/ServerBlockLogicController";
-import { PlayerDatabase } from "server/database/PlayerDatabase";
+import { PlayerDatabase } from "server/database/PlayerDatabase copy";
 import { SlotDatabase } from "server/database/SlotDatabase";
 import { PlayModeController as PlayModeController } from "server/modes/PlayModeController";
 import { UnreliableRemoteController } from "server/network/event/UnreliableRemoteHandler";

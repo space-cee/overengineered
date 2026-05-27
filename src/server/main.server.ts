@@ -72,7 +72,7 @@ LaserProjectile;
 
 Players.PlayerAdded.Connect((plr) => {
 	if (
-			!true &&
+		!RunService.IsStudio() &&
 		plr.AccountAge < 10 &&
 		game.CreatorId !== plr.UserId &&
 		game.PrivateServerOwnerId === 0
