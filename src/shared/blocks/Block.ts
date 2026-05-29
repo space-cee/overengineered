@@ -1,5 +1,5 @@
 import type { Component } from "engine/shared/component/Component";
-import type { PlayerFeature } from "server/database/PlayerDatabase copy";
+import type { PlayerFeature } from "server/database/PlayerDatabase";
 import type { BlockLogicFullBothDefinitions, GenericBlockLogicCtor } from "shared/blockLogic/BlockLogic";
 import type { BlockSynchronizer } from "shared/blockLogic/BlockSynchronizer";
 import type { BlockCreation, BlockMirrorBehaviour } from "shared/blocks/BlockCreation";

@@ -1,5 +1,5 @@
 import { ServerBlockLogic } from "server/blocks/ServerBlockLogic";
-import type { PlayerDatabase } from "server/database/PlayerDatabase copy";
+import type { PlayerDatabase } from "server/database/PlayerDatabase";
 import type { PlayModeController } from "server/modes/PlayModeController";
 import type { ParticleEmitterBlockLogic } from "shared/blocks/blocks/particle/ParticleBlocks";
 import type { SharedPlots } from "shared/building/SharedPlots";

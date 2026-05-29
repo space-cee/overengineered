@@ -1,6 +1,6 @@
 import { ServerBlockLogic } from "server/blocks/ServerBlockLogic";
 import { SpeakerBlock } from "shared/blocks/blocks/sound/SpeakerBlock";
-import type { PlayerDatabase } from "server/database/PlayerDatabase copy";
+import type { PlayerDatabase } from "server/database/PlayerDatabase";
 import type { PlayModeController } from "server/modes/PlayModeController";
 import type { SpeakerBlockLogic } from "shared/blocks/blocks/sound/SpeakerBlock";
 import type { SharedPlots } from "shared/building/SharedPlots";

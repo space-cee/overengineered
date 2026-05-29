@@ -1,6 +1,11 @@
 import { BlockListBuilder } from "shared/blocks/BlockListBuilder";
+import { AiBlock } from "shared/blocks/blocks/AiBlock";
+import { AirBlock } from "shared/blocks/blocks/AirBlock";
 import { AltimeterBlock } from "shared/blocks/blocks/AltimeterBlock";
 import { AngleSensorBlock } from "shared/blocks/blocks/AngleSensorBlock";
+import { APNBlock } from "shared/blocks/blocks/APNBlock";
+import { ArmMountBlock } from "shared/blocks/blocks/ArmMountBlock";
+import { AttractorBlock } from "shared/blocks/blocks/AttractorBlock";
 import { BackMountBlock } from "shared/blocks/blocks/BackMountBlock";
 import { BallastBlock } from "shared/blocks/blocks/BallastBlock";
 import { BeaconBlock } from "shared/blocks/blocks/BeaconBlock";
@@ -10,11 +15,15 @@ import { ButtonBlock } from "shared/blocks/blocks/ButtonBlock";
 import { CameraBlock } from "shared/blocks/blocks/CameraBlock";
 import { ChatSensorBlock } from "shared/blocks/blocks/ChatSensorBlock";
 import { ControllerBlock } from "shared/blocks/blocks/ControllerBlock";
+import { ControllerSensorBlock } from "shared/blocks/blocks/ControllerSensorBlock";
 import { CounterBlock } from "shared/blocks/blocks/CounterBlock";
 import { DelayBlock } from "shared/blocks/blocks/DelayBlock";
 import { DisconnectBlock } from "shared/blocks/blocks/DisconnectBlock";
+import { Display16Block } from "shared/blocks/blocks/Display16Block";
+import { Display32Block } from "shared/blocks/blocks/Display32Block";
 import { FallbackBlock } from "shared/blocks/blocks/FallbackBlock";
 import { FireSensorBlock } from "shared/blocks/blocks/FireSensorBlock";
+import { FloaterBlock } from "shared/blocks/blocks/FloaterBlock";
 import { FunctionBlock } from "shared/blocks/blocks/FunctionBlock";
 import { GPSSensorBlock } from "shared/blocks/blocks/GPSSensorBlock";
 import { GraviEngineBlocks } from "shared/blocks/blocks/GraviEngineBlocks";
@@ -41,14 +50,18 @@ import { GuiImageBlock } from "shared/blocks/blocks/gui/GuiImageBlock";
 import { GuiStatBlock } from "shared/blocks/blocks/gui/GuiStatBlock";
 import { GuiTextBlock } from "shared/blocks/blocks/gui/GuiTextBlock";
 import { GyroscopeBlock } from "shared/blocks/blocks/GyroscopeBlock";
+import { HandleBlock } from "shared/blocks/blocks/HandleBlock";
+import { HeadMountBlock } from "shared/blocks/blocks/HeadMountBlock";
 import { HeliumBlock } from "shared/blocks/blocks/HeliumBlock";
 import { ImpulseExtenderBlock } from "shared/blocks/blocks/ImpulseExtenderBlock";
 import { ImpulseGeneratorBlock } from "shared/blocks/blocks/ImpulseGeneratorBlock";
 import { JetEngineBlocks } from "shared/blocks/blocks/JetEngineBlocks";
+import { JoystickSensorBlock } from "shared/blocks/blocks/JoystickSensorBlock";
 import { KeyboardBlock } from "shared/blocks/blocks/KeyboardBlock";
 import { KeySensorBlock } from "shared/blocks/blocks/KeySensorBlock";
 import { LaserBlock } from "shared/blocks/blocks/LaserBlock";
 import { LedDisplayBlock } from "shared/blocks/blocks/LedDisplayBlock";
+import { LegMountBlock } from "shared/blocks/blocks/LegMountBlock";
 import { LinearEasingBlock } from "shared/blocks/blocks/LinearEasingBlock";
 import { LogicMemoryBlock } from "shared/blocks/blocks/LogicMemoryBlock";
 import { LogicMemoryLegacyBlock } from "shared/blocks/blocks/LogicMemoryOldBlock";
@@ -65,6 +78,8 @@ import { ParticleBlocks } from "shared/blocks/blocks/particle/ParticleBlocks";
 import { PidControllerBlock } from "shared/blocks/blocks/PidControllerBlock";
 import { PingSensor } from "shared/blocks/blocks/PingSensor";
 import { PistonBlock } from "shared/blocks/blocks/PistonBlock";
+import { PlayerLocatorBlock } from "shared/blocks/blocks/PlayerLocatorBlock";
+import { PNBlock } from "shared/blocks/blocks/PNBlock";
 import { QueueMemoryBlock } from "shared/blocks/blocks/QueueMemoryBlock";
 import { RadarBlocks } from "shared/blocks/blocks/RadarSectionBlock";
 import { RadarWarningReceiver } from "shared/blocks/blocks/RadarWarningReceiver";
@@ -87,11 +102,13 @@ import { SoundLengthBlock } from "shared/blocks/blocks/sound/SoundLengthBlock";
 import { SpeakerBlock } from "shared/blocks/blocks/sound/SpeakerBlock";
 import { SpeedometerBlock } from "shared/blocks/blocks/SpeedometerBlock";
 import { SplineLerpBlock } from "shared/blocks/blocks/SplineLerpBlock";
+import { SquareButtonBlock } from "shared/blocks/blocks/SquareButtonBlock";
 import { StackMemoryBlock } from "shared/blocks/blocks/StackMemoryBlock";
 import { SuspensionBlock } from "shared/blocks/blocks/SuspensionBlock";
 import { TextureBlock } from "shared/blocks/blocks/TextureBlock";
 import { TpsCounterBlock } from "shared/blocks/blocks/TpsCounterBlock";
 import { TracerBlock } from "shared/blocks/blocks/TracerBlock";
+import { UnscaledScreenBlock } from "shared/blocks/blocks/UnscaledScreenBlock";
 import { ValueExtenderBlock } from "shared/blocks/blocks/ValueExtenderBlock";
 import { VehicleSeatBlock } from "shared/blocks/blocks/VehicleSeatBlock";
 import { CannonBarrels } from "shared/blocks/blocks/Weaponry/Cannon/CannonBarrels";
@@ -171,12 +188,27 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 
 		ScreenBlock,
 		LedDisplayBlock,
+		Display16Block,
+		Display32Block,
 		SevenSegmentDisplayBlock,
 		CameraBlock,
 		BeaconBlock,
 		TextureBlock,
 		SizeBlock,
 		TracerBlock,
+		AiBlock,
+		APNBlock,
+		HandleBlock,
+		AirBlock,
+		ArmMountBlock,
+		AttractorBlock,
+		ControllerSensorBlock,
+		FloaterBlock,
+		HeadMountBlock,
+		LegMountBlock,
+		PlayerLocatorBlock,
+		PNBlock,
+		UnscaledScreenBlock,
 
 		VehicleSeatBlock,
 		...PassengerSeatBlocks,
@@ -209,6 +241,7 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 		KeyboardBlock,
 		KeySensorBlock,
 		ButtonBlock,
+		SquareButtonBlock,
 		LinearEasingBlock,
 		ControllerBlock,
 		AngleSensorBlock,
@@ -220,6 +253,7 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 		MassSensorBlock,
 		MouseSensorBlock,
 		ChatSensorBlock,
+		JoystickSensorBlock,
 		RadioReceiverBlock,
 		RadioTransmitterBlock,
 		...RadarBlocks,

@@ -1,7 +1,7 @@
 import { Component } from "engine/shared/component/Component";
 import { Objects } from "engine/shared/fixes/Objects";
-import type { PlayerDatabase } from "server/database/PlayerDatabase copy";
-import type { PlayerDatabaseData } from "server/database/PlayerDatabase copy";
+import type { PlayerDatabase } from "server/database/PlayerDatabase";
+import type { PlayerDatabaseData } from "server/database/PlayerDatabase";
 import type { PlayerDataStorageRemotesPlayer } from "shared/remotes/PlayerDataRemotes";
 
 @injectable

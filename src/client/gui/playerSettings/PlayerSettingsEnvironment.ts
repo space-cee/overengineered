@@ -1,6 +1,7 @@
 import { ConfigControlList } from "client/gui/configControls/ConfigControlsList";
 import { Colors } from "engine/shared/Colors";
 import { Observables } from "engine/shared/event/Observables";
+import { GetDescription, GetUnloadables } from "shared/MapLoadingConfigurator";
 import type {
 	ConfigControlListDefinition,
 	ConfigControlTemplateList,
@@ -76,21 +77,42 @@ export class PlayerSettingsEnvironment extends ConfigControlList {
 			const terrainOverrideColor = this.addColor("Color", { alpha: 1, color: Colors.white }, false) //
 				.initToObjectPart(value, ["terrain", "override", "color"]);
 
-			this.event
+			const callback = this.event
 				.addObservable(value.fReadonlyCreateBased((c) => c.terrain)) //
-				.subscribe(({ kind, snowOnly }) => {
-					triangleResolution.setVisibleAndEnabled(kind === "Triangle");
-					triangleWater.setVisibleAndEnabled(kind === "Triangle");
-					triangleSandBelowSeaLevel.setVisibleAndEnabled(kind === "Triangle" && !snowOnly);
+				.subscribe(({ kind, snowOnly, override }) => {
+					const isTriangle = kind === "Triangle";
+					const isFlat = kind === "Flat";
+
+					triangleResolution.setVisibleAndEnabled(isTriangle);
+					triangleWater.setVisibleAndEnabled(isTriangle);
+					triangleSandBelowSeaLevel.setVisibleAndEnabled(isTriangle && !snowOnly);
 
 					classicFoliage.setVisibleAndEnabled(kind === "Classic");
 
-					terrainSnowOnly.setVisibleAndEnabled(kind !== "Water" && kind !== "Lava");
+					terrainSnowOnly.setVisibleAndEnabled(kind !== "Water" && kind !== "Lava" && !override.enabled);
 
-					terrainOverride.setVisibleAndEnabled(kind === "Triangle" || kind === "Flat");
-					terrainOverrideMaterial.setVisibleAndEnabled(kind === "Triangle" || kind === "Flat");
-					terrainOverrideColor.setVisibleAndEnabled(kind === "Triangle" || kind === "Flat");
+					terrainOverride.setVisibleAndEnabled((isTriangle || isFlat) && !snowOnly);
+					terrainOverrideMaterial.setVisibleAndEnabled((isTriangle || isFlat) && override.enabled);
+					terrainOverrideColor.setVisibleAndEnabled((isTriangle || isFlat) && override.enabled);
 				}, true);
+
+			this.addCategory("Map Elements");
+			{
+				this.addButton("Toggle All", () =>
+					value.set({
+						...value.get(),
+						mapUnload: asObject(GetUnloadables().mapToMap((e) => $tuple(e.Name, false))),
+					}),
+				)
+					.setDescription("Toggles all toggleable map objects, reccomended for lower end devices")
+					.button.setButtonText("Disable");
+
+				const toggles = GetUnloadables().map((unloadable) =>
+					this.addToggle(unloadable.Name)
+						.initToObjectPart(value, ["mapUnload", unloadable.Name], "value")
+						.setDescription(GetDescription(unloadable)),
+				);
+			}
 		}
 	}
 }

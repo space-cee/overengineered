@@ -6,7 +6,7 @@ import { BlockManager } from "shared/building/BlockManager";
 import { GameDefinitions } from "shared/data/GameDefinitions";
 import { CustomRemotes } from "shared/Remotes";
 import type { baseAchievementStats } from "server/Achievement";
-import type { PlayerDatabase } from "server/database/PlayerDatabase copy";
+import type { PlayerDatabase } from "server/database/PlayerDatabase";
 import type { PlayModeController } from "server/modes/PlayModeController";
 import type { ServerPlayerController } from "server/ServerPlayerController";
 import type { SharedPlots } from "shared/building/SharedPlots";

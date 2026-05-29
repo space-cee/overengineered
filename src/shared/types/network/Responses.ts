@@ -1,4 +1,4 @@
-import type { PlayerFeature } from "server/database/PlayerDatabase copy";
+import type { PlayerFeature } from "server/database/PlayerDatabase";
 import type { AchievementData } from "shared/AchievementData";
 
 declare global {

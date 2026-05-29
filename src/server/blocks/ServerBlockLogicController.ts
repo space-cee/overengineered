@@ -1,16 +1,23 @@
 import { HostedService } from "engine/shared/di/HostedService";
+import { ArmMountBlockServerLogic } from "server/blocks/logic/ArmMountBlockServerLogic";
 import { BackMountBlockServerLogic } from "server/blocks/logic/BackMountBlockServerLogic";
 import { BeaconServerLogic } from "server/blocks/logic/BeaconBlockServerLogic";
 import { BracedShaftServerLogic } from "server/blocks/logic/BracedShaftServerLogic";
 import { ButtonServerLogic } from "server/blocks/logic/ButtonServerLogic";
 import { CameraBlockServerLogic } from "server/blocks/logic/CameraBlockServerLogic";
 import { DisconnectBlockServerLogic } from "server/blocks/logic/DisconnectBlockServerLogic";
+import { Display16ServerLogic } from "server/blocks/logic/Display16ServerLogic";
+import { Display32ServerLogic } from "server/blocks/logic/Display32ServerLogic";
+import { HeadMountBlockServerLogic } from "server/blocks/logic/HeadMountBlockServerLogic";
 import { LEDDisplayServerLogic } from "server/blocks/logic/LEDDisplayServerLogic";
+import { LegMountBlockServerLogic } from "server/blocks/logic/LegMountBlockServerLogic";
 import { ParticleServerLogic } from "server/blocks/logic/ParticleBlockServerLogic";
 import { PropellantBlockServerLogic } from "server/blocks/logic/PropellantBlocksServerLogic";
 import { ScreenServerLogic } from "server/blocks/logic/ScreenServerLogic";
 import { SevenSegmentDisplayServerLogic } from "server/blocks/logic/SevenSegmentDisplayServerLogic";
 import { SpeakerServerLogic } from "server/blocks/logic/SpeakerBlockServerLogic";
+import { SquareButtonServerLogic } from "server/blocks/logic/SquareButtonServerLogic";
+import { UnscaledScreenServerLogic } from "server/blocks/logic/UnscaledScreenServerLogic";
 import { ServerBlockLogic } from "server/blocks/ServerBlockLogic";
 import type { PlayModeController } from "server/modes/PlayModeController";
 import type { GenericBlockLogicCtor } from "shared/blockLogic/BlockLogic";
@@ -66,6 +73,13 @@ export class ServerBlockLogicController extends HostedService {
 			beacon: BeaconServerLogic,
 			backmount: BackMountBlockServerLogic,
 			propellantblock: PropellantBlockServerLogic,
+			squarebutton: SquareButtonServerLogic,
+			armmount: ArmMountBlockServerLogic,
+			headmount: HeadMountBlockServerLogic,
+			display16: Display16ServerLogic,
+			display32: Display32ServerLogic,
+			legmount: LegMountBlockServerLogic,
+			unscaledscreen: UnscaledScreenServerLogic,
 		};
 
 		//
