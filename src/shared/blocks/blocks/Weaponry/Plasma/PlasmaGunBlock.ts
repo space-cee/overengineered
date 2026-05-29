@@ -52,7 +52,8 @@ const definition = {
 				},
 			},
 		},
-		recoilMultiplier: { // <-- New slider
+		recoilMultiplier: {
+			// <-- New slider
 			displayName: "Recoil Multiplier",
 			tooltip: "Adjusts how strong the recoil is.",
 			types: {
@@ -135,7 +136,9 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 
 					PlasmaProjectile.spawnProjectile.send({
 						startPosition: spawnPos,
-						baseVelocity: e.module.instance.PrimaryPart!.AssemblyLinearVelocity.add(direction.mul(this.currentSpeedModifier)),
+						baseVelocity: e.module.instance.PrimaryPart!.AssemblyLinearVelocity.add(
+							direction.mul(this.currentSpeedModifier),
+						),
 						baseDamage: 100,
 						modifier: e.modifier,
 						color: projectileColor,
@@ -145,7 +148,6 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 		});
 	}
 }
-
 
 // ---------------------------
 // Block Export

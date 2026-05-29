@@ -53,7 +53,9 @@ export class ScaleEditorControl extends Control<ScaleEditorControlDefinition> {
 		this.parent(new NumberControl(gui.ScaleYControl, createVectorNum("Y")));
 		this.parent(new NumberControl(gui.ScaleZControl, createVectorNum("Z")));
 
-		const all = this.parent(new NumberTextBoxControl(gui.ScaleAllControl.ValueTextBox, 1 / 999999999999999, 999999999999999));
+		const all = this.parent(
+			new NumberTextBoxControl(gui.ScaleAllControl.ValueTextBox, 1 / 999999999999999, 999999999999999),
+		);
 		all.value.set(1);
 		this.parent(
 			new ButtonControl(gui.ScaleAllControl.ConfirmButton, () => {

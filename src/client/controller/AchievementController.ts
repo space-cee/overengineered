@@ -1,4 +1,4 @@
-import { RunService, TextChatService } from "@rbxts/services";
+import { TextChatService } from "@rbxts/services";
 import { CheckBoxControl } from "client/gui/controls/CheckBoxControl";
 import { Control } from "engine/client/gui/Control";
 import { Interface } from "engine/client/gui/Interface";

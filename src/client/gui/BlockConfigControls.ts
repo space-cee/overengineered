@@ -1,4 +1,3 @@
-import { RunService } from "@rbxts/services";
 import { ColorChooser } from "client/gui/ColorChooser";
 import { ConfigControlButton } from "client/gui/configControls/ConfigControlButton";
 import { ConfigControlByte } from "client/gui/configControls/ConfigControlByte";

@@ -1,4 +1,3 @@
-import { RunService } from "@rbxts/services";
 import { Throttler } from "engine/shared/Throttler";
 
 export namespace PlayerRank {

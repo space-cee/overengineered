@@ -1,4 +1,3 @@
-import { RunService } from "@rbxts/services";
 import { LabelControl } from "client/gui/controls/LabelControl";
 import { Control } from "engine/client/gui/Control";
 import { Interface } from "engine/client/gui/Interface";
@@ -40,7 +39,7 @@ const gui = Element.create(
 	},
 );
 const mainControl = new CategoryControl(gui);
-	mainControl.setVisibleAndEnabled(true);
+mainControl.setVisibleAndEnabled(true);
 
 const disabled = !mainControl.isEnabled();
 const disabledCategoryObject = {};
