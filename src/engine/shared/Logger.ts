@@ -13,7 +13,7 @@ declare global {
 
 // stuff like [CLIENT] and [Logger.ts:456] is already present in studio so we don't really need to print it
 // BUT print() only writes as a "Logger.ts:123" instead of the actual source, so we don't disable this
-const printAdditional = true || !true;
+const printAdditional = true || !RunService.IsStudio();
 const context = !printAdditional ? "" : RunService.IsServer() ? " [SERV]" : " [CLIE]";
 
 type LogLevel = {
@@ -58,6 +58,7 @@ const lvls = {
 export namespace Logger {
 	export const levels = lvls;
 	export const enabledLevels = new ComponentDisabler<LogLevel>();
+	enabledLevels.disableAll(); // shut up
 
 	const scopeStack: string[] = [];
 
@@ -68,8 +69,8 @@ export namespace Logger {
 		print();
 
 		print(`ℹ User: ${Players.LocalPlayer.UserId} @${Players.LocalPlayer.Name} ${Players.LocalPlayer.DisplayName}`);
-		print(`ℹ Build: ${true ? "🔒 Studio" : game.PlaceVersion}`);
-		print(`ℹ Server: ${true ? "🔒 Studio" : game.JobId}`);
+		print(`ℹ Build: ${RunService.IsStudio() ? "🔒 Studio" : game.PlaceVersion}`);
+		print(`ℹ Server: ${RunService.IsStudio() ? "🔒 Studio" : game.JobId}`);
 
 		print();
 	}
