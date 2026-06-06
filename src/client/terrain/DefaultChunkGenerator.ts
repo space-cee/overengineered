@@ -7,7 +7,7 @@ const baseplate = Workspace.WaitForChild("Obstacles").WaitForChild("Baseplate") 
 const bb = BB.fromPart(baseplate);
 
 const offset = bb.center.Position.div(4);
-const size = bb.originalSize.div(2);
+const size = bb.originalSize.div(1.05);
 
 const slopefunc = (x: number, w: number) => math.max(-math.pow(x / w, -16) + 1, 0);
 

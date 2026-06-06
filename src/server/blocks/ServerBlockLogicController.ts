@@ -11,6 +11,7 @@ import { Display32ServerLogic } from "server/blocks/logic/Display32ServerLogic";
 import { HeadMountBlockServerLogic } from "server/blocks/logic/HeadMountBlockServerLogic";
 import { LEDDisplayServerLogic } from "server/blocks/logic/LEDDisplayServerLogic";
 import { LegMountBlockServerLogic } from "server/blocks/logic/LegMountBlockServerLogic";
+import { LimbMountBlockServerLogic } from "server/blocks/logic/LimbMountBlockServerLogic";
 import { ParticleServerLogic } from "server/blocks/logic/ParticleBlockServerLogic";
 import { PropellantBlockServerLogic } from "server/blocks/logic/PropellantBlocksServerLogic";
 import { ScreenServerLogic } from "server/blocks/logic/ScreenServerLogic";
@@ -76,6 +77,7 @@ export class ServerBlockLogicController extends HostedService {
 			squarebutton: SquareButtonServerLogic,
 			armmount: ArmMountBlockServerLogic,
 			headmount: HeadMountBlockServerLogic,
+			limbmount: LimbMountBlockServerLogic,
 			display16: Display16ServerLogic,
 			display32: Display32ServerLogic,
 			legmount: LegMountBlockServerLogic,

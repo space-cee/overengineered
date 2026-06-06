@@ -62,6 +62,7 @@ import { KeySensorBlock } from "shared/blocks/blocks/KeySensorBlock";
 import { LaserBlock } from "shared/blocks/blocks/LaserBlock";
 import { LedDisplayBlock } from "shared/blocks/blocks/LedDisplayBlock";
 import { LegMountBlock } from "shared/blocks/blocks/LegMountBlock";
+import { LimbMountBlock } from "shared/blocks/blocks/LimbMountBlock";
 import { LinearEasingBlock } from "shared/blocks/blocks/LinearEasingBlock";
 import { LogicMemoryBlock } from "shared/blocks/blocks/LogicMemoryBlock";
 import { LogicMemoryLegacyBlock } from "shared/blocks/blocks/LogicMemoryOldBlock";
@@ -200,12 +201,10 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 		APNBlock,
 		HandleBlock,
 		AirBlock,
-		ArmMountBlock,
 		AttractorBlock,
 		ControllerSensorBlock,
 		FloaterBlock,
-		HeadMountBlock,
-		LegMountBlock,
+
 		PlayerLocatorBlock,
 		PNBlock,
 		UnscaledScreenBlock,
@@ -213,6 +212,10 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 		VehicleSeatBlock,
 		...PassengerSeatBlocks,
 		BackMountBlock,
+		LimbMountBlock,
+		HeadMountBlock,
+		LegMountBlock,
+		ArmMountBlock,
 
 		DelayBlock,
 		ValueExtenderBlock,

@@ -53,6 +53,22 @@ const blocks: BlockBuildersWithoutIdAndDefaults = {
 		description: "A flat mirror. It disapproves of lasers by reflecting them.",
 		search: { partialAliases: ["laser", "plate"] },
 	},
+	invertedblock: {
+		displayName: "Inverted Block",
+		description: "ti sah emag gnireenigne yreve yhw noitseuq uoy sekaM",
+
+		weldRegionsSource: BlockCreation.WeldRegions.fAutomatic("cube"),
+	},
+
+	blockconcavity: {
+		displayName: "Block Concavity",
+		description: "Block shot in the bronx",
+	},
+
+	blockconcavitybeveled: {
+		displayName: "Block Concavity Beveled",
+		description: "They have not healed...",
+	},
 };
 
 const balls: BlockBuildersWithoutIdAndDefaults = {
@@ -101,6 +117,41 @@ const balls: BlockBuildersWithoutIdAndDefaults = {
 			"I feel like there a way to make a joke about the name, but I can't really figure it out like with the non-hollow version..",
 		search: { partialAliases: ["circle", "sphere"] },
 		mirror: { behaviour: "tetra" },
+	},
+	invertedball: {
+		displayName: "Inverted Ball",
+		description: "Snow Globe",
+		search: { partialAliases: ["circle", "sphere"] },
+	},
+
+	halfballhole: {
+		displayName: "Half Ball Hole",
+		description: "It's rolling around.. half of the time.. with a hole...",
+		search: { partialAliases: ["circle", "sphere"] },
+	},
+
+	hollowhalfballhole: {
+		displayName: "Hollow Half Ball Hole",
+		description: "Half ball but even more empty",
+		search: { partialAliases: ["circle", "sphere"] },
+	},
+
+	hollowhalfballflat: {
+		displayName: "Hollow Half Ball Flat",
+		description: "Hollow Half ball but flat",
+		search: { partialAliases: ["circle", "sphere"] },
+	},
+
+	halfballflat: {
+		displayName: "Half Ball Flat",
+		description: "Half ball but faded",
+		search: { partialAliases: ["circle", "sphere"] },
+	},
+
+	head: {
+		displayName: "Head",
+		description: "Who's is it?",
+		search: { partialAliases: ["body", "sphere"] },
 	},
 };
 
@@ -260,6 +311,19 @@ const cornerWedges: BlockBuildersWithoutIdAndDefaults = {
 
 		mirror: { behaviour: "normal", replacementId: "halfcornerwedge4x1" },
 	},
+	quartercornercornerwedge1x1: {
+		displayName: "Quarter Corner Corner Wedge 1x1",
+		description: "Corny Corner Wedge, hehe",
+
+		mirror: { behaviour: "cornerwedge" },
+	},
+
+	quartercornercornerwedge1x1mirrored: {
+		displayName: "Quarter Corner Corner Wedge 1x1 Mirrored",
+		description: "Corny Corner Wedge, but Mirrored, hehe",
+
+		mirror: { behaviour: "cornerwedge" },
+	},
 };
 
 const cones: BlockBuildersWithoutIdAndDefaults = {
@@ -297,6 +361,43 @@ const cones: BlockBuildersWithoutIdAndDefaults = {
 		displayName: "Hollow Cone Quarter",
 		description: "Quarter of something useful",
 		mirror: { behaviour: "cornerwedge" },
+	},
+	convexcutcylinder: {
+		displayName: "Convex Cut Cylinder",
+		description: "Dome.",
+		search: { partialAliases: ["dome"] },
+	},
+
+	hollowhalfcone: {
+		displayName: "Hollow Half Cone",
+		description: "Still vertically challenged. Now hollow. Looks suspiciously wearable.",
+	},
+
+	angledcutcone: {
+		displayName: "Angled Cut Cone",
+		description: "The cone did not sit still",
+	},
+
+	hollowcutcone: {
+		displayName: "Hollow Cut Cone",
+		description: "It's about time",
+	},
+
+	halfhollowcutcone: {
+		displayName: "Half Hollow Cut Cone",
+		description: "It's about half time",
+	},
+
+	quarterhollowcutcone: {
+		displayName: "Quarter Hollow Cut Cone",
+		description: "It's about quarter time",
+
+		mirror: { behaviour: "cornerwedge" },
+	},
+
+	hollowangledcutcone: {
+		displayName: "Hollow Angled Cut Cone",
+		description: "Cut, hollow, angled. Yes, all of them",
 	},
 };
 
@@ -499,6 +600,135 @@ const cylinders: BlockBuildersWithoutIdAndDefaults = {
 		description:
 			"A connector to connect your connections but I'm getting tired of making the descriptions but hollow",
 	},
+	invertedcylinder: {
+		displayName: "Inverted Cylinder",
+		description: "Will this ever get used? Prob, Will it ever be useful? no.",
+	},
+
+	concavecylinder: {
+		displayName: "Concave Cylinder",
+		description: "Curvy just how i like it.",
+	},
+
+	hollowcylinder1hole: {
+		displayName: "Hollow Cylinder 1 Hole",
+		description: "A simple hollow cylinder 1 hole",
+	},
+
+	halfhollowcylinder1hole: {
+		displayName: "Half Hollow Cylinder 1 Hole",
+		description: "A simple half hollow cylinder 1 hole",
+	},
+
+	quarterhollowcylinder1hole: {
+		displayName: "Quarter Hollow Cylinder 1 Hole",
+		description: "A simple quarter hollow cylinder 1 hole",
+
+		mirror: { behaviour: "hcylquart" },
+	},
+
+	hollowcylinder2holes: {
+		displayName: "Hollow Cylinder 2 Holes",
+		description: "A simple hollow cylinder 2 holes",
+	},
+
+	hollowcylinder4holes: {
+		displayName: "Hollow Cylinder 4 Holes",
+		description: "A simple hollow cylinder 4 holes",
+	},
+
+	cylinderholeplug: {
+		displayName: "Hollow cylinder hole plug",
+		description: "Pluh",
+	},
+
+	truncatedcylinder1x2: {
+		displayName: "Truncated Cylinder 1x2",
+		description: "A cylinder that went through a phase",
+		search: { partialAliases: ["cut cylinder"] },
+	},
+
+	truncatedcylinder1x1: {
+		displayName: "Truncated Cylinder 1x1",
+		description: "A cylinder halfway through a phase",
+		search: { partialAliases: ["cut cylinder"] },
+	},
+
+	hollowtruncatedcylinder1x1: {
+		displayName: "Thick Hollow Truncated Cylinder 1x1",
+		description: "A cylinder that went through a phase and came back empty",
+		search: { partialAliases: ["cut cylinder"] },
+	},
+
+	thinhollowtruncatedcylinder1x1: {
+		displayName: "Hollow Truncated Cylinder 1x1",
+		description: "A cylinder that went through a phase and came back emptier",
+		search: { partialAliases: ["cut cylinder"] },
+	},
+
+	thickhollowcylinder: {
+		displayName: "Thick Hollow Cylinder",
+		description: "A complicated cylinder but american",
+		search: { partialAliases: ["tube", "pipe"] },
+	},
+
+	thickhollowcylinderhalf: {
+		displayName: "Thick Hollow Cylinder Half",
+		description: "Almost a complicated cylinder but american",
+		search: { partialAliases: ["tube", "pipe"] },
+	},
+
+	thickhollowcylinderquarter: {
+		displayName: "Thick Hollow Cylinder Quarter",
+		description: "Not really a complicated cylinder but american",
+
+		mirror: { behaviour: "hcylquart" },
+		search: { partialAliases: ["tube", "pipe"] },
+	},
+
+	hollowcylinderbig90quarter: {
+		displayName: "Quarter Big Hollow Cylinder (90 degrees)",
+		description: "A big quarter of a bended hollow tube",
+
+		search: { partialAliases: ["tube", "pipe", "macaroni"] },
+		mirror: { behaviour: "hcylvertical" },
+	},
+
+	cylinderbig90quarter: {
+		displayName: "Quarter Big Cylinder (90 degrees)",
+		description: "A big quarter of a bended tube",
+
+		search: { partialAliases: ["tube", "pipe", "macaroni"] },
+		mirror: { behaviour: "hcylvertical" },
+	},
+
+	crosstee: {
+		displayName: "Cross Tee",
+		description: "4 way pipe connection",
+
+		search: { partialAliases: ["tube", "pipe", "4 way", "fitting"] },
+	},
+
+	tee: {
+		displayName: "Tee",
+		description: "3 way pipe connection",
+
+		search: { partialAliases: ["tube", "pipe", "3 way", "fitting"] },
+	},
+
+	torus: {
+		displayName: "Torus",
+		description: "But why",
+
+		search: { partialAliases: ["donut"] },
+	},
+
+	hollowtorus: {
+		displayName: "Hollow Torus",
+		description: "dobenut",
+
+		search: { partialAliases: ["donut"] },
+	},
 };
 
 const wedges: BlockBuildersWithoutIdAndDefaults = {
@@ -579,6 +809,57 @@ const wedges: BlockBuildersWithoutIdAndDefaults = {
 	halfwedge1x4: {
 		displayName: "Half Wedge 1x4",
 		description: "A wedge 1x4, but it's.. half.. the size?",
+	},
+	cutpyramid: {
+		displayName: "Cut Pyramid",
+		description: "Cut triangel",
+	},
+
+	cutpyramidhalf: {
+		displayName: "Cut Pyramid Half",
+		description: "Half Cut triangel",
+	},
+
+	cutpyramidquarter: {
+		displayName: "Cut Pyramid Quarter",
+		description: "Quarter Cut triangel",
+
+		mirror: { behaviour: "cornerwedge" },
+	},
+
+	shortercutpyramid: {
+		displayName: "Shorter Cut Pyramid",
+		description: "A triangel that was cut, then cut again",
+	},
+
+	shortestcutpyramid: {
+		displayName: "Shortest Cut Pyramid",
+		description: "A triangel that was cut, then cut again, then cut again",
+	},
+
+	tile: {
+		displayName: "tile",
+		description: "actually just a triangel that was cut a FOURTH time",
+	},
+
+	hollowwedge1: {
+		displayName: "Hollow Wedge 1/2",
+		description: "I eated half of it",
+	},
+
+	hollowwedge2: {
+		displayName: "Hollow Wedge 1/4",
+		description: "I eated 3/4 of it",
+	},
+
+	hollowwedge3: {
+		displayName: "Hollow Wedge 1/8",
+		description: "I eated 7/8ths of it",
+	},
+
+	wedgeface1x1: {
+		displayName: "Wedge face 1x1",
+		description: "A simple wedge face",
 	},
 };
 
