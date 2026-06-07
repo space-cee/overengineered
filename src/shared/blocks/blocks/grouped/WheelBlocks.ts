@@ -12,7 +12,7 @@ const definition = {
 					config: 50,
 					clamp: {
 						showAsSlider: true,
-						max: 999999999999999,
+						max: 100,
 						min: 0.1,
 					},
 				},
@@ -25,7 +25,7 @@ const definition = {
 					config: 50,
 					clamp: {
 						showAsSlider: true,
-						max: 999999999999999,
+						max: 100,
 						min: 0.1,
 					},
 				},
@@ -109,6 +109,68 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	tire: {
 		displayName: "tire",
 		description: "woah! tire with no brim!",
+		logic,
+		physics,
+	},
+	smallwheel2: {
+		displayName: "Small wheel 2",
+		description: "Who's that other teeny-tiny fella?",
+		logic,
+		physics,
+	},
+
+	aircrafttire: {
+		displayName: "Aircraft tire",
+		description: "A very smooth and rounded tire",
+		logic,
+		physics,
+	},
+
+	goliathtire: {
+		displayName: "Goliath tire",
+		description: "Meant to be large but someone seems to have shrunk it...",
+		logic,
+		physics,
+	},
+
+	cranetire: {
+		displayName: "Crane tire",
+		description: "Tired from lifting",
+		logic,
+		physics,
+	},
+
+	tractortire: {
+		displayName: "Tractor tire",
+		description: "You was there too...",
+		logic,
+		physics,
+	},
+
+	offroadtire: {
+		displayName: "Offroad tire",
+		description: "Roads are overrated anyway",
+		logic,
+		physics,
+	},
+
+	plastictire: {
+		displayName: "Plastic tire",
+		description: "Can be painted any material/color but is just as strong as a normal tire!",
+		logic,
+		physics,
+	},
+
+	gokarttire: {
+		displayName: "Go Kart tire",
+		description: "Tiny and bald",
+		logic,
+		physics,
+	},
+
+	tankwheel1: {
+		displayName: "Tank Wheel 1",
+		description: "A western style solid wheel with rubber for grip",
 		logic,
 		physics,
 	},
