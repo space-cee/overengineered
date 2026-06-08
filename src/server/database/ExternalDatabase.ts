@@ -1,4 +1,4 @@
-import { ConfigService, HttpService } from "@rbxts/services";
+import { ConfigService, HttpService, ServerScriptService } from "@rbxts/services";
 import { JSON } from "engine/shared/fixes/Json";
 import { isNotAdmin_AutoBanned } from "server/BanAdminExploiter";
 import { BlocksSerializer } from "shared/building/BlocksSerializer";
@@ -6,7 +6,11 @@ import { CustomRemotes } from "shared/Remotes";
 import type { PlayerDatabaseData } from "server/database/PlayerDatabase";
 import type { LatestSerializedBlocks } from "shared/building/BlocksSerializer";
 
-type errType = "OUT_OF_INDEX" | "NOT_FOUND" | "INCORRECT_TOKEN";
+type errType = "HTTP" | "OUT_OF_INDEX" | "NOT_FOUND" | "INCORRECT_TOKEN";
+type ExternalError = {
+	error: string;
+	err_type: errType;
+};
 type SlotKeys = [ownerID: number, slotID: number];
 export type ExternalSlot = {
 	index: number;
@@ -18,12 +22,38 @@ export type MigrationResponse = {
 	saves: "SUCCESS" | "FAIL";
 };
 
-const ParseData = (data: string): LatestSerializedBlocks => {
-	const p1 = JSON.deserialize(data) as { data: string };
-	const p2 = (
-		typeOf(p1.data) === "string" ? JSON.deserialize(p1.data) : p1.data
-	) as BlocksSerializer.JsonSerializedBlocks;
-	return BlocksSerializer.jsonToObject(p2);
+const ParseData = (data: string): LatestSerializedBlocks | undefined => {
+	try {
+		const p1 = JSON.deserialize(data) as { data: string | BlocksSerializer.JsonSerializedBlocks };
+		const p2 = (
+			typeOf(p1.data) === "string" ? JSON.deserialize(p1.data as string) : p1.data
+		) as BlocksSerializer.JsonSerializedBlocks;
+		for (const [k, v] of pairs(p2)) print(k ?? "no key", v ?? "nothing");
+		return BlocksSerializer.jsonToObject(p2);
+	} catch (what) {
+		print(what);
+		error("Failed to parse external save data");
+	}
+};
+
+let token: string | undefined;
+const getToken = () => {
+	if (token) return token;
+	if (game.PlaceId === 0) {
+		return (token = (
+			require(
+				ServerScriptService.FindFirstChild("TS")
+					?.FindFirstChild("database")
+					?.FindFirstChild("studiotoken") as ModuleScript,
+			) as { writetoken: string }
+		).writetoken);
+	}
+	try {
+		token = ConfigService.GetConfigAsync().GetValue("TOKEN") as string | undefined;
+	} catch {
+		// local/Studio places have no config; treat as a missing token
+	}
+	return token;
 };
 
 export namespace ExternalDatabase {
@@ -46,6 +76,26 @@ export namespace ExternalDatabase {
 			return JSON.deserialize(val);
 		}
 		return val;
+	};
+
+	export const SetPlayer = (UID: number, data: PlayerDatabaseData) => {
+		const token = getToken();
+		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
+		const requestResult = HttpService.RequestAsync({
+			Method: "POST",
+			Headers: {
+				"Content-Type": "application/json",
+			},
+			Url: `https://www.ftrookie.com/overengineered/player`,
+			Body: JSON.serialize({
+				playerID: tostring(UID),
+				data, // Technically different from how processed player data is inserted
+				token,
+			}),
+		});
+		if (requestResult.StatusCode === 404) return { err_type: "HTTP", error: "404 Bad Request" };
+		if (requestResult.StatusCode !== 200) throw `Got HTTP ${requestResult.StatusCode}`;
+		return JSON.deserialize<ExternalError | { status: string }>(requestResult.Body);
 	};
 
 	// Probably unnecessary now
@@ -113,8 +163,29 @@ export namespace ExternalDatabase {
 		return val;
 	};
 
+	export const SaveSlot = (UID: number, slot: ExternalSlot): ExternalError | { status: string } => {
+		const token = getToken();
+		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
+		const requestResult = HttpService.RequestAsync({
+			Method: "POST",
+			Headers: {
+				"Content-Type": "application/json",
+			},
+			Url: `https://www.ftrookie.com/overengineered/save`,
+			Body: JSON.serialize({
+				playerID: tostring(UID),
+				index: tostring(slot.index),
+				data: { data: slot.blocks }, // Studio testing indicates this did not work but maybe its different
+				token,
+			}),
+		});
+		if (requestResult.StatusCode === 404) return { err_type: "HTTP", error: "404 Bad Request" };
+		if (requestResult.StatusCode !== 200) throw `Got HTTP ${requestResult.StatusCode}`;
+		return JSON.deserialize<ExternalError | { status: string }>(requestResult.Body);
+	};
+
 	export const MigratePlayer = (fromPlayer: number, toPlayer: number): MigrationResponse => {
-		const token = ConfigService.GetConfigAsync().GetValue("TOKEN");
+		const token = getToken();
 		if (!token) return { metadata: "FAIL", saves: "FAIL" } as MigrationResponse;
 		print(`Migrating saves from ${fromPlayer} to ${toPlayer}`);
 
@@ -128,9 +199,11 @@ export namespace ExternalDatabase {
 			Body: JSON.serialize({
 				fromID: tostring(fromPlayer),
 				toID: tostring(toPlayer),
-				token: token,
+				token,
 			}),
 		});
+		if (requestResult.StatusCode === 404) return { metadata: "FAIL", saves: "FAIL" } as MigrationResponse;
+		if (requestResult.StatusCode !== 200) throw `Got HTTP ${requestResult.StatusCode}`;
 		return JSON.deserialize<MigrationResponse>(requestResult.Body);
 	};
 }

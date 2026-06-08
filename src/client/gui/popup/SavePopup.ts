@@ -1,3 +1,4 @@
+import { Players } from "@rbxts/services";
 import { LoadingController } from "client/controller/LoadingController";
 import { AlertPopup } from "client/gui/popup/AlertPopup";
 import { ConfirmPopup } from "client/gui/popup/ConfirmPopup";
@@ -16,6 +17,7 @@ import { Colors } from "shared/Colors";
 import { GameDefinitions } from "shared/data/GameDefinitions";
 import { Serializer } from "shared/Serializer";
 import { SlotsMeta } from "shared/SlotsMeta";
+import type { ShowAdminGui } from "client/gui/AdminGui";
 import type { PopupController } from "client/gui/PopupController";
 import type { PlayerDataStorage } from "client/PlayerDataStorage";
 import type { Theme } from "client/Theme";
@@ -42,8 +44,8 @@ interface CurrentItem {
 	readonly setName: Action<[name: string]>;
 }
 
-const findFreeSlot = (slots: { readonly [x: number]: SlotMeta }) => {
-	for (let i = 0; i < GameDefinitions.FREE_SLOTS; i++) {
+const findFreeSlot = (slots: { readonly [x: number]: SlotMeta }, p: Player) => {
+	for (let i = 0; i < GameDefinitions.getMaxSlots(p, 0); i++) {
 		if (!(i in slots)) {
 			return i;
 		}
@@ -64,6 +66,7 @@ type SaveItemParts = {
 	readonly IdText: TextLabel;
 };
 type SaveItemDefinition = GuiButton;
+
 class SaveItem extends PartialControl<SaveItemParts, SaveItemDefinition> implements CurrentItem {
 	readonly save: Action;
 	readonly load: Action;
@@ -100,7 +103,13 @@ class SaveItem extends PartialControl<SaveItemParts, SaveItemDefinition> impleme
 			.subCanExecuteFrom({ can: this.event.addObservable(meta.fReadonlyCreateBased(isWritable)) });
 
 		this.$onInjectAuto(
-			(popup: SavePopup, popupController: PopupController, playerData: PlayerDataStorage, plot: ReadonlyPlot) => {
+			(
+				popup: SavePopup,
+				popupController: PopupController,
+				playerData: PlayerDataStorage,
+				plot: ReadonlyPlot,
+				di: DIContainer,
+			) => {
 				this.load.subscribe(() => {
 					const load = () => {
 						popup.destroy();
@@ -116,15 +125,25 @@ class SaveItem extends PartialControl<SaveItemParts, SaveItemDefinition> impleme
 				});
 
 				this.save.subscribe(() => {
+					const external = di.tryResolve<ShowAdminGui>()?.useExternal.get() ?? false;
 					const save = () => {
 						task.spawn(() => {
-							playerData.sendPlayerSlot({
+							const response = playerData.sendPlayerSlot({
 								index: slot.index,
 								save: true,
+								external,
 								color: slot.color,
 								name: slot.name,
 								order: slot.order,
 							});
+
+							if (response.success && response.externalError !== undefined) {
+								popupController.showPopup(
+									new AlertPopup(
+										`Failed to save to the external database:\n${response.externalError}`,
+									),
+								);
+							}
 						});
 					};
 
@@ -254,14 +273,26 @@ class NewSaveItem extends Control<GuiButton> implements CurrentItem {
 		this.setColor = this.parent(new Action<[Color3]>());
 		this.setName = this.parent(new Action<[string]>());
 
-		this.save.subscribe(() => {
-			const slot = this.meta.get();
-			playerData.sendPlayerSlot({
-				index: slot.index,
-				save: true,
-				color: slot.color,
-				name: slot.name,
-				order: slot.order,
+		this.$onInjectAuto((popupController: PopupController, di: DIContainer) => {
+			this.save.subscribe(() => {
+				const external = di.tryResolve<ShowAdminGui>()?.useExternal.get() ?? false;
+				task.spawn(() => {
+					const slot = this.meta.get();
+					const response = playerData.sendPlayerSlot({
+						index: slot.index,
+						save: true,
+						external,
+						color: slot.color,
+						name: slot.name,
+						order: slot.order,
+					});
+
+					if (external && response.success && response.externalError !== undefined) {
+						popupController.showPopup(
+							new AlertPopup(`Failed to save to the external database:\n${response.externalError}`),
+						);
+					}
+				});
 			});
 		});
 		this.setColor.subscribe((color) => {
@@ -299,7 +330,7 @@ class NewSaveItem extends Control<GuiButton> implements CurrentItem {
 		this.meta = meta;
 
 		this.addButtonAction(() => {
-			const index = findFreeSlot(playerData.slots.get());
+			const index = findFreeSlot(playerData.slots.get(), Players.LocalPlayer);
 			if (!index) {
 				Transforms.create() //
 					.flashColor(this.instance, Colors.red)

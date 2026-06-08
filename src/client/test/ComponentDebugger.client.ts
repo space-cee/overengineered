@@ -1,4 +1,4 @@
-import { Players, UserInputService } from "@rbxts/services";
+import { Players, RunService, UserInputService } from "@rbxts/services";
 import { Control } from "engine/client/gui/Control";
 import { Interface } from "engine/client/gui/Interface";
 import { InputController } from "engine/client/InputController";
@@ -152,7 +152,7 @@ const toggle = (root: DebuggableComponent) => {
 	}
 };
 
-const launch = true || PlayerRank.isAdmin(Players.LocalPlayer);
+const launch = RunService.IsStudio() || PlayerRank.isDev(Players.LocalPlayer);
 if (!launch) new Instance("BindableEvent").Event.Wait();
 task.wait(0.5); // wait for the controls to enable
 

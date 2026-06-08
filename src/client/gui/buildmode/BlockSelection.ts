@@ -1,4 +1,4 @@
-import { ContentProvider, GuiService, Players, PolicyService } from "@rbxts/services";
+import { ContentProvider, GuiService, Players, PolicyService, RunService } from "@rbxts/services";
 import { BlockPreviewControl } from "client/gui/buildmode/BlockPreviewControl";
 import { BlockPipetteButton } from "client/gui/controls/BlockPipetteButton";
 import { GuiAnimator } from "client/gui/GuiAnimator";
@@ -21,9 +21,6 @@ import type { Theme } from "client/Theme";
 import type { InstanceComponent } from "engine/shared/component/InstanceComponent";
 import type { BlockCategoryPath } from "shared/blocks/Block";
 import type { ReadonlyPlot } from "shared/building/ReadonlyPlot";
-
-// Set to true to always show blocks even if they are marked `hidden`.
-const ALWAYS_SHOW_HIDDEN_BLOCKS = true;
 
 type Category = {
 	readonly path: BlockCategoryPath;
@@ -348,7 +345,7 @@ export class BlockSelectionControl extends Control<BlockSelectionControlDefiniti
 
 			const upd = () => {
 				const count = this.plot.getBlocks().count((c) => BlockManager.manager.id.get(c) === block.id);
-				gui.CountText.Text = tostring(`${count}/${"many"}`);
+				gui.CountText.Text = tostring(`${count}/${block.limit}`);
 			};
 			control.event.subscribe(this.plot.instance.ChildAdded, upd);
 			control.event.subscribe(this.plot.instance.ChildRemoved, upd);
@@ -411,14 +408,14 @@ export class BlockSelectionControl extends Control<BlockSelectionControlDefiniti
 		const lowerSearch = this.gui.Content.SearchTextBox.Text.fullLower();
 
 		const processBlock = (block: Block) => {
-			if (block.hidden && !ALWAYS_SHOW_HIDDEN_BLOCKS) return;
-			if (block.devOnly && !true && !PlayerRank.isAdmin(Players.LocalPlayer)) return;
+			if (block.hidden) return;
+			if (block.devOnly && !RunService.IsStudio() && !PlayerRank.isDev(Players.LocalPlayer)) return;
 
 			let button: BlockControl;
 			const features = this.playerData.data.get().features;
 			if (
 				GameDefinitions.isOfficialAwms &&
-				!PlayerRank.isAdmin(Players.LocalPlayer) &&
+				!PlayerRank.isDev(Players.LocalPlayer) &&
 				!(block.requiredFeatures ?? Objects.empty).all((c) => features.contains(c))
 			) {
 				if (

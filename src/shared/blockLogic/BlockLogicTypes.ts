@@ -164,7 +164,21 @@ export namespace BlockLogicTypes {
 		readonly speed?: number;
 		readonly rate?: number;
 		readonly size?: number;
+		readonly size2?: number;
 		readonly drag?: number;
+
+		readonly color2?: Color3;
+		readonly colorFadeMode?: string;
+		readonly colorFadeDuration?: number;
+		readonly sizeFadeMode?: string;
+		readonly sizeFadeDuration?: number;
+		readonly transparency2?: number;
+		readonly fadeMode?: string;
+		readonly fadeDuration?: number;
+		readonly flipbookFramerate?: number;
+		readonly flipbookMode?: string;
+		readonly flipbookStartRandom?: boolean;
+		readonly zOffset?: number;
 	};
 
 	export type Particle = BCPrimitive<ParticleValue>;

@@ -30,6 +30,12 @@ export const ServerError = t.interface({
 });
 export type ServerError = t.Type<typeof ServerError>;
 
+// Run config migrations on every load path (datastore read + external/Studio load) or external loads skip them.
+const migrateData = (data: PlayerDatabaseData): PlayerDatabaseData => ({
+	...data,
+	settings: data.settings === undefined ? undefined : PlayerConfigUpdater.update(data.settings),
+});
+
 export class PlayerDatabase {
 	private readonly onlinePlayers = new Set<number>();
 	private readonly db;
@@ -38,10 +44,7 @@ export class PlayerDatabase {
 		this.db = new Db<PlayerDatabaseData, PlayerDatabaseData, [id: number]>(
 			this.datastore,
 			() => ({}),
-			(data) => ({
-				...data,
-				settings: data.settings === undefined ? undefined : PlayerConfigUpdater.update(data.settings),
-			}),
+			migrateData,
 			(data) => data,
 		);
 
@@ -65,14 +68,21 @@ export class PlayerDatabase {
 		if (this.notEmpty(db)) return db;
 		const external = ExternalDatabase.GetPlayer(userId);
 		if (this.notEmpty(external)) {
-			this.set(userId, external);
-			return external;
+			const migrated = migrateData(external);
+			this.set(userId, migrated);
+			return migrated;
 		}
 		return {};
 	}
 
-	set(userId: number, data: PlayerDatabaseData) {
+	set(userId: number, data: PlayerDatabaseData, external?: boolean) {
 		this.db.set([userId], data);
+		if (external) {
+			const result = ExternalDatabase.SetPlayer(userId, data);
+			if ("error" in result) {
+				$err(result.err_type, result.error);
+			}
+		}
 
 		if (!this.onlinePlayers.has(userId)) {
 			this.db.save([userId]);
