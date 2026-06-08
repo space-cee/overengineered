@@ -83,18 +83,12 @@ do
 			inputValues = data
 			return inputValues
 		end)
-		local prevPos
-		local cmdDir
 
-		-- APN: target velocity and acceleration estimation
-		local prevTargetPos = nil
-		local prevTargetVel = Vector3.zero
-		local targetVel = Vector3.zero
-		local targetAccel = Vector3.zero
+		local prevPos = nil
+		local prevLosDelta = nil
+		local cmdDir = nil
 
 		self:onTicc(function(_param)
-			local dt = _param.dt > 0 and _param.dt or (1/60)
-
 			local targetPos = inputValues.targetPosition
 			local objPos = inputValues.objPosition
 			local N = inputValues.N
@@ -106,22 +100,9 @@ do
 				return
 			end
 
-			-- Estimate target velocity with frame rate independent smoothing
-			if prevTargetPos then
-				local rawVel = (targetPos - prevTargetPos) / dt
-				local velSmoothing = 1 - math.exp(-5 * dt)
-				targetVel = targetVel + (rawVel - targetVel) * velSmoothing
-
-				-- Estimate target acceleration with frame rate independent smoothing
-				local rawAccel = (targetVel - prevTargetVel) / dt
-				local accelSmoothing = 1 - math.exp(-3 * dt)
-				targetAccel = targetAccel + (rawAccel - targetAccel) * accelSmoothing
-				prevTargetVel = targetVel
-			end
-			prevTargetPos = targetPos
-
 			local r = targetPos - objPos
 			local magSq = r:Dot(r)
+
 			if magSq == 0 then
 				self.output.steering:set("vector3", Vector3.zero)
 				return
@@ -129,49 +110,44 @@ do
 
 			local u = r.Unit
 
+			-- Initialize on first frame
 			if not prevPos then
 				prevPos = r
+				prevLosDelta = Vector3.zero
 				cmdDir = u
+				self.output.steering:set("vector3", u)
+				return
 			end
 
 			local newCmdDir = cmdDir
 
 			if magSq > 225 then
-				local cross = prevPos:Cross(r)
-				local cross_mag = cross.Magnitude
-				if cross_mag > 1e-6 then
-					-- Standard PN term with dt for frame rate independence
-					local angle = (N * cross_mag * dt) / magSq
-					local axis = cross / cross_mag
+				local losDelta = prevPos:Cross(r) / magSq
+				local rotVec = losDelta * (N + K) - prevLosDelta * K
+				local angle = rotVec.Magnitude
+
+				if angle > 1e-8 then
+					local axis = rotVec / angle
 					local cosA = math.cos(angle)
 					local sinA = math.sin(angle)
 					newCmdDir =
 						newCmdDir * cosA +
 						axis:Cross(newCmdDir) * sinA +
 						axis * (axis:Dot(newCmdDir) * (1 - cosA))
-
-					-- APN augmentation term using K gain
-					local accelAlongLOS = u * targetAccel:Dot(u)
-					local lateralAccel = targetAccel - accelAlongLOS
-					local lateralAccelMag = lateralAccel.Magnitude
-					if lateralAccelMag > 1e-6 then
-						local accelAngle = K * lateralAccelMag / math.sqrt(magSq)
-						local accelAxis = lateralAccel.Unit
-						local cosB = math.cos(accelAngle)
-						local sinB = math.sin(accelAngle)
-						newCmdDir =
-							newCmdDir * cosB +
-							accelAxis:Cross(newCmdDir) * sinB +
-							accelAxis * (accelAxis:Dot(newCmdDir) * (1 - cosB))
-					end
 				end
+
+				prevLosDelta = losDelta
 			end
 
-			newCmdDir = newCmdDir.Unit
+			-- Normalize
+			if newCmdDir.Magnitude > 1e-6 then
+				newCmdDir = newCmdDir.Unit
+			else
+				newCmdDir = cmdDir
+			end
 
-			-- Frame rate independent smoothing on final steering
-			local smoothing = 1 - math.exp(-alpha * dt * 60)
-			local smoothed = cmdDir + (newCmdDir - cmdDir) * smoothing
+			-- Smooth and output
+			local smoothed = cmdDir:Lerp(newCmdDir, alpha)
 			if smoothed.Magnitude > 1e-6 then
 				smoothed = smoothed.Unit
 			else
@@ -188,7 +164,7 @@ local _object = table.clone(BlockCreation.defaults)
 setmetatable(_object, nil)
 _object.id = "apnguidanceblock"
 _object.displayName = "APN Guidance"
-_object.description = "King Von the block"
+_object.description = "PN but on 99.1% chemically pure crystal"
 _object.search = {
 	partialAliases = { "augmented proportional navigation", "missile", "vector3" },
 }
