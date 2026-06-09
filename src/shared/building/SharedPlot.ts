@@ -5,7 +5,7 @@ import { BB } from "engine/shared/fixes/BB";
 import { BlockManager } from "shared/building/BlockManager";
 
 const getPlotBuildingRegion = (plot: PlotModel): BB => {
-	const heightLimit = 400;
+	const heightLimit = 1720;
 	const buildingPlane = plot.BuildingArea;
 
 	return new BB(
@@ -73,7 +73,7 @@ export class SharedPlot extends InstanceComponent<PlotModel> {
 	}
 	getSpawnPosition() {
 		return this.instance.BuildingArea.GetPivot().Position.add(
-			new Vector3(this.instance.BuildingArea.ExtentsSize.X / 2 + 2, 10, 0),
+			new Vector3(this.instance.BuildingArea.ExtentsSize.X / 2 - 300, 10, 0),
 		);
 	}
 
