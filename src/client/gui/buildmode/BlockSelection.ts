@@ -345,7 +345,7 @@ export class BlockSelectionControl extends Control<BlockSelectionControlDefiniti
 
 			const upd = () => {
 				const count = this.plot.getBlocks().count((c) => BlockManager.manager.id.get(c) === block.id);
-				gui.CountText.Text = tostring(`${count}/${block.limit}`);
+				gui.CountText.Text = tostring(`${count}/${"many"}`);
 			};
 			control.event.subscribe(this.plot.instance.ChildAdded, upd);
 			control.event.subscribe(this.plot.instance.ChildRemoved, upd);
