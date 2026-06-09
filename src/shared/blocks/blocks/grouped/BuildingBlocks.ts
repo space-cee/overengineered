@@ -883,9 +883,68 @@ const random: BlockBuildersWithoutIdAndDefaults = {
 		displayName: "Handle",
 		description: "To hold",
 	},
+
+	swirly: {
+		displayName: "Swirly",
+		description: "Can thy self bring me a cuppah tea?",
+	},
+
+	swirlylilside: {
+		displayName: "Swirly Lil Side",
+		description: "Good for your hooks, or not",
+	},
+
+	swirlybigside: {
+		displayName: "Swirly Big Side",
+		description: "This should be called Curly",
+	},
+
+	spring: {
+		displayName: "Spring",
+		description: "We have stolen the sus out of suspension",
+	},
+
+	longhandle: {
+		displayName: "Long Handle",
+		description: "To grab longly. Also has benifit of stronger/faster grabbing",
+	},
+
 	bolthead: {
 		displayName: "Bolt head",
-		description: "Why? No idea, but you have it so be happy. or else.",
+		description: "Why? No idea, but you have it so be happy. or else. PS great for smoothing, somehow",
+	},
+
+	maxwell: {
+		displayName: "Maxwell",
+		description: "No Idea what this does, it made my game laggier",
+	},
+
+	makster: {
+		displayName: "Makster",
+		description: "The most powerful",
+	},
+
+	buildinglight: {
+		displayName: "Building Light",
+		description: "Let there be light",
+	},
+
+	spaceshipblock: {
+		displayName: "Greeble Block",
+		description: "Metal Block with a custom spaceship metal material. thats all",
+		weldRegionsSource: BlockCreation.WeldRegions.fAutomatic("cube"),
+	},
+
+	spaceshipblock2: {
+		displayName: "Small Greeble Block",
+		description: "Metal Block with a different custom spaceship metal material. thats all",
+		weldRegionsSource: BlockCreation.WeldRegions.fAutomatic("cube"),
+	},
+
+	chromeblock: {
+		displayName: "Chrome Block",
+		description: "FUTUREEEEEE PS: looks bad in lite version",
+		weldRegionsSource: BlockCreation.WeldRegions.fAutomatic("cube"),
 	},
 };
 //
