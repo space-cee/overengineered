@@ -1719,9 +1719,9 @@ export namespace BlocksSerializer {
 				cld: block.collidable,
 			};
 		};
-
+		// save as v35
 		return {
-			version: slot.version,
+			version: 35,
 			blocks: slot.blocks.map(fix),
 		};
 	}
