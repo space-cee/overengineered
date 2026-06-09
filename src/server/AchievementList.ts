@@ -137,7 +137,7 @@ class AchievementLuaCircuitObtained extends Achievement {
 		});
 
 		this.onEnable(() => {
-			this.set({ completed: (playerDatabase.get(player.UserId).features?.indexOf("lua_circuit") ?? -1) > -1 });
+			this.set({ completed: true });
 		});
 	}
 }
