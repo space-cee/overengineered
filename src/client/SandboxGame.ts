@@ -22,6 +22,7 @@ import { ShowAdminGui } from "client/gui/AdminGui";
 import { FpsCounterController } from "client/gui/FpsCounterController";
 import { GuiAutoScaleController } from "client/gui/GuiAutoScaleController";
 import { HideInterfaceController } from "client/gui/HideInterfaceController";
+import { LegacyAdminGui } from "client/gui/LegacyAdminGui";
 import { MainScene } from "client/gui/MainScene";
 import { MainScreenLayout } from "client/gui/MainScreenLayout";
 import { PopupController } from "client/gui/PopupController";
@@ -125,6 +126,7 @@ export namespace SandboxGame {
 		SoundController.initializeAll(builder);
 		builder.services.registerService(ObstaclesController);
 		ShowAdminGui.initializeIfAdminOrStudio(builder);
+		LegacyAdminGui.initializeIfAdminOrStudio(builder);
 
 		builder.services.registerService(DayCycleController);
 		builder.services.registerService(BeaconController);
