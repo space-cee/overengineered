@@ -1,8 +1,19 @@
 /* eslint-disable no-constant-condition */
 import { Workspace, RunService } from "@rbxts/services";
 
-const moon = Workspace.WaitForChild("The Moon").WaitForChild("The Moon (PBR)") as BasePart;
+const ws = Workspace as Workspace & {
+	Map: Folder & {
+		Unloadables: Folder & {
+			Moon: Folder & {
+				["The Moon"]: Model & {
+					["The Moon (PBR)"]: MeshPart;
+				};
+			};
+		};
+	};
+};
 
+const moon = ws.Map.Unloadables.Moon["The Moon"]["The Moon (PBR)"];
 const gravityRange = 20000;
 const gravityRangeSq = gravityRange * gravityRange;
 
