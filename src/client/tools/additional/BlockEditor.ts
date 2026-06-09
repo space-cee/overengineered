@@ -196,7 +196,7 @@ const sidewaysKb = Keybinds.registerDefinition(
 
 const formatVecForFloatingText = (vec: Vector3, positive: boolean = true): string => {
 	const format = (num: number): string => {
-		const str = Strings.prettyNumber(num, 0.01);
+		const str = Strings.prettyNumber(num, 0.001);
 		if (num > 0 && positive) return `+${str}`;
 
 		return `${str}`;
@@ -428,7 +428,7 @@ class RotateComponent extends Component implements EditComponent {
 		const updateFloatingText = () => {
 			const format = (cframe: CFrame, positive: boolean) => {
 				const [x, y, z] = cframe.ToOrientation();
-				const vec = new Vector3(x, y, z).apply((c) => MathUtils.round(math.deg(c), 0.01));
+				const vec = new Vector3(x, y, z).apply((c) => MathUtils.round(math.deg(c), 0.001));
 				return formatVecForFloatingText(vec, positive);
 			};
 
