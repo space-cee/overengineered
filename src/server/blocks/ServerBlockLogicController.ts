@@ -8,6 +8,7 @@ import { CameraBlockServerLogic } from "server/blocks/logic/CameraBlockServerLog
 import { DisconnectBlockServerLogic } from "server/blocks/logic/DisconnectBlockServerLogic";
 import { Display16ServerLogic } from "server/blocks/logic/Display16ServerLogic";
 import { Display32ServerLogic } from "server/blocks/logic/Display32ServerLogic";
+import { HandleBlockServerLogic } from "server/blocks/logic/HandleBlockServerLogic";
 import { HeadMountBlockServerLogic } from "server/blocks/logic/HeadMountBlockServerLogic";
 import { LEDDisplayServerLogic } from "server/blocks/logic/LEDDisplayServerLogic";
 import { LegMountBlockServerLogic } from "server/blocks/logic/LegMountBlockServerLogic";
@@ -82,6 +83,8 @@ export class ServerBlockLogicController extends HostedService {
 			display32: Display32ServerLogic,
 			legmount: LegMountBlockServerLogic,
 			unscaledscreen: UnscaledScreenServerLogic,
+			handle: HandleBlockServerLogic,
+			longhandle: HandleBlockServerLogic,
 		};
 
 		//

@@ -879,11 +879,6 @@ const trainWheels: BlockBuildersWithoutIdAndDefaults = {
 };
 
 const random: BlockBuildersWithoutIdAndDefaults = {
-	handle: {
-		displayName: "Handle",
-		description: "To hold",
-	},
-
 	swirly: {
 		displayName: "Swirly",
 		description: "Can thy self bring me a cuppah tea?",
@@ -902,11 +897,6 @@ const random: BlockBuildersWithoutIdAndDefaults = {
 	spring: {
 		displayName: "Spring",
 		description: "We have stolen the sus out of suspension",
-	},
-
-	longhandle: {
-		displayName: "Long Handle",
-		description: "To grab longly. Also has benifit of stronger/faster grabbing",
 	},
 
 	bolthead: {

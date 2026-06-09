@@ -3,7 +3,7 @@ import { t } from "engine/shared/t";
 import { InstanceBlockLogic } from "shared/blockLogic/BlockLogic";
 import { BlockCreation } from "shared/blocks/BlockCreation";
 import type { BlockLogicFullBothDefinitions, InstanceBlockLogicArgs } from "shared/blockLogic/BlockLogic";
-import type { BlockBuilder } from "shared/blocks/Block";
+import type { BlockBuildersWithoutIdAndDefaults } from "shared/blocks/Block";
 
 const definition = {
 	inputOrder: ["enabled", "shared", "dragMode", "response"],
@@ -93,12 +93,21 @@ class Logic extends InstanceBlockLogic<typeof definition, HandleBlockModel> {
 	}
 }
 
-export const HandleBlock = {
-	...BlockCreation.defaults,
-	id: "handle",
-	displayName: "Handle",
-	description: "To hold",
-	search: { partialAliases: ["grab"] },
+const logic = { definition, ctor: Logic };
 
-	logic: { definition, ctor: Logic },
-} as const satisfies BlockBuilder;
+const list: BlockBuildersWithoutIdAndDefaults = {
+	handle: {
+		displayName: "Handle",
+		description: "To hold",
+		search: { partialAliases: ["grab"] },
+		logic,
+	},
+	longhandle: {
+		displayName: "Long Handle",
+		description: "A longer variant handle to hold onto",
+		search: { partialAliases: ["grab", "long"] },
+		logic,
+	},
+};
+
+export const HandleBlocks = BlockCreation.arrayFromObject(list);

@@ -50,7 +50,7 @@ import { GuiImageBlock } from "shared/blocks/blocks/gui/GuiImageBlock";
 import { GuiStatBlock } from "shared/blocks/blocks/gui/GuiStatBlock";
 import { GuiTextBlock } from "shared/blocks/blocks/gui/GuiTextBlock";
 import { GyroscopeBlock } from "shared/blocks/blocks/GyroscopeBlock";
-import { HandleBlock } from "shared/blocks/blocks/HandleBlock";
+import { HandleBlocks } from "shared/blocks/blocks/HandleBlock";
 import { HeadMountBlock } from "shared/blocks/blocks/HeadMountBlock";
 import { HeliumBlock } from "shared/blocks/blocks/HeliumBlock";
 import { ImpulseExtenderBlock } from "shared/blocks/blocks/ImpulseExtenderBlock";
@@ -199,7 +199,7 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 		TracerBlock,
 		AiBlock,
 		APNBlock,
-		HandleBlock,
+		...HandleBlocks,
 		AirBlock,
 		AttractorBlock,
 		ControllerSensorBlock,
