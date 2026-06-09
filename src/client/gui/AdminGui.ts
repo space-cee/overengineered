@@ -108,8 +108,14 @@ export class AdminPopup extends Control<SettingsPopup2Definition> {
 				.setButtonInteractable(mode === "build")
 				.setButtonInteractable(isDev);
 
-			this.onEnable(() => content.set(isMod ? DeveloperModerationTab : DeveloperManageDataTab));
+			this.onEnable(() => {
+				if (isDev) {
+					content.set(DeveloperManageDataTab);
+					return;
+				}
 
+				content.set(isMod ? DeveloperModerationTab : DeveloperManageDataTab);
+			});
 			this.parent(new Control(gui.Heading.CloseButton)) //
 				.addButtonAction(() => this.hideThenDestroy());
 		});
@@ -188,7 +194,7 @@ class DeveloperManageDataTab extends ConfigControlList {
 	constructor(gui: ConfigControlListDefinition & ConfigControlTemplateList, value: ObservableValue<PlayerConfig>) {
 		super(gui);
 		this.$onInjectAuto((adminPopup: AdminPopup, di: DIContainer) => {
-			const pid = new ObservableValue<string>("238427763");
+			const pid = new ObservableValue<string>("123456789");
 			const SAFETYLOCK = new ObservableValue<boolean>(false);
 
 			const target = this.addString("Target Player") //
@@ -228,8 +234,8 @@ class DeveloperManageDataTab extends ConfigControlList {
 			}
 			this.addCategory("Migrate");
 			{
-				const fromV = new ObservableValue("238427763");
-				const toV = new ObservableValue("10897692300");
+				const fromV = new ObservableValue("123456789");
+				const toV = new ObservableValue("123456789");
 
 				this.addString("From ID") //
 					.setDescription("The player to copy data from")
