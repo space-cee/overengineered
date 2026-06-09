@@ -6,6 +6,7 @@ import type {
 	BlockLogicArgs,
 	BlockLogicFullBothDefinitions,
 	BlockLogicTickContext,
+	DebugInfo,
 } from "shared/blockLogic/BlockLogic";
 import type { BlockLogicTypes } from "shared/blockLogic/BlockLogicTypes";
 import type { BlockBuilder } from "shared/blocks/Block";
@@ -50,7 +51,7 @@ type Wait = {
 	readonly tickBased: boolean;
 };
 
-export type { Logic as DelayBlockLogic };
+export type { Logic as ValueExtenderBlockLogic };
 class Logic extends BlockLogic<typeof definition> {
 	private wait?: Wait;
 
@@ -88,11 +89,11 @@ class Logic extends BlockLogic<typeof definition> {
 		});
 	}
 
-	getDebugInfo(ctx: BlockLogicTickContext): readonly string[] {
+	getDebugInfo(ctx: BlockLogicTickContext): readonly DebugInfo[] {
 		return [
 			//
 			...super.getDebugInfo(ctx),
-			`Wait: ${Strings.pretty(this.wait)}`,
+			{ label: "Wait:", type: "", value: `${Strings.pretty(this.wait)}` },
 		];
 	}
 }
@@ -103,7 +104,7 @@ export const ValueExtenderBlock = {
 	displayName: "Value Extender",
 	description: "Sustains values for configured duration when input changes, then returns availater",
 	search: {
-		partialAliases: ["wait"],
+		partialAliases: ["sustain"],
 	},
 
 	logic: { definition, ctor: Logic },
