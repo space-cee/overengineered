@@ -9,7 +9,7 @@ import type { BlockLogicTypes } from "shared/blockLogic/BlockLogicTypes";
 import type { BlockBuilder } from "shared/blocks/Block";
 
 const definition = {
-	inputOrder: ["sound", "play", "volume", "loop"],
+	inputOrder: ["sound", "play", "volume", "loop", "rollOffMaxDistance"],
 	outputOrder: ["isPlaying", "progress", "loudness"],
 	input: {
 		sound: {
@@ -44,6 +44,20 @@ const definition = {
 			tooltip: "Whether to loop the sound while Play input is true",
 			types: {
 				bool: { config: false },
+			},
+		},
+		rollOffMaxDistance: {
+			displayName: "Rolloff Max Distance",
+			tooltip: "The maximum distance at which the sound can be heard.",
+			types: {
+				number: {
+					config: 1000,
+					clamp: {
+						showAsSlider: true,
+						min: 0.5,
+						max: 1000000,
+					},
+				},
 			},
 		},
 	},
@@ -81,8 +95,7 @@ const updateSound = (instance: Sound, sound: BlockLogicTypes.SoundValue): boolea
 		}
 	}
 
-	let restart;
-
+	let restart: boolean;
 	const newId = `rbxassetid://${sound.id}`;
 	if (instance.SoundId === newId) {
 		restart = false;
@@ -148,31 +161,38 @@ const updateType = t.intersection(
 		progress: t.number,
 		volume: t.numberWithBounds(0, 10),
 		loop: t.boolean,
+		rollOffMaxDistance: t.number,
 	}),
 );
 type UpdateType = t.Infer<typeof updateType>;
 
-const update = ({ block, play, sound, loop, progress, volume }: UpdateType) => {
-	if (!block) return;
-	const instance = block.PrimaryPart?.FindFirstChildOfClass("Sound") ?? new Instance("Sound", block.PrimaryPart);
+const update = ({ block, play, sound, loop, progress, volume, rollOffMaxDistance }: UpdateType) => {
+	if (!block || !block.PrimaryPart) return;
+	const instance = block.PrimaryPart.FindFirstChildOfClass("Sound") ?? new Instance("Sound", block.PrimaryPart);
 
-	instance.Looped = (play ?? false) && (loop ?? false);
-	if (volume) {
+	instance.Looped = play && (loop ?? false);
+
+	if (volume !== undefined) {
 		instance.Volume = volume;
-		instance.RollOffMaxDistance = 10_000 * volume;
+	}
+
+	// Handled custom distance scaling directly from your compiled code
+	if (rollOffMaxDistance !== undefined) {
+		instance.RollOffMaxDistance = rollOffMaxDistance;
+		instance.RollOffMinDistance = rollOffMaxDistance * 0.01;
 	}
 
 	let restart = false;
 	if (sound) restart = updateSound(instance, sound);
 
-	if (progress) instance.TimePosition = progress;
+	if (progress !== undefined) instance.TimePosition = progress;
 
 	if (instance.IsPlaying) {
 		if (restart) {
 			instance.Play();
 		}
 	} else {
-		if (play && (!sound?.id || sound.id.size() !== 0)) {
+		if (play && ((sound?.id && sound.id.size() > 0) || instance.SoundId !== "")) {
 			instance.Play();
 		}
 	}
@@ -188,11 +208,11 @@ events.update.getExisting = (stored): UpdateType => {
 	return {
 		block: stored.block,
 		sound: stored.sound,
-
 		play: sound.Playing,
 		progress: sound.TimePosition,
 		volume: sound.Volume,
 		loop: sound.Looped,
+		rollOffMaxDistance: sound.RollOffMaxDistance,
 	};
 };
 
@@ -201,12 +221,18 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 	constructor(block: InstanceBlockLogicArgs) {
 		super(definition, block);
 
-		const soundInstance = new Instance("Sound", this.instance.PrimaryPart);
+		const primaryPart = this.instance.PrimaryPart;
+		if (!primaryPart) return;
+
+		// Shared safety fix: prevents double sound instances mounting concurrently
+		const soundInstance = primaryPart.FindFirstChildOfClass("Sound") ?? new Instance("Sound", primaryPart);
+
 		soundInstance.Played.Connect(() => this.output.isPlaying.set("bool", true));
 		soundInstance.Ended.Connect(() => this.output.isPlaying.set("bool", false));
 		soundInstance.Stopped.Connect(() => this.output.isPlaying.set("bool", false));
-		this.output.isPlaying.set("bool", false);
-		this.output.progress.set("number", 0);
+
+		this.output.isPlaying.set("bool", soundInstance.IsPlaying);
+		this.output.progress.set("number", soundInstance.TimePosition);
 		this.output.loudness.set("number", 0);
 
 		let nextSoundUpdate: BlockLogicTypes.SoundValue | undefined;
@@ -215,6 +241,9 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 		});
 
 		const playCache = this.initializeInputCache("play");
+		const volumeCache = this.initializeInputCache("volume");
+		const loopCache = this.initializeInputCache("loop");
+		const rollOffMaxDistanceCache = this.initializeInputCache("rollOffMaxDistance");
 
 		this.onk(["sound"], ({ sound }) => {
 			if (!soundInstance.IsPlaying) {
@@ -229,20 +258,40 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 				play: true,
 				loop: loopCache.tryGet() ?? false,
 				sound,
+				volume: volumeCache.tryGet(),
+				rollOffMaxDistance: rollOffMaxDistanceCache.tryGet(),
 			});
 		});
 
 		this.onk(["volume"], ({ volume }) => {
 			if (!soundInstance.Playing) return;
-			events.update.send({ block: block.instance, play: true, volume });
-		});
-		this.onk(["loop"], ({ loop }) => {
-			if (!soundInstance.Playing) return;
-			events.update.send({ block: block.instance, play: true, loop });
+			events.update.send({
+				block: block.instance,
+				play: true,
+				volume,
+				rollOffMaxDistance: rollOffMaxDistanceCache.tryGet(),
+			});
 		});
 
-		const volumeCache = this.initializeInputCache("volume");
-		const loopCache = this.initializeInputCache("loop");
+		this.onk(["rollOffMaxDistance"], ({ rollOffMaxDistance }) => {
+			if (!soundInstance.Playing) return;
+			events.update.send({
+				block: block.instance,
+				play: true,
+				rollOffMaxDistance,
+			});
+		});
+
+		this.onk(["loop"], ({ loop }) => {
+			if (!soundInstance.IsPlaying) return;
+			events.update.send({
+				block: block.instance,
+				play: true,
+				loop,
+				rollOffMaxDistance: rollOffMaxDistanceCache.tryGet(),
+			});
+		});
+
 		this.onk(["play"], ({ play }) => {
 			if (!play) {
 				events.update.send({ block: block.instance, play: false });
@@ -254,7 +303,8 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 				sound: nextSoundUpdate,
 				play: true,
 				loop: loopCache.tryGet() ?? false,
-				volume: volumeCache.tryGet() ?? 0,
+				volume: volumeCache.tryGet() ?? 1,
+				rollOffMaxDistance: rollOffMaxDistanceCache.tryGet(),
 			});
 			nextSoundUpdate = undefined;
 		});
@@ -274,6 +324,5 @@ export const SpeakerBlock = {
 	search: {
 		partialAliases: ["sound", "music", "speaker", "play"],
 	},
-
 	logic: { definition, ctor: Logic, events },
 } as const satisfies BlockBuilder;
