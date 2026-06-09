@@ -5,7 +5,7 @@ import type { BlockLogicFullBothDefinitions, InstanceBlockLogicArgs } from "shar
 import type { BlockBuilder } from "shared/blocks/Block";
 
 const definition = {
-	inputOrder: ["damping", "stiffness", "free_length", "max_force"],
+	inputOrder: ["damping", "stiffness", "free_length", "max_force", "color", "coils", "thickness"],
 	input: {
 		damping: {
 			displayName: "Damping",
@@ -64,6 +64,42 @@ const definition = {
 				},
 			},
 		},
+		color: {
+			displayName: "Color",
+			types: {
+				color: {
+					config: Color3.fromHex("#5B5D69"),
+				},
+			},
+		},
+		coils: {
+			displayName: "Coils",
+			types: {
+				number: {
+					config: 3,
+					clamp: {
+						showAsSlider: true,
+						min: 1,
+						max: 50,
+						step: 1,
+					},
+				},
+			},
+		},
+		thickness: {
+			displayName: "Thickness",
+			types: {
+				number: {
+					config: 0.25,
+					clamp: {
+						showAsSlider: true,
+						min: 0,
+						max: 10,
+						step: 0.01,
+					},
+				},
+			},
+		},
 	},
 	output: {},
 } satisfies BlockLogicFullBothDefinitions;
@@ -95,20 +131,49 @@ class Logic extends InstanceBlockLogic<typeof definition, SuspensionModel> {
 			damping,
 			stiffness,
 			free_length,
+			color,
+			coils,
+			thickness,
 		}: {
-			max_force: number;
-			damping: number;
-			stiffness: number;
-			free_length: number;
+			max_force?: number;
+			damping?: number;
+			stiffness?: number;
+			free_length?: number;
+			color?: Color3;
+			coils?: number;
+			thickness?: number;
 		}) => {
 			if (!spring) return;
+
+			if (
+				max_force === undefined ||
+				damping === undefined ||
+				stiffness === undefined ||
+				free_length === undefined
+			) {
+				return;
+			}
+
 			const len = free_length * blockScale.Y;
+
 			spring.MaxForce = max_force * scale;
 			spring.Damping = damping * scale;
 			spring.Stiffness = stiffness * scale;
 			spring.FreeLength = len;
 			spring.MaxLength = len * 2;
 			spring.MinLength = 0.1;
+
+			if (color !== undefined) {
+				spring.Color = new BrickColor(color);
+			}
+
+			if (coils !== undefined) {
+				spring.Coils = coils;
+			}
+
+			if (thickness !== undefined) {
+				spring.Thickness = thickness;
+			}
 		};
 
 		this.onkFirstInputs(["damping", "free_length", "max_force", "stiffness"], setSpringParameters);
