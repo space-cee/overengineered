@@ -138,6 +138,9 @@ class Logic extends BlockLogic<typeof definition> {
 		this.greenLED = block.instance?.FindFirstChild("GreenLED") as BasePart;
 		this.redLED = block.instance?.FindFirstChild("RedLED") as BasePart;
 
+		const body2 = block.instance?.FindFirstChild("Body2") as BasePart | undefined;
+		const sound2 = body2?.FindFirstChild("Sound2") as Sound | undefined;
+
 		this.greenLED.Material = Enum.Material.Neon;
 		this.greenLED.Color = Colors.green;
 
@@ -337,6 +340,11 @@ class Logic extends BlockLogic<typeof definition> {
 			} catch (err) {
 				log(`Compilation error: ${tostring(err)}`, "error");
 				blinkRedLEDLoop();
+
+				// 1% chance of FAHHH
+				if (math.random() <= 0.01) {
+					sound2?.Play();
+				}
 
 				return;
 			}
