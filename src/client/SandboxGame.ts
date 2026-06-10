@@ -40,6 +40,7 @@ import { NewBasicPlaneTutorial } from "client/tutorial/tutorials/NewBasicPlaneTu
 import { TutorialServiceInitializer } from "client/tutorial/TutorialService";
 import { InputController } from "engine/client/InputController";
 import { Keybinds } from "engine/client/Keybinds";
+import { LocalPlayer } from "engine/client/LocalPlayer";
 import { BlockDamageController } from "engine/shared/BlockDamageController";
 import { ReadonlyPlot } from "shared/building/ReadonlyPlot";
 import { SharedPlots } from "shared/building/SharedPlots";
@@ -55,6 +56,7 @@ import { WeaponModuleSystem } from "shared/weaponProjectiles/WeaponModuleSystem"
 import type { TutorialDescriber } from "client/tutorial/TutorialController";
 import type { GameHostBuilder } from "engine/shared/GameHostBuilder";
 import type { SharedPlot } from "shared/building/SharedPlot";
+
 import type { EffectCreator } from "shared/effects/EffectBase";
 
 export namespace SandboxGame {
@@ -98,6 +100,7 @@ export namespace SandboxGame {
 
 			builder.services.registerSingletonClass(Theme);
 			builder.services.registerService(ThemeAutoSetter);
+			builder.services.registerSingletonValue(LocalPlayer.playerInfo);
 		});
 
 		builder.services.registerSingletonClass(Keybinds);
