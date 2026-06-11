@@ -1441,7 +1441,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0.2</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -1654,7 +1653,6 @@ end</string>
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -1885,7 +1883,6 @@ end</string>
                     <Y>64</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -1999,7 +1996,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0.2</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -2211,7 +2207,6 @@ end</string>
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -3181,7 +3176,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -3983,7 +3977,6 @@ end</string>
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -4350,7 +4343,6 @@ end</string>
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -5051,7 +5043,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -5247,7 +5238,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -9087,7 +9077,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -9714,7 +9703,6 @@ end</string>
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -10114,7 +10102,6 @@ end</string>
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -10717,7 +10704,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -11231,7 +11217,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -11705,7 +11690,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -12179,7 +12163,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -12653,7 +12636,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -13127,7 +13109,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -13601,7 +13582,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -14075,7 +14055,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -15416,7 +15395,6 @@ end</string>
                               <Y>0</Y>
                             </Vector2>
                             <float name="ImageTransparency">0</float>
-                            <token name="InputSink">4294967295</token>
                             <bool name="Interactable">true</bool>
                             <int name="LayoutOrder">0</int>
                             <Ref name="NextSelectionDown">null</Ref>
@@ -17616,7 +17594,6 @@ end</string>
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0.2</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -18518,7 +18495,6 @@ end</string>
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -20126,7 +20102,6 @@ end</string>
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -20368,7 +20343,6 @@ end</string>
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -21944,7 +21918,6 @@ end</string>
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -25047,7 +25020,6 @@ end</string>
                               <Y>0</Y>
                             </Vector2>
                             <float name="ImageTransparency">0</float>
-                            <token name="InputSink">4294967295</token>
                             <bool name="Interactable">true</bool>
                             <int name="LayoutOrder">0</int>
                             <Ref name="NextSelectionDown">null</Ref>
@@ -31981,7 +31953,6 @@ end</string>
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -32223,7 +32194,6 @@ end</string>
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -32415,7 +32385,6 @@ end</string>
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -34315,7 +34284,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -35662,7 +35630,6 @@ end</string>
                               <Y>0</Y>
                             </Vector2>
                             <float name="ImageTransparency">0</float>
-                            <token name="InputSink">4294967295</token>
                             <bool name="Interactable">true</bool>
                             <int name="LayoutOrder">0</int>
                             <Ref name="NextSelectionDown">null</Ref>
@@ -35808,7 +35775,6 @@ end</string>
                           <Y>0</Y>
                         </Vector2>
                         <float name="ImageTransparency">0</float>
-                        <token name="InputSink">4294967295</token>
                         <bool name="Interactable">true</bool>
                         <int name="LayoutOrder">1</int>
                         <Ref name="NextSelectionDown">null</Ref>
@@ -36574,7 +36540,6 @@ end</string>
                           <Y>0</Y>
                         </Vector2>
                         <float name="ImageTransparency">0</float>
-                        <token name="InputSink">4294967295</token>
                         <bool name="Interactable">true</bool>
                         <int name="LayoutOrder">0</int>
                         <Ref name="NextSelectionDown">null</Ref>
@@ -36856,7 +36821,6 @@ end</string>
                           <Y>0</Y>
                         </Vector2>
                         <float name="ImageTransparency">0</float>
-                        <token name="InputSink">4294967295</token>
                         <bool name="Interactable">true</bool>
                         <int name="LayoutOrder">0</int>
                         <Ref name="NextSelectionDown">null</Ref>
@@ -37140,7 +37104,6 @@ end</string>
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">1</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -37341,7 +37304,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0.1</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -38971,7 +38933,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -39371,7 +39332,6 @@ end</string>
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -39817,7 +39777,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -40445,7 +40404,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -40802,7 +40760,6 @@ end</string>
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -41623,7 +41580,6 @@ end</string>
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -41980,7 +41936,6 @@ end</string>
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -42964,7 +42919,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -43356,7 +43310,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -43823,7 +43776,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                         <Y>0</Y>
                       </Vector2>
                       <float name="ImageTransparency">0</float>
-                      <token name="InputSink">4294967295</token>
                       <bool name="Interactable">true</bool>
                       <int name="LayoutOrder">0</int>
                       <Ref name="NextSelectionDown">null</Ref>
@@ -44263,7 +44215,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -45054,7 +45005,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -45560,7 +45510,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -48776,7 +48725,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -49919,7 +49867,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                           <Y>0</Y>
                         </Vector2>
                         <float name="ImageTransparency">0</float>
-                        <token name="InputSink">4294967295</token>
                         <bool name="Interactable">true</bool>
                         <int name="LayoutOrder">0</int>
                         <Ref name="NextSelectionDown">null</Ref>
@@ -50542,7 +50489,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -51295,7 +51241,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                           <Y>0</Y>
                         </Vector2>
                         <float name="ImageTransparency">0</float>
-                        <token name="InputSink">4294967295</token>
                         <bool name="Interactable">true</bool>
                         <int name="LayoutOrder">1</int>
                         <Ref name="NextSelectionDown">null</Ref>
@@ -52548,7 +52493,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -52993,7 +52937,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -53393,7 +53336,6 @@ If you have any problem, do not overwrite your slot in any case and let us know 
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">0</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -54736,7 +54678,6 @@ lexer.highlight({
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -56195,7 +56136,6 @@ lexer.highlight({
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">1</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -60979,7 +60919,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -61240,7 +61179,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -64411,7 +64349,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -65803,7 +65740,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -66182,7 +66118,6 @@ lexer.highlight({
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -66560,7 +66495,6 @@ lexer.highlight({
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -68239,7 +68173,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -68551,7 +68484,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -68967,7 +68899,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -69131,7 +69062,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -69429,7 +69359,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -71685,7 +71614,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -72467,7 +72395,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -72786,7 +72713,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -73218,7 +73144,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -74520,7 +74445,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">1</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -75214,7 +75138,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">1</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -76080,7 +76003,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -79279,7 +79201,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -80606,7 +80527,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -83102,7 +83022,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -84133,7 +84052,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">1</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -85321,7 +85239,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -85594,7 +85511,6 @@ lexer.highlight({
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">1</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -86125,7 +86041,6 @@ lexer.highlight({
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -88289,7 +88204,6 @@ lexer.highlight({
                       <Y>0</Y>
                     </Vector2>
                     <float name="ImageTransparency">0</float>
-                    <token name="InputSink">4294967295</token>
                     <bool name="Interactable">true</bool>
                     <int name="LayoutOrder">3</int>
                     <Ref name="NextSelectionDown">null</Ref>
@@ -88836,7 +88750,6 @@ lexer.highlight({
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -89056,7 +88969,6 @@ lexer.highlight({
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -89534,7 +89446,6 @@ lexer.highlight({
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">0</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -91056,7 +90967,6 @@ lexer.highlight({
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -94090,7 +94000,6 @@ lexer.highlight({
                                 <Y>0</Y>
                               </Vector2>
                               <float name="ImageTransparency">0</float>
-                              <token name="InputSink">4294967295</token>
                               <bool name="Interactable">true</bool>
                               <int name="LayoutOrder">0</int>
                               <Ref name="NextSelectionDown">null</Ref>
@@ -94601,7 +94510,6 @@ lexer.highlight({
                               <Y>0</Y>
                             </Vector2>
                             <float name="ImageTransparency">0</float>
-                            <token name="InputSink">4294967295</token>
                             <bool name="Interactable">true</bool>
                             <int name="LayoutOrder">0</int>
                             <Ref name="NextSelectionDown">null</Ref>
@@ -94907,7 +94815,6 @@ lexer.highlight({
                               <Y>0</Y>
                             </Vector2>
                             <float name="ImageTransparency">0</float>
-                            <token name="InputSink">4294967295</token>
                             <bool name="Interactable">true</bool>
                             <int name="LayoutOrder">0</int>
                             <Ref name="NextSelectionDown">null</Ref>
@@ -95686,7 +95593,6 @@ lexer.highlight({
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -96006,7 +95912,6 @@ lexer.highlight({
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -96497,7 +96402,6 @@ lexer.highlight({
                               <Y>0</Y>
                             </Vector2>
                             <float name="ImageTransparency">0</float>
-                            <token name="InputSink">4294967295</token>
                             <bool name="Interactable">true</bool>
                             <int name="LayoutOrder">0</int>
                             <Ref name="NextSelectionDown">null</Ref>
@@ -97861,7 +97765,6 @@ lexer.highlight({
                                   <Y>0</Y>
                                 </Vector2>
                                 <float name="ImageTransparency">0</float>
-                                <token name="InputSink">4294967295</token>
                                 <bool name="Interactable">true</bool>
                                 <int name="LayoutOrder">0</int>
                                 <Ref name="NextSelectionDown">null</Ref>
@@ -98103,7 +98006,6 @@ lexer.highlight({
                                   <Y>0</Y>
                                 </Vector2>
                                 <float name="ImageTransparency">0</float>
-                                <token name="InputSink">4294967295</token>
                                 <bool name="Interactable">true</bool>
                                 <int name="LayoutOrder">0</int>
                                 <Ref name="NextSelectionDown">null</Ref>
@@ -100320,7 +100222,6 @@ lexer.highlight({
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -102520,7 +102421,6 @@ lexer.highlight({
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -103474,7 +103374,6 @@ lexer.highlight({
                             <Y>0</Y>
                           </Vector2>
                           <float name="ImageTransparency">0.2</float>
-                          <token name="InputSink">4294967295</token>
                           <bool name="Interactable">true</bool>
                           <int name="LayoutOrder">0</int>
                           <Ref name="NextSelectionDown">null</Ref>
@@ -104824,7 +104723,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0.1</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -105254,7 +105152,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -105508,7 +105405,6 @@ lexer.highlight({
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">0</float>
-                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
@@ -105781,7 +105677,6 @@ lexer.highlight({
                     <Y>0</Y>
                   </Vector2>
                   <float name="ImageTransparency">0</float>
-                  <token name="InputSink">4294967295</token>
                   <bool name="Interactable">true</bool>
                   <int name="LayoutOrder">1</int>
                   <Ref name="NextSelectionDown">null</Ref>
@@ -106136,7 +106031,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -106355,7 +106249,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -106574,7 +106467,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -106793,7 +106685,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -107012,7 +106903,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -107257,7 +107147,6 @@ lexer.highlight({
                 <Y>0</Y>
               </Vector2>
               <float name="ImageTransparency">0</float>
-              <token name="InputSink">4294967295</token>
               <bool name="Interactable">true</bool>
               <int name="LayoutOrder">0</int>
               <Ref name="NextSelectionDown">null</Ref>
@@ -107685,7 +107574,6 @@ lexer.highlight({
             <Y>0</Y>
           </Vector2>
           <float name="ImageTransparency">0</float>
-          <token name="InputSink">4294967295</token>
           <bool name="Interactable">true</bool>
           <int name="LayoutOrder">0</int>
           <Ref name="NextSelectionDown">null</Ref>
