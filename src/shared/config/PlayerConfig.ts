@@ -264,7 +264,7 @@ export const PlayerConfigDefinition = {
 	},
 	mapUnload: {
 		type: "mapUnload",
-		config: asObject(GetUnloadables().mapToMap((e) => $tuple(e.Name, true))), // i3ym
+		config: asObject(GetUnloadables().mapToMap((e) => $tuple(e.Name, false))), // i3y3
 	},
 	terrain: {
 		type: "terrain",
