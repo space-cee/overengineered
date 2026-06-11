@@ -2083,6 +2083,7 @@ end)
                   <Y>0</Y>
                 </Vector2>
                 <float name="ImageTransparency">1</float>
+                <token name="InputSink">4294967295</token>
                 <bool name="Interactable">true</bool>
                 <int name="LayoutOrder">0</int>
                 <Ref name="NextSelectionDown">null</Ref>
