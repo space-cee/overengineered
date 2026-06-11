@@ -10,7 +10,7 @@ import type { BlockLogicFullBothDefinitions, InstanceBlockLogicArgs } from "shar
 import type { BlockBuilder } from "shared/blocks/Block";
 
 const definition = {
-	inputOrder: ["assetid", "stretch", "transparency", "color", "singleFace"],
+	inputOrder: ["assetid", "stretch", "transparency", "studsPerTileU", "studsPerTileV", "color", "singleFace"],
 	input: {
 		assetid: {
 			displayName: "Texture ID",
@@ -26,6 +26,14 @@ const definition = {
 		transparency: {
 			displayName: "Transparency",
 			types: { number: { config: 0, clamp: { showAsSlider: true, min: 0, max: 1 } } },
+		},
+		studsPerTileU: {
+			displayName: "Studs Per Tile Width",
+			types: { number: { config: 2, clamp: { showAsSlider: true, min: 1, max: 100 } } },
+		},
+		studsPerTileV: {
+			displayName: "Studs Per Tile Height",
+			types: { number: { config: 2, clamp: { showAsSlider: true, min: 1, max: 100 } } },
 		},
 		color: {
 			displayName: "Color",
@@ -48,27 +56,73 @@ const updateType = t.intersection(
 	t.partial({
 		assetId: t.union(t.string, t.number),
 		transparency: t.numberWithBounds(0, 1),
+		studsPerTileU: t.number,
+		studsPerTileV: t.number,
 		color: t.color,
 		singleFace: t.boolean,
 	}),
 );
 type updateType = t.Infer<typeof updateType>;
 
-const update = ({ block, stretch, assetId, transparency, color, singleFace }: updateType) => {
-	const part = block.FindFirstChild("Part");
+const update = ({
+	block,
+	stretch,
+	assetId,
+	transparency,
+	studsPerTileU,
+	studsPerTileV,
+	color,
+	singleFace,
+}: updateType) => {
+	const part = block.FindFirstChild("Part") as Part | undefined;
 	if (!part) return;
+
+	// Find first available child to extract fallback attributes from
+	const firstChild = part
+		.GetChildren()
+		.find((child): child is Texture | Decal => child.IsA("Texture") || child.IsA("Decal"));
+
+	// Fallback extraction
+	let finalAssetId = assetId;
+	if (finalAssetId === undefined && firstChild && firstChild.Texture !== "") {
+		const extractedId = string.match(firstChild.Texture, "%d+")[0];
+		if (extractedId !== undefined) {
+			finalAssetId = extractedId;
+		}
+	}
+
+	let finalTransparency = transparency;
+	if (finalTransparency === undefined && firstChild) {
+		finalTransparency = firstChild.Transparency;
+	}
+
+	let finalStudsPerTileU = studsPerTileU;
+	if (finalStudsPerTileU === undefined && firstChild && firstChild.IsA("Texture")) {
+		finalStudsPerTileU = firstChild.StudsPerTileU;
+	}
+
+	let finalStudsPerTileV = studsPerTileV;
+	if (finalStudsPerTileV === undefined && firstChild && firstChild.IsA("Texture")) {
+		finalStudsPerTileV = firstChild.StudsPerTileV;
+	}
+
+	let finalColor = color;
+	if (finalColor === undefined && firstChild) {
+		finalColor = firstChild.Color3;
+	}
 
 	for (const child of part.GetChildren()) {
 		if (!child.IsA(stretch ? "Texture" : "Decal")) continue;
 		child.Destroy();
 	}
 
-	let cur: readonly (Texture | Decal)[] = part.GetChildren().filter((c) => c.IsA(stretch ? "Decal" : "Texture"));
+	let cur: readonly (Texture | Decal)[] = part
+		.GetChildren()
+		.filter((c): c is Texture | Decal => c.IsA(stretch ? "Decal" : "Texture"));
 	if ((singleFace === true && cur.size() !== 1) || (singleFace === false && cur.size() !== 6)) {
 		for (const item of cur) {
 			item.Destroy();
 		}
-
 		cur = Objects.empty;
 	}
 
@@ -94,14 +148,22 @@ const update = ({ block, stretch, assetId, transparency, color, singleFace }: up
 
 	type TextureDecal = Texture & Decal;
 	for (const child of cur) {
-		if (assetId) {
-			(child as TextureDecal).Texture = `rbxassetid://${assetId}`;
+		if (finalAssetId !== undefined) {
+			(child as TextureDecal).Texture = `rbxassetid://${finalAssetId}`;
 		}
-		if (transparency) {
-			(child as TextureDecal).Transparency = transparency;
+		if (finalTransparency !== undefined) {
+			(child as TextureDecal).Transparency = finalTransparency;
 		}
-		if (color) {
-			(child as TextureDecal).Color3 = color;
+		if (!stretch) {
+			if (finalStudsPerTileU !== undefined && child.IsA("Texture")) {
+				child.StudsPerTileU = finalStudsPerTileU;
+			}
+			if (finalStudsPerTileV !== undefined && child.IsA("Texture")) {
+				child.StudsPerTileV = finalStudsPerTileV;
+			}
+		}
+		if (finalColor !== undefined) {
+			(child as TextureDecal).Color3 = finalColor;
 		}
 	}
 };
@@ -118,48 +180,32 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 		const stretchCache = this.initializeInputCache("stretch");
 		const assetIdCache = this.initializeInputCache("assetid");
 		const transparencyCache = this.initializeInputCache("transparency");
+		const studsPerTileUCache = this.initializeInputCache("studsPerTileU");
+		const studsPerTileVCache = this.initializeInputCache("studsPerTileV");
 		const colorCache = this.initializeInputCache("color");
 		const singleFaceCache = this.initializeInputCache("singleFace");
 
-		this.onk(["stretch"], ({ stretch }) => {
+		const sendFullUpdate = (overrides: Partial<updateType>) => {
 			events.update.send({
 				block: block.instance,
-				stretch: stretch,
-				assetId: assetIdCache.tryGet(),
-				transparency: transparencyCache.tryGet(),
-				color: colorCache.tryGet(),
-				singleFace: singleFaceCache.tryGet(),
+				stretch: stretchCache.get(),
+				assetId: assetIdCache.get(),
+				transparency: transparencyCache.get(),
+				studsPerTileU: studsPerTileUCache.get(),
+				studsPerTileV: studsPerTileVCache.get(),
+				color: colorCache.get(),
+				singleFace: singleFaceCache.get(),
+				...overrides,
 			});
-		});
+		};
 
-		this.onk(["assetid"], ({ assetid }) => {
-			events.update.send({
-				block: block.instance,
-				stretch: stretchCache.get(),
-				assetId: assetid,
-			});
-		});
-		this.onk(["transparency"], ({ transparency }) => {
-			events.update.send({
-				block: block.instance,
-				stretch: stretchCache.get(),
-				transparency,
-			});
-		});
-		this.onk(["color"], ({ color }) => {
-			events.update.send({
-				block: block.instance,
-				stretch: stretchCache.get(),
-				color,
-			});
-		});
-		this.onk(["singleFace"], ({ singleFace }) => {
-			events.update.send({
-				block: block.instance,
-				stretch: stretchCache.get(),
-				singleFace,
-			});
-		});
+		this.onk(["stretch"], ({ stretch }) => sendFullUpdate({ stretch }));
+		this.onk(["assetid"], ({ assetid }) => sendFullUpdate({ assetId: assetid }));
+		this.onk(["transparency"], ({ transparency }) => sendFullUpdate({ transparency }));
+		this.onk(["studsPerTileU"], ({ studsPerTileU }) => sendFullUpdate({ studsPerTileU }));
+		this.onk(["studsPerTileV"], ({ studsPerTileV }) => sendFullUpdate({ studsPerTileV }));
+		this.onk(["color"], ({ color }) => sendFullUpdate({ color }));
+		this.onk(["singleFace"], ({ singleFace }) => sendFullUpdate({ singleFace }));
 	}
 }
 
@@ -174,6 +220,14 @@ const immediate = BlockCreation.immediate(definition, (block: BlockModel, config
 			config?.transparency,
 			definition.input.transparency.types.number.config,
 		),
+		studsPerTileU: BlockCreation.defaultIfWiredUnset(
+			config?.studsPerTileU,
+			definition.input.studsPerTileU.types.number.config,
+		),
+		studsPerTileV: BlockCreation.defaultIfWiredUnset(
+			config?.studsPerTileV,
+			definition.input.studsPerTileV.types.number.config,
+		),
 		color: BlockCreation.defaultIfWiredUnset(config?.color, definition.input.color.types.color.config),
 		singleFace: BlockCreation.defaultIfWiredUnset(
 			config?.singleFace,
@@ -187,7 +241,7 @@ export const TextureBlock = {
 	id: "textureblock",
 	displayName: "Texture Block",
 	description: "Shows something appropriate",
-	search: { partialAliases: ["decal"] },
+	search: { partialAliases: ["decal", "image", "picture"] },
 
 	logic: { definition, ctor: Logic, events, immediate },
 } as const satisfies BlockBuilder;
