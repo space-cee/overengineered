@@ -30,7 +30,7 @@ export const FlatTerrainRenderer = (
 
 		part.Position = new Vector3(
 			chunkX * this.chunkSize,
-			height + GameDefinitions.HEIGHT_OFFSET - 0.5,
+			height + GameDefinitions.HEIGHT_OFFSET - 1,
 			chunkZ * this.chunkSize,
 		);
 		part.Size = new Vector3(this.chunkSize, 2, this.chunkSize);
