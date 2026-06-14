@@ -37,6 +37,7 @@ export class ShowAdminGui extends HostedService {
 	}
 	avatarMimic = new ObservableValue<boolean>(true);
 	useExternal = new ObservableValue<boolean>(false);
+	useSpaceCee = new ObservableValue<boolean>(false);
 
 	constructor(@inject popupController: PopupController) {
 		super();
@@ -181,6 +182,11 @@ class DeveloperSwitchesTab extends ConfigControlList {
 				this.addToggle("Always save to external") //
 					.setDescription("Toggles whether or not saves are saved to external as well")
 					.initToObservable(adminGui.useExternal);
+				this.addToggle("Use Space Cee external backend")
+					.setDescription(
+						"Use https://api.space-cee.com instead of https://www.ftrookie.com for external save/load operations",
+					)
+					.initToObservable(adminGui.useSpaceCee);
 				this.addToggle("Avatar Mimic")
 					.setDescription("Toggle replacing your avatar with your original account's")
 					.initToObservable(adminGui.avatarMimic);

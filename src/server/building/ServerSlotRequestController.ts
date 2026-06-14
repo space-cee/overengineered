@@ -70,10 +70,14 @@ export class ServerSlotRequestController extends Component {
 			output = { blocks: blocks.blocks.size() };
 
 			if (useExternal) {
-				const result = ExternalDatabase.SaveSlot(this.playerId, {
-					index: request.index,
-					blocks: BlocksSerializer.objectToJson(blocks),
-				});
+				const result = ExternalDatabase.SaveSlot(
+					this.playerId,
+					{
+						index: request.index,
+						blocks: BlocksSerializer.objectToJson(blocks),
+					},
+					request.useSpaceCee,
+				);
 				if ("error" in result) {
 					externalError = result.error;
 				}
@@ -112,16 +116,16 @@ export class ServerSlotRequestController extends Component {
 		return { success: true };
 	}
 
-	private loadSlot({ index }: PlayerLoadSlotRequest): LoadSlotResponse {
-		return this.forceLoadSlot(this.playerId, index);
+	private loadSlot({ index, useSpaceCee }: PlayerLoadSlotRequest): LoadSlotResponse {
+		return this.forceLoadSlot(this.playerId, index, useSpaceCee);
 	}
-	private forceLoadSlot(userid: number, index: number): LoadSlotResponse {
+	private forceLoadSlot(userid: number, index: number, useSpaceCee = false): LoadSlotResponse {
 		const start = os.clock();
 		let blocks = this.slots.getBlocks(userid, index);
 
 		this.blocks.deleteOperation.execute("all");
 		if (blocks.blocks.size() === 0) {
-			const external = ExternalDatabase.GetSave([userid, index]);
+			const external = ExternalDatabase.GetSave([userid, index], useSpaceCee);
 			if (!external) return { success: false, message: "External database failed to retrieve the slot" };
 			if (external?.blocks.size() === 0) return { success: true, isEmpty: true };
 

@@ -113,7 +113,10 @@ class SaveItem extends PartialControl<SaveItemParts, SaveItemDefinition> impleme
 				this.load.subscribe(() => {
 					const load = () => {
 						popup.destroy();
-						task.spawn(() => playerData.loadPlayerSlot(slot.index));
+						task.spawn(() => {
+							const useSpaceCee = di.tryResolve<ShowAdminGui>()?.useSpaceCee.get() ?? false;
+							playerData.loadPlayerSlot(slot.index, undefined, useSpaceCee);
+						});
 					};
 
 					const slot = meta.get();
@@ -126,12 +129,14 @@ class SaveItem extends PartialControl<SaveItemParts, SaveItemDefinition> impleme
 
 				this.save.subscribe(() => {
 					const external = di.tryResolve<ShowAdminGui>()?.useExternal.get() ?? false;
+					const useSpaceCee = di.tryResolve<ShowAdminGui>()?.useSpaceCee.get() ?? false;
 					const save = () => {
 						task.spawn(() => {
 							const response = playerData.sendPlayerSlot({
 								index: slot.index,
 								save: true,
 								external,
+								useSpaceCee,
 								color: slot.color,
 								name: slot.name,
 								order: slot.order,
@@ -276,12 +281,14 @@ class NewSaveItem extends Control<GuiButton> implements CurrentItem {
 		this.$onInjectAuto((popupController: PopupController, di: DIContainer) => {
 			this.save.subscribe(() => {
 				const external = di.tryResolve<ShowAdminGui>()?.useExternal.get() ?? false;
+				const useSpaceCee = di.tryResolve<ShowAdminGui>()?.useSpaceCee.get() ?? false;
 				task.spawn(() => {
 					const slot = this.meta.get();
 					const response = playerData.sendPlayerSlot({
 						index: slot.index,
 						save: true,
 						external,
+						useSpaceCee,
 						color: slot.color,
 						name: slot.name,
 						order: slot.order,

@@ -113,16 +113,19 @@ declare global {
 		readonly touchControls?: TouchControlInfo;
 		readonly save: boolean;
 		readonly external?: boolean;
+		readonly useSpaceCee?: boolean;
 	};
 	type PlayerDeleteSlotRequest = {
 		readonly index: number;
 	};
 	type PlayerLoadSlotRequest = {
 		readonly index: number;
+		readonly useSpaceCee?: boolean;
 	};
 	type PlayerLoadSlotFromHistoryRequest = {
 		readonly databaseId: string;
 		readonly historyId: string;
+		readonly useSpaceCee?: boolean;
 	};
 	type PlayerLoadAdminSlotRequest = PlayerLoadSlotRequest & {
 		readonly userid: number;

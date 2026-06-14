@@ -22,6 +22,9 @@ export type MigrationResponse = {
 	saves: "SUCCESS" | "FAIL";
 };
 
+const getExternalBaseUrl = (useSpaceCee = false) =>
+	useSpaceCee ? "https://api.space-cee.com/overengineered" : "https://www.ftrookie.com/overengineered";
+
 const ParseData = (data: string): LatestSerializedBlocks | undefined => {
 	try {
 		const p1 = JSON.deserialize(data) as { data: string | BlocksSerializer.JsonSerializedBlocks };
@@ -62,10 +65,10 @@ export namespace ExternalDatabase {
 		CustomRemotes.admin.adminMigrateReply.send(player, MigratePlayer(arg.from, arg.to));
 	});
 
-	export const GetPlayer = (UID: number): PlayerDatabaseData | undefined => {
+	export const GetPlayer = (UID: number, useSpaceCee = false): PlayerDatabaseData | undefined => {
 		const result = HttpService.RequestAsync({
 			Method: "GET",
-			Url: `https://www.ftrookie.com/overengineered/player/${UID}`,
+			Url: `${getExternalBaseUrl(useSpaceCee)}/player/${UID}`,
 		});
 		assert(result.Body, "RETURNED INVALID DATA");
 		if (result.StatusCode === 404) return undefined;
@@ -78,7 +81,7 @@ export namespace ExternalDatabase {
 		return val;
 	};
 
-	export const SetPlayer = (UID: number, data: PlayerDatabaseData) => {
+	export const SetPlayer = (UID: number, data: PlayerDatabaseData, useSpaceCee = false) => {
 		const token = getToken();
 		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
 		const requestResult = HttpService.RequestAsync({
@@ -86,7 +89,7 @@ export namespace ExternalDatabase {
 			Headers: {
 				"Content-Type": "application/json",
 			},
-			Url: `https://www.ftrookie.com/overengineered/player`,
+			Url: `${getExternalBaseUrl(useSpaceCee)}/player`,
 			Body: JSON.serialize({
 				playerID: tostring(UID),
 				data, // Technically different from how processed player data is inserted
@@ -118,13 +121,13 @@ export namespace ExternalDatabase {
 	// 	return val;
 	// };
 
-	export const GetSave = ([ownerID, slotID]: SlotKeys): LatestSerializedBlocks | undefined => {
+	export const GetSave = ([ownerID, slotID]: SlotKeys, useSpaceCee = false): LatestSerializedBlocks | undefined => {
 		let result = "";
 		try {
 			// Attempt to parse the first call, on exception continue trying to load more pages
 			const response = HttpService.RequestAsync({
 				Method: "GET",
-				Url: `https://www.ftrookie.com/overengineered/save/${ownerID}/${slotID}/${0}`,
+				Url: `${getExternalBaseUrl(useSpaceCee)}/save/${ownerID}/${slotID}/${0}`,
 			});
 			if (response.StatusCode === 404) return;
 			if (response.StatusCode !== 200) throw `Got HTTP ${response.StatusCode}`;
@@ -137,7 +140,7 @@ export namespace ExternalDatabase {
 			for (let pageIndex = 1; ; pageIndex++) {
 				const response = HttpService.RequestAsync({
 					Method: "GET",
-					Url: `https://www.ftrookie.com/overengineered/save/${ownerID}/${slotID}/${pageIndex}`,
+					Url: `${getExternalBaseUrl(useSpaceCee)}/save/${ownerID}/${slotID}/${pageIndex}`,
 				});
 				if (response.StatusCode === 404) return;
 				if (response.StatusCode !== 200) throw `Got HTTP ${response.StatusCode}`;
@@ -163,7 +166,11 @@ export namespace ExternalDatabase {
 		return val;
 	};
 
-	export const SaveSlot = (UID: number, slot: ExternalSlot): ExternalError | { status: string } => {
+	export const SaveSlot = (
+		UID: number,
+		slot: ExternalSlot,
+		useSpaceCee = false,
+	): ExternalError | { status: string } => {
 		const token = getToken();
 		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
 		const requestResult = HttpService.RequestAsync({
@@ -171,7 +178,7 @@ export namespace ExternalDatabase {
 			Headers: {
 				"Content-Type": "application/json",
 			},
-			Url: `https://www.ftrookie.com/overengineered/save`,
+			Url: `${getExternalBaseUrl(useSpaceCee)}/save`,
 			Body: JSON.serialize({
 				playerID: tostring(UID),
 				index: tostring(slot.index),
@@ -184,7 +191,7 @@ export namespace ExternalDatabase {
 		return JSON.deserialize<ExternalError | { status: string }>(requestResult.Body);
 	};
 
-	export const MigratePlayer = (fromPlayer: number, toPlayer: number): MigrationResponse => {
+	export const MigratePlayer = (fromPlayer: number, toPlayer: number, useSpaceCee = false): MigrationResponse => {
 		const token = getToken();
 		if (!token) return { metadata: "FAIL", saves: "FAIL" } as MigrationResponse;
 		print(`Migrating saves from ${fromPlayer} to ${toPlayer}`);
@@ -195,7 +202,7 @@ export namespace ExternalDatabase {
 			Headers: {
 				"Content-Type": "application/json",
 			},
-			Url: `https://www.ftrookie.com/overengineered/migrate`,
+			Url: `${getExternalBaseUrl(useSpaceCee)}/migrate`,
 			Body: JSON.serialize({
 				fromID: tostring(fromPlayer),
 				toID: tostring(toPlayer),

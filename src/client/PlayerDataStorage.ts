@@ -153,12 +153,12 @@ export class PlayerDataStorage {
 		return response;
 	}
 
-	loadPlayerSlot(index: number, message?: string) {
+	loadPlayerSlot(index: number, message?: string, useSpaceCee = false) {
 		$log(`Loading slot ${index}`);
 		this._slotLoading.Fire();
 
 		return LoadingController.run(message ?? `Loading slot ${index}`, () => {
-			const response = this.slotRemotes.load.send({ index });
+			const response = this.slotRemotes.load.send({ index, useSpaceCee });
 			if (response.success && !response.isEmpty) {
 				this.loadedSlot.set(index);
 				this._slotLoaded.Fire();
@@ -174,12 +174,16 @@ export class PlayerDataStorage {
 	loadPlayerSlotHistory(index: number) {
 		return this.slotRemotes.loadHistory.send({ index });
 	}
-	loadPlayerSlotFromHistory(databaseSlotId: string, historyId: string, message?: string) {
+	loadPlayerSlotFromHistory(databaseSlotId: string, historyId: string, message?: string, useSpaceCee = false) {
 		$log(`Loading slot D${databaseSlotId} H${historyId}`);
 		this._slotLoading.Fire();
 
 		return LoadingController.run(message ?? `Loading slot D${databaseSlotId} H${historyId}`, () => {
-			const response = this.slotRemotes.loadFromHistory.send({ databaseId: databaseSlotId, historyId });
+			const response = this.slotRemotes.loadFromHistory.send({
+				databaseId: databaseSlotId,
+				historyId,
+				useSpaceCee,
+			});
 			if (response.success && !response.isEmpty) {
 				this.loadedSlot.set(undefined);
 				this._slotLoaded.Fire();
