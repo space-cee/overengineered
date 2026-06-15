@@ -1,12 +1,20 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
+local ConfigService = game:GetService("ConfigService")
+
+-- Fetch dynamic endpoints from ConfigService
+local config = ConfigService:GetConfigAsync()
+local AWMS_ENDPOINT = "awms_endpoint"
+local awms_endpoint = config:GetValue(AWMS_ENDPOINT)
+local LOCAL_ENDPOINT = "local_endpoint"
+local local_endpoint = config:GetValue(LOCAL_ENDPOINT)
 
 local ALLOWED_USER_IDS = {
 	894261194, --me
 	238427763, --FtRookie
 }
--- find this list in ServerBuildingRequestController
+
 local AI_ASLEEP_MESSAGE = "AI is asleep"
 local NO_PERMISSION_MESSAGE = "Not enough permissions lol. No AI gf for u."
 
@@ -19,29 +27,25 @@ end
 
 local activeRequests = {}
 
--- ✅ Better rate limiting
+-- Rate limiting
 local RATE_LIMIT_SECONDS = 10
 local lastRequestTime = {}
 local RATE_LIMIT_BYPASS_USER_IDS = {
 	[894261194] = true, -- me
 	[238427763] = true, -- FtRookie
 }
--- Cleanup on player leave
+
 Players.PlayerRemoving:Connect(function(player)
 	local id = tostring(player.UserId)
 	lastRequestTime[id] = nil
 	activeRequests[id] = nil
 end)
 
-
-
-local ALLOWED_URLS = {
-	["https://88149eff-2e77-479b-b96c-b3172e73679d-00-2zp5kys672x9r.spock.replit.dev/chat"] = true,
-	["https://roblox-ai-server-nhl4.onrender.com/chat"] = true,
-	["https://extraembryonic-decorously-brandi.ngrok-free.dev/chat"] = true,
+local CLIENT_URL_MAPPING = {
+	["https://roblox-ai-server-nhl4.onrender.com/chat"] = awms_endpoint,
+	["https://extraembryonic-decorously-brandi.ngrok-free.dev/chat"] = local_endpoint,
+	["https://88149eff-2e77-479b-b96c-b3172e73679d-00-2zp5kys672x9r.spock.replit.dev/chat"] = "https://88149eff-2e77-479b-b96c-b3172e73679d-00-2zp5kys672x9r.spock.replit.dev/chat",
 }
-
-
 
 local EMOJI_TO_EMOTICON = {
 	["😀"] = ":D", ["😃"] = ":D", ["😄"] = ":D", ["😁"] = ":D",
@@ -73,9 +77,7 @@ local function replaceFaceEmojis(text)
 	return text
 end
 
-
-
-rf.OnServerInvoke = function(player, message, url)
+rf.OnServerInvoke = function(player, message, passedUrl)
 	-- Permission check
 	if not table.find(ALLOWED_USER_IDS, player.UserId) then
 		warn("[AI] Player not allowed to run AI:", player.UserId)
@@ -90,7 +92,6 @@ rf.OnServerInvoke = function(player, message, url)
 		return "Please wait..."
 	end
 
-	-- ✅ Cooldown check (skipped for override user)
 	if not RATE_LIMIT_BYPASS_USER_IDS[player.UserId] then
 		local now = os.clock()
 		if lastRequestTime[sessionId] and (now - lastRequestTime[sessionId]) < RATE_LIMIT_SECONDS then
@@ -108,9 +109,10 @@ rf.OnServerInvoke = function(player, message, url)
 		return "Message too long."
 	end
 
-	-- Validate URL
-	if type(url) ~= "string" or not ALLOWED_URLS[url] then
-		warn("[AI] Blocked or invalid URL from", player.Name, url)
+	-- Dynamic URL validation & routing
+	local targetUrl = CLIENT_URL_MAPPING[passedUrl]
+	if type(passedUrl) ~= "string" or not targetUrl then
+		warn("[AI] Blocked or invalid URL from", player.Name, passedUrl)
 		return AI_ASLEEP_MESSAGE
 	end
 
@@ -118,7 +120,7 @@ rf.OnServerInvoke = function(player, message, url)
 
 	local function sendRequestWithRetry(payload, url)
 		local MAX_RETRIES = 3
-		local RETRY_DELAY = 6 -- seconds (gives Render time to wake)
+		local RETRY_DELAY = 6 
 
 		for attempt = 1, MAX_RETRIES do
 			local success, result = pcall(function()
@@ -127,7 +129,6 @@ rf.OnServerInvoke = function(player, message, url)
 					HttpService:JSONEncode(payload),
 					Enum.HttpContentType.ApplicationJson
 				)
-
 				return HttpService:JSONDecode(response)
 			end)
 
@@ -142,17 +143,15 @@ rf.OnServerInvoke = function(player, message, url)
 		return false, nil
 	end
 
-
 	local payload = {
 		sessionId = sessionId,
 		message = ("Username: %s\nMessage: %s"):format(username, message),
 	}
 
-	local success, result = sendRequestWithRetry(payload, url)
+	local success, result = sendRequestWithRetry(payload, targetUrl)
 
 	activeRequests[sessionId] = nil
 
-	-- ✅ Start cooldown only if not bypass user
 	if not RATE_LIMIT_BYPASS_USER_IDS[player.UserId] then
 		lastRequestTime[sessionId] = os.clock()
 	end
