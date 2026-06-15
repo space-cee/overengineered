@@ -4,7 +4,7 @@ local UIS = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local TeleportService = game:GetService("TeleportService")
 local TEST_PLACE_ID = 77847560609390
-local MAIN_PLACE_ID = 104961158429462
+local MAIN_PLACE_ID = 125844796933744
 
 local toggleEvent = rs:WaitForChild("HeadLookToggle")
 
@@ -199,7 +199,7 @@ end)
 -- test place button (Replaced old Lite Mode)
 local testPlaceButton = Instance.new("TextButton")
 testPlaceButton.Size = UDim2.new(1,-6,0,30)
-testPlaceButton.Text = "Test Place"
+testPlaceButton.Text = "Legacy Game"
 testPlaceButton.TextScaled = true
 testPlaceButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
 testPlaceButton.TextColor3 = Color3.new(1,1,1)
