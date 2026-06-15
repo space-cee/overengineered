@@ -111,7 +111,7 @@ import { TpsCounterBlock } from "shared/blocks/blocks/TpsCounterBlock";
 import { TracerBlock } from "shared/blocks/blocks/TracerBlock";
 import { UnscaledScreenBlock } from "shared/blocks/blocks/UnscaledScreenBlock";
 import { ValueExtenderBlock } from "shared/blocks/blocks/ValueExtenderBlock";
-import { VehicleSeatBlock } from "shared/blocks/blocks/VehicleSeatBlock";
+import { VehicleSeatBlocks } from "shared/blocks/blocks/VehicleSeatBlocks";
 import { CannonBarrels } from "shared/blocks/blocks/Weaponry/Cannon/CannonBarrels";
 import { CannonBases } from "shared/blocks/blocks/Weaponry/Cannon/CannonBases";
 import { CannonBreech } from "shared/blocks/blocks/Weaponry/Cannon/CannonBreechBlock";
@@ -209,7 +209,7 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 		PNBlock,
 		UnscaledScreenBlock,
 
-		VehicleSeatBlock,
+		...VehicleSeatBlocks,
 		...PassengerSeatBlocks,
 		BackMountBlock,
 		LimbMountBlock,

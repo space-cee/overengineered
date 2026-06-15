@@ -26,7 +26,7 @@ import { MathUtils } from "engine/shared/fixes/MathUtils";
 import { Strings } from "engine/shared/fixes/String.propmacro";
 import { BeaconBlock } from "shared/blocks/blocks/BeaconBlock";
 import { RocketBlocks } from "shared/blocks/blocks/RocketEngineBlocks";
-import { VehicleSeatBlock } from "shared/blocks/blocks/VehicleSeatBlock";
+import { VehicleSeatBlocks } from "shared/blocks/blocks/VehicleSeatBlocks";
 import { GameDefinitions } from "shared/data/GameDefinitions";
 import { CustomRemotes } from "shared/Remotes";
 import type { ClientMachine } from "client/blocks/ClientMachine";
@@ -650,9 +650,10 @@ export class RideModeScene extends Control<RideModeSceneDefinition> {
 			this.controls.start(machine);
 		}
 
+		const seatLogicCtor = VehicleSeatBlocks[0]!.logic!.ctor;
 		this.sitAction.canExecute.and(
 			"canNotSitIfNoSeat",
-			machine.blocks.getAll().any((b) => b instanceof VehicleSeatBlock.logic.ctor),
+			machine.blocks.getAll().any((b) => b instanceof seatLogicCtor),
 		);
 
 		this.addMeters(machine);

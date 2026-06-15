@@ -20,16 +20,23 @@ export class RideMode implements PlayModeBase {
 	) {
 		CustomRemotes.modes.ride.teleportOnSeat.invoked.Connect(this.sit.bind(this));
 	}
+	private findDriverSeat(blocks: readonly BlockModel[]): VehicleSeat | undefined {
+		return blocks
+			.find((model) => {
+				const id = BlockManager.manager.id.get(model);
+				return id === "vehicleseat" || id === "armlessvehicleseat";
+			})
+			?.FindFirstChild("VehicleSeat") as VehicleSeat | undefined;
+	}
+
 	private sit(player: Player) {
 		const hrp = player.Character?.FindFirstChild("Humanoid") as Humanoid | undefined;
 		if (!hrp) return;
 		if (hrp.Sit) return;
 
-		const vehicleSeat = this.serverControllers.controllers
-			.get(player.UserId)
-			?.plotController.blocks?.getBlocks()
-			?.find((model) => BlockManager.manager.id.get(model) === "vehicleseat")
-			?.FindFirstChild("VehicleSeat") as VehicleSeat | undefined;
+		const vehicleSeat = this.findDriverSeat(
+			this.serverControllers.controllers.get(player.UserId)?.plotController.blocks?.getBlocks() ?? [],
+		);
 		if (!vehicleSeat) return;
 
 		if (vehicleSeat.Occupant && vehicleSeat.Occupant !== player.Character?.FindFirstChild("Humanoid")) {
@@ -98,9 +105,7 @@ export class RideMode implements PlayModeBase {
 		}
 
 		const hrp = player.Character?.WaitForChild("Humanoid") as Humanoid;
-		const vehicleSeat = blocksChildren
-			.find((model) => BlockManager.manager.id.get(model) === "vehicleseat")
-			?.FindFirstChild("VehicleSeat") as VehicleSeat | undefined;
+		const vehicleSeat = this.findDriverSeat(blocksChildren);
 		if (vehicleSeat) {
 			if (vehicleSeat.Occupant && vehicleSeat.Occupant !== player.Character?.FindFirstChild("Humanoid")) {
 				vehicleSeat.Occupant.Sit = false;

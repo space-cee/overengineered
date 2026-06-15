@@ -5,7 +5,7 @@ import { BlockCreation } from "shared/blocks/BlockCreation";
 import type { PlayerInfo } from "engine/shared/PlayerInfo";
 import type { BlockLogicFullBothDefinitions, InstanceBlockLogicArgs } from "shared/blockLogic/BlockLogic";
 import type { SharedMachine } from "shared/blockLogic/SharedMachine";
-import type { BlockBuilder } from "shared/blocks/Block";
+import type { BlockBuildersWithoutIdAndDefaults } from "shared/blocks/Block";
 
 const definition = {
 	input: {
@@ -38,7 +38,7 @@ type VehicleSeatModel = BlockModel & {
 	readonly VehicleSeat: VehicleSeat;
 };
 
-export type { Logic as VehicleSeatBlockLogic };
+export type { Logic as VehicleSeatBlocksLogic };
 
 @injectable
 class Logic extends InstanceBlockLogic<typeof definition, VehicleSeatModel> {
@@ -95,13 +95,23 @@ class Logic extends InstanceBlockLogic<typeof definition, VehicleSeatModel> {
 	}
 }
 
-export const VehicleSeatBlock = {
-	...BlockCreation.defaults,
-	id: "vehicleseat",
-	displayName: "Driver seat",
-	description: "A seat for your vehicle. Allows you to control your contraption",
-	limit: 1,
-	search: { partialAliases: ["vehicle"] },
+const list: BlockBuildersWithoutIdAndDefaults = {
+	vehicleseat: {
+		displayName: "Driver seat",
+		description: "A seat for your vehicle. Allows you to control your contraption",
+		limit: 1,
+		search: { partialAliases: ["vehicle"] },
 
-	logic: { definition, ctor: Logic },
-} as const satisfies BlockBuilder;
+		logic: { definition, ctor: Logic },
+	},
+	armlessvehicleseat: {
+		displayName: "Armless Driver seat",
+		description: "A sleek, armless driver seat for your vehicle configurations",
+		limit: 1,
+		search: { partialAliases: ["vehicle", "armless"] },
+
+		logic: { definition, ctor: Logic },
+	},
+};
+
+export const VehicleSeatBlocks = BlockCreation.arrayFromObject(list);
