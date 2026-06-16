@@ -3,8 +3,8 @@ local rs = game:GetService("ReplicatedStorage")
 local UIS = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local TeleportService = game:GetService("TeleportService")
-local TEST_PLACE_ID = 77847560609390
-local MAIN_PLACE_ID = 125844796933744
+local TEST_PLACE_ID = 125844796933744
+local MAIN_PLACE_ID = 104961158429462
 
 local toggleEvent = rs:WaitForChild("HeadLookToggle")
 
