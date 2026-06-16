@@ -912,6 +912,7 @@ const random: BlockBuildersWithoutIdAndDefaults = {
 	makster: {
 		displayName: "Makster",
 		description: "The most powerful",
+		devOnly: true,
 	},
 
 	buildinglight: {

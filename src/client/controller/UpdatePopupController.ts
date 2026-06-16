@@ -18,9 +18,8 @@ export class UpdatePopupController extends HostedService {
 			if (lastJoin < DateTime.fromUniversalTime(2025, 5, 9, 4, 38).UnixTimestamp) {
 				popupController.showPopup(
 					new AlertPopup(`
-Hi! We're switching to Roblox measurement units. 
-That means, your builds which rely on physics calculations might've got broken.
-We're sorry for the inconvenience.
+Hi! This is the first update coming back to TS 
+Things will break, let us know in bug reports
 Join our community server for more information.
 `),
 				);

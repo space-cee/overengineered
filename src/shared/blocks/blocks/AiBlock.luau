@@ -167,7 +167,6 @@ _object.logic = {
 	definition = definition,
 	ctor = Logic,
 }
-_object.requiredFeatures = { "lua_circuit" }
 _object.limit = 1
 
 local AiBlock = _object

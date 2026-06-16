@@ -15,7 +15,7 @@ const definition = {
 			types: {
 				enum: {
 					config: "studs",
-					elementOrder: ["studs", "blocks", "meters", "feet"],
+					elementOrder: ["studs", "blocks", "meters", "centimeters", "millimeters", "inches", "feet"],
 					elements: {
 						studs: {
 							displayName: "Studs",
@@ -25,6 +25,18 @@ const definition = {
 						meters: {
 							displayName: "Meters",
 							tooltip: "The standard metric unit of length, 1 stud is 0.28 meters",
+						},
+						centimeters: {
+							displayName: "Centimeters",
+							tooltip: "1 meter = 100 centimeters, 1 stud is 28 centimeters.",
+						},
+						millimeters: {
+							displayName: "Millimeters",
+							tooltip: "1 meter = 1000 millimeters, 1 stud is 280 millimeters.",
+						},
+						inches: {
+							displayName: "Inches",
+							tooltip: "1 foot = 12 inches, 1 stud is about 11.02 inches.",
 						},
 						feet: { displayName: "Feet", tooltip: "WHAT IS A KILOMETER?" },
 					},
@@ -81,6 +93,9 @@ class Logic extends InstanceBlockLogic<typeof definition, SizeBlockModel> {
 		studs: 2,
 		blocks: 1,
 		meters: 0.56,
+		centimeters: 56,
+		millimeters: 560,
+		inches: 0.56 / 0.0254,
 		feet: 0.56 / 0.3048,
 	};
 

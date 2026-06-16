@@ -172,7 +172,6 @@ _object.logic = {
 	definition = definition,
 	ctor = Logic,
 }
-_object.requiredFeatures = { "lua_circuit" }
 _object.modelSource = {
 	model = BlockCreation.Model.fAutoCreated("x4GenericLogicBlockPrefab", "APN"),
 	category = function()

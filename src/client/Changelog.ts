@@ -1,5 +1,16 @@
 export const changelog = `
 
+15 June 2026:
+
+- Armless Driver Seat
+- lower plots
+- lighter wheels
+- better (hollow)torus models
+- lua achievement
+- controller sensor logic expanded
+- NVME queue
+- APN Block
+
 5 June 2026:
 
 - Air Density returned to default (0.01 -> 0.005)
