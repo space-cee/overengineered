@@ -1,5 +1,18 @@
 export const changelog = `
 
+15 June 2026 (bug fixes):
+
+- colorable rope
+- rope thickness
+- missing playerlocatorblock2
+- spotlight angle
+- target material
+- plastic tire colorable + material
+- tnt exploded bool
+- truss welds
+- hollow cy 4 hole welds
+report any bugs still in game
+
 15 June 2026:
 
 - Armless Driver Seat
