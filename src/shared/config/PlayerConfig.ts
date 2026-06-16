@@ -74,6 +74,8 @@ declare global {
 		readonly foliage: boolean;
 		readonly loadDistance: number;
 		readonly water: boolean;
+		readonly waterHeight: number;
+		readonly waterDepth: number;
 		readonly snowOnly: boolean;
 		readonly override?: {
 			readonly enabled: boolean;
@@ -274,6 +276,8 @@ export const PlayerConfigDefinition = {
 			foliage: true as boolean,
 			loadDistance: 24 as number,
 			water: false as boolean,
+			waterHeight: 0 as number,
+			waterDepth: 400 as number,
 			snowOnly: false as boolean,
 			triangleAddSandBelowSeaLevel: false as boolean,
 			override: {

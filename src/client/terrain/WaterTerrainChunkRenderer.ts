@@ -2,9 +2,9 @@ import { Workspace } from "@rbxts/services";
 import { GameDefinitions } from "shared/data/GameDefinitions";
 import type { ChunkRenderer } from "client/terrain/ChunkLoader";
 
-export const WaterTerrainChunkRenderer = (): ChunkRenderer<true> => {
+export const WaterTerrainChunkRenderer = (waterHeight = 0, waterDepth = 400): ChunkRenderer<true> => {
 	const chunkSize = 16;
-	const height = 400;
+	const height = waterDepth;
 	const terrain = Workspace.WaitForChild("Terrain") as Terrain;
 
 	const getRegion = (startX: number, startZ: number) => {
@@ -12,8 +12,8 @@ export const WaterTerrainChunkRenderer = (): ChunkRenderer<true> => {
 		const endZ = startZ + chunkSize - 1;
 
 		return new Region3(
-			new Vector3(startX * 4, -height + GameDefinitions.HEIGHT_OFFSET, startZ * 4),
-			new Vector3(endX * 4 + 4, GameDefinitions.HEIGHT_OFFSET, endZ * 4 + 4),
+			new Vector3(startX * 4, -height + GameDefinitions.HEIGHT_OFFSET + waterHeight, startZ * 4),
+			new Vector3(endX * 4 + 4, GameDefinitions.HEIGHT_OFFSET + waterHeight, endZ * 4 + 4),
 		);
 	};
 

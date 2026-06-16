@@ -36,7 +36,12 @@ export class TerrainController extends HostedService {
 					);
 
 					if (terrain.water) {
-						loaders.add(new ChunkLoader(WaterTerrainChunkRenderer(), terrain.loadDistance * 2));
+						loaders.add(
+							new ChunkLoader(
+								WaterTerrainChunkRenderer(terrain.waterHeight, terrain.waterDepth),
+								terrain.loadDistance * 2,
+							),
+						);
 					}
 
 					break;
@@ -58,7 +63,12 @@ export class TerrainController extends HostedService {
 					);
 					break;
 				case "Water":
-					loaders.add(new ChunkLoader(WaterTerrainChunkRenderer(), terrain.loadDistance));
+					loaders.add(
+						new ChunkLoader(
+							WaterTerrainChunkRenderer(terrain.waterHeight, terrain.waterDepth),
+							terrain.loadDistance,
+						),
+					);
 					break;
 				case "Void":
 					break;

@@ -55,6 +55,14 @@ export class PlayerSettingsEnvironment extends ConfigControlList {
 			const terrainSnowOnly = this.addToggle("Snow only") //
 				.initToObjectPart(value, ["terrain", "snowOnly"]);
 
+			const waterHeight = this.addSlider("Water Height", { min: -2048, max: 2048, step: 1 }) //
+				.setDescription("Vertical offset for the water body and sand layer.")
+				.initToObjectPart(value, ["terrain", "waterHeight"], "value");
+
+			const waterDepth = this.addSlider("Water Depth", { min: -2048, max: 2048, step: 1 }) //
+				.setDescription("Depth of the water body.")
+				.initToObjectPart(value, ["terrain", "waterDepth"], "value");
+
 			const terrainOverride = this.addToggle("Override material") //
 				.initToObjectPart(value, ["terrain", "override", "enabled"]);
 
@@ -82,6 +90,8 @@ export class PlayerSettingsEnvironment extends ConfigControlList {
 				.subscribe(({ kind, snowOnly, override }) => {
 					const isTriangle = kind === "Triangle";
 					const isFlat = kind === "Flat";
+					const isWater = kind === "Water";
+
 					loadDistance.setVisibleAndEnabled(kind !== "Void");
 					triangleResolution.setVisibleAndEnabled(isTriangle);
 					triangleWater.setVisibleAndEnabled(isTriangle);
@@ -92,7 +102,8 @@ export class PlayerSettingsEnvironment extends ConfigControlList {
 					terrainSnowOnly.setVisibleAndEnabled(
 						kind !== "Water" && kind !== "Lava" && kind !== "Void" && !override.enabled,
 					);
-
+					waterHeight.setVisibleAndEnabled(isWater);
+					waterDepth.setVisibleAndEnabled(isWater);
 					terrainOverride.setVisibleAndEnabled((isTriangle || isFlat) && !snowOnly);
 					terrainOverrideMaterial.setVisibleAndEnabled((isTriangle || isFlat) && override.enabled);
 					terrainOverrideColor.setVisibleAndEnabled((isTriangle || isFlat) && override.enabled);
