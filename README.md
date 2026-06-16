@@ -1,7 +1,7 @@
 <h1 align="center">OverEngineered 🚀</h1>
 
 <p align="center">
-  <a href="https://join.anywaymachines.com">
+  <a href="https://www.roblox.com/share/g/1035198532">
     <img src="https://img.shields.io/badge/Roblox-play-blue?style=flat-square&logo=roblox" alt="Play on Roblox" />
   </a>
   <a href="https://github.com/Maks-gaming/OverEngineered">
@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/discord/1053774759244083280?color=blue&label=community&logo=discord&style=flat-square" alt="Join our Discord" />
   </a>
   <a href="https://github.com/anywaymachines/overengineered/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/anywaymachines/overengineered/build.yml?style=flat-square" alt="Build Status" />
+    <img src="https://img.shields.io/github/actions/workflow/status/space-cee/overengineered/build.yml?style=flat-square" alt="Build Status" />
   </a>
 </p>
 
