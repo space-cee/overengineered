@@ -1,3 +1,4 @@
+import { Workspace } from "@rbxts/services";
 import { InstanceBlockLogic as InstanceBlockLogic } from "shared/blockLogic/BlockLogic";
 import { BlockCreation } from "shared/blocks/BlockCreation";
 import { RemoteEvents } from "shared/RemoteEvents";
@@ -32,7 +33,7 @@ const definition = {
 					clamp: {
 						showAsSlider: true,
 						min: 1,
-						max: 999999999999999,
+						max: 50, // Reverted to 50 to match compiled Lua specification clamp bounds
 					},
 				},
 			},
@@ -45,7 +46,7 @@ const definition = {
 					clamp: {
 						showAsSlider: true,
 						min: 0,
-						max: 999999999999999,
+						max: 2500, // Reverted to 2500 to match compiled Lua specification clamp bounds
 					},
 				},
 			},
@@ -67,7 +68,12 @@ const definition = {
 			},
 		},
 	},
-	output: {},
+	output: {
+		hasExploded: {
+			displayName: "Has Exploded",
+			types: ["bool"],
+		},
+	},
 } satisfies BlockLogicFullBothDefinitions;
 
 type TNTBlock = BlockModel & {
@@ -86,7 +92,14 @@ class Logic extends InstanceBlockLogic<typeof definition, TNTBlock> {
 		const flammable = this.initializeInputCache("flammable");
 		const impact = this.initializeInputCache("impact");
 
+		let hasExploded = false;
+
 		const explodeTNT = () => {
+			if (hasExploded) return;
+			hasExploded = true;
+
+			this.output.hasExploded.set("bool", true);
+
 			RemoteEvents.Explode.send({
 				part: mainPart,
 				radius: radius.get(),
@@ -108,6 +121,22 @@ class Logic extends InstanceBlockLogic<typeof definition, TNTBlock> {
 			const velocity2 = part.AssemblyLinearVelocity.Magnitude;
 
 			if (velocity1 > (velocity2 + 1) * 10) explodeTNT();
+		});
+
+		const onDescendantRemoving = (descendant: Instance) => {
+			if (hasExploded) return;
+			if (descendant.IsDescendantOf(this.instance)) {
+				explodeTNT();
+			}
+		};
+
+		Workspace.DescendantRemoving.Connect(onDescendantRemoving);
+		this.instance.DescendantRemoving.Connect(onDescendantRemoving);
+
+		this.instance.Destroying.Connect(() => {
+			if (!hasExploded) {
+				explodeTNT();
+			}
 		});
 	}
 }

@@ -18,6 +18,28 @@ const definition = {
 				},
 			},
 		},
+		color: {
+			displayName: "Color",
+			types: {
+				color: {
+					config: Color3.fromRGB(127, 104, 78),
+				},
+			},
+		},
+		thickness: {
+			displayName: "Thickness",
+			types: {
+				number: {
+					config: 0.1,
+					clamp: {
+						showAsSlider: true,
+						min: 0,
+						max: 10,
+						step: 0.01,
+					},
+				},
+			},
+		},
 	},
 	output: {},
 } satisfies BlockLogicFullBothDefinitions;
@@ -34,7 +56,15 @@ class Logic extends InstanceBlockLogic<typeof definition, RopeModel> {
 		super(definition, block);
 
 		const ropeConstraint = this.instance.RopeSide.RopeConstraint;
-		this.on(({ length }) => (ropeConstraint.Length = length));
+
+		this.on(({ length, color, thickness }) => {
+			ropeConstraint.Length = length;
+			ropeConstraint.Thickness = thickness;
+
+			if (color) {
+				ropeConstraint.Color = new BrickColor(color);
+			}
+		});
 	}
 }
 

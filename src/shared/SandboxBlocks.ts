@@ -81,6 +81,7 @@ import { PidControllerBlock } from "shared/blocks/blocks/PidControllerBlock";
 import { PingSensor } from "shared/blocks/blocks/PingSensor";
 import { PistonBlock } from "shared/blocks/blocks/PistonBlock";
 import { PlayerLocatorBlock } from "shared/blocks/blocks/PlayerLocatorBlock";
+import { PlayerLocatorBlock2 } from "shared/blocks/blocks/PlayerLocatorBlock2";
 import { PNBlock } from "shared/blocks/blocks/PNBlock";
 import { QueueMemoryBlock } from "shared/blocks/blocks/QueueMemoryBlock";
 import { RadarBlocks } from "shared/blocks/blocks/RadarSectionBlock";
@@ -207,6 +208,7 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 		FloaterBlock,
 
 		PlayerLocatorBlock,
+		PlayerLocatorBlock2,
 		PNBlock,
 		UnscaledScreenBlock,
 

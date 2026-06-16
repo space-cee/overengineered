@@ -77,7 +77,7 @@ const definition = {
 			tooltip: "If reflections of the laser should be enabled",
 			types: {
 				bool: {
-					config: true, // on by default
+					config: true,
 				},
 			},
 			connectorHidden: true,
@@ -93,6 +93,11 @@ const definition = {
 			types: ["vector3"],
 			tooltip: "Black color (0, 0, 0) by default and if nothing found",
 		},
+		targetMaterial: {
+			displayName: "Target Material",
+			types: ["string"],
+			tooltip: "Enum.Material name of the hit part",
+		},
 	},
 } satisfies BlockLogicFullBothDefinitions;
 
@@ -102,16 +107,12 @@ type LaserModel = BlockModel & {
 };
 
 // returns if a block can reflect a laser
-function isReflective(block: Instance): boolean {
-	const part = block as Part;
-
-	// must be a placed part
+function isReflective(block: Instance, material: Enum.Material): boolean {
 	if (!block.IsDescendantOf(workspacePlots)) return false;
 
 	if (block.HasTag(mirrorTag)) return true;
 
-	// glass material
-	return part.Material === Enum.Material.Glass; // && (part.Transparency <= 0.35 || part.Transparency === 0.3);
+	return material === Enum.Material.Glass || material === Enum.Material.Metal;
 }
 
 function reflect(incomingVector: Vector3, normalVector: Vector3) {
@@ -137,25 +138,6 @@ export class LaserBlockLogic extends InstanceBlockLogic<typeof definition, Laser
 		laserFolder.Name = "laserFolder";
 		laserFolder.Parent = this.instance;
 
-		/*
-		// laser normal debug
-		const db = new Instance("Part");
-		db.Size = new Vector3(0.5, 0.5, 2);
-		db.CanCollide = false;
-		db.CanQuery = false;
-		db.CanTouch = false;
-		db.Transparency = 0.5;
-
-		function moveDisplay(disp: Part, pos: Vector3, normal: Vector3) {
-			disp.CFrame = new CFrame(pos, pos.add(normal)).add(normal.mul(disp.Size.Z / 2));
-			disp.Parent = laserFolder;
-		}
-
-		const db_normals: Part[] = [];
-		for (let i=0; i<30; i++) {
-			db_normals.push(db.Clone());
-		}*/
-
 		// makes a beam between 2 positions using the rayBeams
 		function createBeamBetween(origin: Vector3, target: Vector3) {
 			const totalDist = origin.sub(target).Magnitude;
@@ -165,13 +147,13 @@ export class LaserBlockLogic extends InstanceBlockLogic<typeof definition, Laser
 				if (rayBeams.size() <= nextBeam) return;
 
 				const thisDist = math.min(2048, totalDist - i);
-				const ray = rayBeams[nextBeam++];
+				const rayInstance = rayBeams[nextBeam++];
 				const position = origin.add(direction.mul(i + thisDist / 2));
 
-				ray.Size = new Vector3(thisDist, 0.1, 0.1);
-				ray.CFrame = CFrame.lookAlong(position, direction).mul(CFrame.Angles(0, math.rad(90), 0));
-				if (ray.Parent !== laserFolder) {
-					ray.Parent = laserFolder;
+				rayInstance.Size = new Vector3(thisDist, 0.1, 0.1);
+				rayInstance.CFrame = CFrame.lookAlong(position, direction).mul(CFrame.Angles(0, math.rad(90), 0));
+				if (rayInstance.Parent !== laserFolder) {
+					rayInstance.Parent = laserFolder;
 				}
 			}
 		}
@@ -186,8 +168,8 @@ export class LaserBlockLogic extends InstanceBlockLogic<typeof definition, Laser
 		}
 
 		this.onDisable(() => {
-			for (const ray of rayBeams) {
-				ray.Destroy();
+			for (const rayInstance of rayBeams) {
+				rayInstance.Destroy();
 			}
 		});
 
@@ -201,6 +183,7 @@ export class LaserBlockLogic extends InstanceBlockLogic<typeof definition, Laser
 		});
 
 		this.onAlwaysInputs(({ maxDistance, alwaysEnabled, rayTransparency, enableReflections }) => {
+			let lastMaterial: Enum.Material | undefined = undefined;
 			const thisPivot = this.instance.GetPivot();
 			const raycastOrigin = thisPivot.Position;
 			const raycastDirection = thisPivot.UpVector;
@@ -225,22 +208,21 @@ export class LaserBlockLogic extends InstanceBlockLogic<typeof definition, Laser
 				if (raycastResult) {
 					const ray_hit = raycastResult.Position;
 					const ray_block = raycastResult.Instance;
+					const hitMaterial = raycastResult.Material;
 					const lightVector = ray_hit.sub(newOrigin).Unit;
 					const reflected = reflect(lightVector, raycastResult.Normal);
 
 					const distance = newOrigin.sub(ray_hit).Magnitude;
 
-					// [debug] display bounces
-					// moveDisplay(db_normals[laserBounces], ray_hit, reflected);
-
 					// store beams for later
 					cachedBeams.push([newOrigin, ray_hit]);
 
 					lastResult = raycastResult;
+					lastMaterial = hitMaterial;
 					totalDistance += distance;
 
 					// detect if should continue casting (if it reflects)
-					if (enableReflections && isReflective(ray_block)) {
+					if (enableReflections && isReflective(ray_block, hitMaterial)) {
 						// set new origin & direction
 						newOrigin = ray_hit;
 						newDirection = reflected;
@@ -290,9 +272,15 @@ export class LaserBlockLogic extends InstanceBlockLogic<typeof definition, Laser
 				color ? new Vector3(color.R, color.G, color.B).mul(255) : Vector3.zero,
 			);
 
-			this.output.distance.set("number", lastResult?.Distance ? totalDistance : -1);
+			if (lastMaterial !== undefined) {
+				this.output.targetMaterial.set("string", lastMaterial.Name);
+			} else {
+				this.output.targetMaterial.set("string", "None");
+			}
 
-			if (lastResult?.Distance !== undefined || alwaysEnabled) {
+			this.output.distance.set("number", lastResult !== undefined ? totalDistance : -1);
+
+			if (lastResult !== undefined || alwaysEnabled) {
 				for (const r of rayBeams) {
 					r.Transparency = rayTransparency;
 				}
