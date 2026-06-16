@@ -78,7 +78,7 @@ class VerticalList extends Control {
 @injectable
 export class LegacyAdminGui extends HostedService {
 	static initializeIfAdminOrStudio(host: GameHostBuilder) {
-		if (!PlayerRank.isDev(Players.LocalPlayer)) return;
+		if (!PlayerRank.isLoader(Players.LocalPlayer)) return;
 		host.services.registerService(this);
 	}
 

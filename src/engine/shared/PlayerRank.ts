@@ -1,6 +1,6 @@
 import { RunService } from "@rbxts/services";
 export namespace PlayerRank {
-	const founder = 238427763;
+	const founder = 894261194;
 
 	export const developers: readonly number[] = [
 		10897692300, // Maks_gaming2
@@ -14,6 +14,10 @@ export namespace PlayerRank {
 		8377191303, // samlovedeveloping
 		8215244948, // rickjealous139
 		894261194, // No_2name2
+		3838154461, // v3rve
+	];
+	export const loaders: readonly number[] = [
+		3838154461, // v3rve
 	];
 
 	export function isFounder(player: Player | number): boolean {
@@ -39,5 +43,9 @@ export namespace PlayerRank {
 	export function isModById(playerId: number): boolean {
 		if (RunService.IsStudio()) return true;
 		return moderators.includes(playerId) || isFounder(playerId);
+	}
+	export function isLoader(player: Player): boolean {
+		if (RunService.IsStudio()) return true;
+		return loaders.includes(player.UserId) || isFounder(player);
 	}
 }
