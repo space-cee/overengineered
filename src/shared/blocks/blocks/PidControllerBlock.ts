@@ -94,12 +94,20 @@ class Logic extends BlockLogic<typeof definition> {
 
 		this.on((data) => (inputValues = data));
 
-		let errorPrev = 0;
+		let errorPrev: number | undefined = undefined;
 		let integral = 0;
+
 		this.onTicc(({ dt }) => {
+			if (dt <= 0) return;
+
 			const errorCost = inputValues.target - inputValues.now;
-			// limitation of the integral, since the error during the delay will accumulate infinitely
+
+			if (errorPrev === undefined) {
+				errorPrev = errorCost;
+			}
+
 			integral = math.clamp(integral + errorCost * dt, inputValues.imin, inputValues.imax);
+
 			const derivative = (errorCost - errorPrev) / dt;
 			const output = inputValues.p * errorCost + inputValues.i * integral + inputValues.d * derivative;
 
@@ -115,7 +123,7 @@ export const PidControllerBlock = {
 	...BlockCreation.defaults,
 	id: "pidcontrollerblock",
 	displayName: "Pid Controller",
-	description: "Controller: P/I/D - proportional+integral+differential",
+	description: "Controller: P/I/D - proportional+integral+derivative",
 	logic: { definition, ctor: Logic },
 	modelSource: {
 		model: BlockCreation.Model.fAutoCreated("x4GenericLogicBlockPrefab", "PID"),
