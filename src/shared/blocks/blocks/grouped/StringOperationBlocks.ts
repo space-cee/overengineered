@@ -465,6 +465,61 @@ namespace StringToNumber {
 		logic: { definition, ctor: Logic },
 	} as const satisfies BlockBuilder;
 }
+namespace StringToVector3 {
+	const definition = {
+		input: {
+			value: {
+				displayName: "Value",
+				types: BlockConfigDefinitions.string,
+			},
+		},
+		output: {
+			result: {
+				displayName: "Result",
+				types: ["vector3"],
+			},
+		},
+	} satisfies BlockLogicFullBothDefinitions;
+
+	class Logic extends BlockLogic<typeof definition> {
+		constructor(block: BlockLogicArgs) {
+			super(definition, block);
+
+			this.on(({ value }) => {
+				const numbers: number[] = [];
+
+				for (const n of string.gmatch(value, "[-%d%.]+")) {
+					const num = tonumber(n);
+					if (num !== undefined) {
+						numbers.push(num);
+					}
+					if (numbers.size() >= 3) break;
+				}
+				if (numbers.size() < 3) {
+					this.output.result.unset();
+					return;
+				}
+
+				this.output.result.set("vector3", new Vector3(numbers[0], numbers[1], numbers[2]));
+			});
+		}
+	}
+
+	export const block = {
+		...BlockCreation.defaults,
+		id: "stringtovec3",
+		displayName: "String To Vector3",
+		description: "Converts text into a Vector3.",
+		modelSource: autoModel("DoubleGenericLogicBlockPrefab", "tovec3", BlockCreation.Categories.string),
+
+		search: {
+			aliases: ["vector", "vec3", "convert"],
+			partialAliases: ["tovec3", "vector3"],
+		},
+
+		logic: { definition, ctor: Logic },
+	} as const satisfies BlockBuilder;
+}
 
 export const StringOperationBlocks = [
 	StringSub.block,
@@ -477,4 +532,5 @@ export const StringOperationBlocks = [
 	StringLowerCase.block,
 	StringCast.block,
 	StringToNumber.block,
+	StringToVector3.block,
 ];
