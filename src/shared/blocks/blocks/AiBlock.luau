@@ -7,14 +7,11 @@ local _Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local AiChatRF = ReplicatedStorage:WaitForChild("AiChatRF")
 
-
 local MODEL_URLS = {
-	awms = "https://roblox-ai-server-nhl4.onrender.com/chat",
+	awms = "awms",
 	JARVIS  = "https://88149eff-2e77-479b-b96c-b3172e73679d-00-2zp5kys672x9r.spock.replit.dev/chat",
-	gemma = "https://extraembryonic-decorously-brandi.ngrok-free.dev/chat",
+	gemma = "gemma",
 }
-
-
 
 local definition = {
 	inputOrder = { "send", "input", "model" },
@@ -78,8 +75,6 @@ local definition = {
 	},
 }
 
-
-
 local Logic
 do
 	local super = BlockLogic
@@ -129,7 +124,6 @@ do
 
 			task.spawn(function()
 				local ok, replyOrNil, errOrNil = pcall(function()
-
 					local reply, err = AiChatRF:InvokeServer(input, url)
 					return reply, err
 				end)
@@ -151,8 +145,6 @@ do
 		end)
 	end
 end
-
-
 
 local _object = table.clone(BlockCreation.defaults)
 setmetatable(_object, nil)
