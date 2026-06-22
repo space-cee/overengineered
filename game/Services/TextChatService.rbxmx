@@ -9,6 +9,7 @@
       <token name="ChatVersion">1</token>
       <bool name="CreateDefaultCommands">true</bool>
       <bool name="CreateDefaultTextChannels">true</bool>
+      <token name="EnableProtectedChat">0</token>
       <bool name="HasSeenDeprecationDialog">false</bool>
       <bool name="IsLegacyChatDisabled">false</bool>
       <bool name="DefinesCapabilities">false</bool>
@@ -37,7 +38,7 @@
             <url>rbxasset://fonts/Montserrat-Medium.ttf</url>
           </CachedFaceId>
         </Font>
-        <float name="HeightScale">1</float>
+        <float name="HeightScale">2</float>
         <token name="HorizontalAlignment">1</token>
         <bool name="DefinesCapabilities">false</bool>
         <int64 name="SourceAssetId">-1</int64>

@@ -22,7 +22,25 @@
       <BinaryString name="Tags"></BinaryString>
       <token name="ZIndexBehavior">1</token>
     </Properties>
-    <Item class="ScrollingFrame" referent="1">
+    <Item class="LocalScript" referent="1">
+      <Properties>
+        <string name="Name">TestsRemover</string>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <bool name="Disabled">false</bool>
+        <ContentId name="LinkedSource">
+          <null>
+          </null>
+        </ContentId>
+        <token name="RunContext">0</token>
+        <bool name="DefinesCapabilities">false</bool>
+        <string name="Source">script.Parent.Enabled = false;
+script:Destroy();</string>
+        <int64 name="SourceAssetId">-1</int64>
+        <BinaryString name="Tags"></BinaryString>
+      </Properties>
+    </Item>
+    <Item class="ScrollingFrame" referent="2">
       <Properties>
         <string name="Name">TestList</string>
         <bool name="Active">true</bool>
@@ -65,6 +83,7 @@
         <bool name="Draggable">false</bool>
         <token name="ElasticBehavior">0</token>
         <token name="HorizontalScrollBarInset">0</token>
+        <token name="InputSink">0</token>
         <bool name="Interactable">true</bool>
         <int name="LayoutOrder">1</int>
         <Content name="MidImageContent">
@@ -117,7 +136,7 @@
         <bool name="Visible">true</bool>
         <int name="ZIndex">1</int>
       </Properties>
-      <Item class="TextButton" referent="2">
+      <Item class="TextButton" referent="3">
         <Properties>
           <string name="Name">Template</string>
           <bool name="Active">true</bool>
@@ -153,6 +172,7 @@
             <Style>Normal</Style>
           </Font>
           <Ref name="HoverHapticEffect">null</Ref>
+          <token name="InputSink">0</token>
           <bool name="Interactable">true</bool>
           <int name="LayoutOrder">0</int>
           <float name="LineHeight">1</float>
@@ -219,7 +239,7 @@
           <int name="ZIndex">1</int>
         </Properties>
       </Item>
-      <Item class="UIListLayout" referent="3">
+      <Item class="UIListLayout" referent="4">
         <Properties>
           <string name="Name">UIListLayout</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
@@ -242,7 +262,7 @@
         </Properties>
       </Item>
     </Item>
-    <Item class="UIListLayout" referent="4">
+    <Item class="UIListLayout" referent="5">
       <Properties>
         <string name="Name">UIListLayout</string>
         <BinaryString name="AttributesSerialize"></BinaryString>
@@ -264,7 +284,7 @@
         <bool name="Wraps">false</bool>
       </Properties>
     </Item>
-    <Item class="ScrollingFrame" referent="5">
+    <Item class="ScrollingFrame" referent="6">
       <Properties>
         <string name="Name">SubTestList</string>
         <bool name="Active">true</bool>
@@ -307,6 +327,7 @@
         <bool name="Draggable">false</bool>
         <token name="ElasticBehavior">0</token>
         <token name="HorizontalScrollBarInset">0</token>
+        <token name="InputSink">0</token>
         <bool name="Interactable">true</bool>
         <int name="LayoutOrder">2</int>
         <Content name="MidImageContent">
@@ -359,7 +380,7 @@
         <bool name="Visible">true</bool>
         <int name="ZIndex">1</int>
       </Properties>
-      <Item class="TextButton" referent="6">
+      <Item class="TextButton" referent="7">
         <Properties>
           <string name="Name">Template</string>
           <bool name="Active">true</bool>
@@ -395,6 +416,7 @@
             <Style>Normal</Style>
           </Font>
           <Ref name="HoverHapticEffect">null</Ref>
+          <token name="InputSink">0</token>
           <bool name="Interactable">true</bool>
           <int name="LayoutOrder">0</int>
           <float name="LineHeight">1</float>
@@ -461,7 +483,7 @@
           <int name="ZIndex">1</int>
         </Properties>
       </Item>
-      <Item class="UIListLayout" referent="7">
+      <Item class="UIListLayout" referent="8">
         <Properties>
           <string name="Name">UIListLayout</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
@@ -483,24 +505,6 @@
           <bool name="Wraps">false</bool>
         </Properties>
       </Item>
-    </Item>
-    <Item class="LocalScript" referent="8">
-      <Properties>
-        <string name="Name">TestsRemover</string>
-        <BinaryString name="AttributesSerialize"></BinaryString>
-        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="Disabled">false</bool>
-        <ContentId name="LinkedSource">
-          <null>
-          </null>
-        </ContentId>
-        <token name="RunContext">0</token>
-        <bool name="DefinesCapabilities">false</bool>
-        <string name="Source">script.Parent.Enabled = false;
-script:Destroy();</string>
-        <int64 name="SourceAssetId">-1</int64>
-        <BinaryString name="Tags"></BinaryString>
-      </Properties>
     </Item>
     <Item class="Frame" referent="9">
       <Properties>
@@ -529,6 +533,7 @@ script:Destroy();</string>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
         <bool name="ClipsDescendants">false</bool>
         <bool name="Draggable">false</bool>
+        <token name="InputSink">0</token>
         <bool name="Interactable">true</bool>
         <int name="LayoutOrder">3</int>
         <Ref name="NextSelectionDown">null</Ref>

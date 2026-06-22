@@ -70,7 +70,7 @@
         <bool name="CastShadow">false</bool>
         <string name="CollisionGroup">Blocks</string>
         <int name="CollisionGroupId">2</int>
-        <Color3uint8 name="Color3uint8">10724005</Color3uint8>
+        <Color3uint8 name="Color3uint8">16777215</Color3uint8>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>
@@ -86,7 +86,7 @@
         <token name="LeftSurfaceInput">0</token>
         <bool name="Locked">false</bool>
         <bool name="Massless">false</bool>
-        <token name="Material">816</token>
+        <token name="Material">256</token>
         <string name="MaterialVariantSerialized"></string>
         <CoordinateFrame name="PivotOffset">
           <X>0</X>
@@ -121,7 +121,7 @@
           <Z>2</Z>
         </Vector3>
         <int64 name="SourceAssetId">-1</int64>
-        <BinaryString name="Tags">U1RBVElDX01BVEVSSUFMAFNUQVRJQ19DT0xPUg==</BinaryString>
+        <BinaryString name="Tags"></BinaryString>
         <float name="TopParamA">-0.5</float>
         <float name="TopParamB">0.5</float>
         <token name="TopSurface">0</token>

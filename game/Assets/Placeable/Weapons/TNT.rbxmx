@@ -67,7 +67,7 @@
         <bool name="CanQuery">true</bool>
         <bool name="CanTouch">true</bool>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="CastShadow">false</bool>
+        <bool name="CastShadow">true</bool>
         <string name="CollisionGroup">Blocks</string>
         <int name="CollisionGroupId">2</int>
         <Color3uint8 name="Color3uint8">16316664</Color3uint8>
@@ -135,7 +135,7 @@
       </Properties>
       <Item class="Decal" referent="2">
         <Properties>
-          <string name="Name">DecalT</string>
+          <string name="Name">DecalR</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
           <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
           <Color3 name="Color3">
@@ -143,7 +143,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">1</token>
+          <token name="Face">0</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -152,6 +152,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -181,7 +182,7 @@
       </Item>
       <Item class="Decal" referent="3">
         <Properties>
-          <string name="Name">DecalR</string>
+          <string name="Name">DecalL</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
           <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
           <Color3 name="Color3">
@@ -189,7 +190,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">0</token>
+          <token name="Face">3</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -198,6 +199,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -227,7 +229,7 @@
       </Item>
       <Item class="Decal" referent="4">
         <Properties>
-          <string name="Name">DecalL</string>
+          <string name="Name">DecalB</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
           <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
           <Color3 name="Color3">
@@ -235,7 +237,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">3</token>
+          <token name="Face">4</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -244,6 +246,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -273,7 +276,7 @@
       </Item>
       <Item class="Decal" referent="5">
         <Properties>
-          <string name="Name">DecalB</string>
+          <string name="Name">DecalBC</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
           <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
           <Color3 name="Color3">
@@ -281,7 +284,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">4</token>
+          <token name="Face">2</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -290,6 +293,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -319,7 +323,7 @@
       </Item>
       <Item class="Decal" referent="6">
         <Properties>
-          <string name="Name">DecalBC</string>
+          <string name="Name">DecalF</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
           <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
           <Color3 name="Color3">
@@ -327,7 +331,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">2</token>
+          <token name="Face">5</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -336,6 +340,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -365,7 +370,7 @@
       </Item>
       <Item class="Decal" referent="7">
         <Properties>
-          <string name="Name">DecalF</string>
+          <string name="Name">DecalT</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
           <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
           <Color3 name="Color3">
@@ -373,7 +378,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">5</token>
+          <token name="Face">1</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -382,6 +387,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>

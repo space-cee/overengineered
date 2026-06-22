@@ -6,15 +6,15 @@
       <float name="Brightness">0</float>
       <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
       <float name="Contrast">0</float>
-      <bool name="Enabled">true</bool>
+      <bool name="Enabled">false</bool>
       <bool name="DefinesCapabilities">false</bool>
-      <float name="Saturation">0</float>
+      <float name="Saturation">0.2</float>
       <int64 name="SourceAssetId">-1</int64>
       <BinaryString name="Tags"></BinaryString>
       <Color3 name="TintColor">
         <R>1</R>
-        <G>1</G>
-        <B>1</B>
+        <G>0.9882353</G>
+        <B>0.9607843</B>
       </Color3>
     </Properties>
   </Item>

@@ -284,18 +284,18 @@
           <token name="BottomSurface">0</token>
           <token name="BottomSurfaceInput">0</token>
           <CoordinateFrame name="CFrame">
-            <X>80.50002</X>
-            <Y>-16379.166</Y>
-            <Z>59.999996</Z>
-            <R00>-1</R00>
-            <R01>0</R01>
+            <X>77</X>
+            <Y>-16379.16</Y>
+            <Z>60.024982</Z>
+            <R00>0</R00>
+            <R01>-1</R01>
             <R02>0</R02>
-            <R10>0</R10>
+            <R10>1</R10>
             <R11>0</R11>
-            <R12>-1</R12>
+            <R12>0</R12>
             <R20>0</R20>
-            <R21>-1</R21>
-            <R22>0</R22>
+            <R21>0</R21>
+            <R22>1</R22>
           </CoordinateFrame>
           <bool name="CanCollide">true</bool>
           <bool name="CanQuery">true</bool>
@@ -348,11 +348,11 @@
             <Z>0</Z>
           </Vector3>
           <bool name="DefinesCapabilities">false</bool>
-          <token name="shape">1</token>
+          <token name="shape">3</token>
           <Vector3 name="size">
-            <X>0.15</X>
-            <Y>1.65</Y>
-            <Z>0.2</Z>
+            <X>0.32074973</X>
+            <Y>6.75</Y>
+            <Z>1.65</Z>
           </Vector3>
           <int64 name="SourceAssetId">-1</int64>
           <BinaryString name="Tags"></BinaryString>
@@ -482,18 +482,18 @@
           <token name="BottomSurface">0</token>
           <token name="BottomSurfaceInput">0</token>
           <CoordinateFrame name="CFrame">
-            <X>77</X>
-            <Y>-16379.16</Y>
-            <Z>60.024982</Z>
-            <R00>0</R00>
-            <R01>-1</R01>
+            <X>80.5</X>
+            <Y>-16379.166</Y>
+            <Z>59.999996</Z>
+            <R00>-1</R00>
+            <R01>0</R01>
             <R02>0</R02>
-            <R10>1</R10>
+            <R10>0</R10>
             <R11>0</R11>
-            <R12>0</R12>
+            <R12>-1</R12>
             <R20>0</R20>
-            <R21>0</R21>
-            <R22>1</R22>
+            <R21>-1</R21>
+            <R22>0</R22>
           </CoordinateFrame>
           <bool name="CanCollide">true</bool>
           <bool name="CanQuery">true</bool>
@@ -546,11 +546,11 @@
             <Z>0</Z>
           </Vector3>
           <bool name="DefinesCapabilities">false</bool>
-          <token name="shape">3</token>
+          <token name="shape">1</token>
           <Vector3 name="size">
-            <X>0.32074973</X>
-            <Y>6.75</Y>
-            <Z>1.65</Z>
+            <X>0.15</X>
+            <Y>1.65</Y>
+            <Z>0.2</Z>
           </Vector3>
           <int64 name="SourceAssetId">-1</int64>
           <BinaryString name="Tags"></BinaryString>

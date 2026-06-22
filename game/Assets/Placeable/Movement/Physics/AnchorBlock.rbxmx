@@ -67,7 +67,7 @@
         <bool name="CanQuery">true</bool>
         <bool name="CanTouch">true</bool>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="CastShadow">false</bool>
+        <bool name="CastShadow">true</bool>
         <string name="CollisionGroup">Blocks</string>
         <int name="CollisionGroupId">2</int>
         <Color3uint8 name="Color3uint8">10724005</Color3uint8>
@@ -143,7 +143,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">1</token>
+          <token name="Face">3</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -152,6 +152,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -198,6 +199,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -235,7 +237,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">0</token>
+          <token name="Face">1</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -244,6 +246,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -290,6 +293,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -327,7 +331,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">3</token>
+          <token name="Face">4</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -336,6 +340,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>
@@ -373,7 +378,7 @@
             <G>1</G>
             <B>1</B>
           </Color3>
-          <token name="Face">4</token>
+          <token name="Face">0</token>
           <Content name="MetalnessMapContent">
             <null>
             </null>
@@ -382,6 +387,7 @@
             <null>
             </null>
           </Content>
+          <float name="Rotation">0</float>
           <Content name="RoughnessMapContent">
             <null>
             </null>

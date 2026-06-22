@@ -5,7 +5,7 @@
       <BinaryString name="AttributesSerialize"></BinaryString>
       <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
       <bool name="Enabled">true</bool>
-      <float name="Intensity">0.2</float>
+      <float name="Intensity">0.3</float>
       <bool name="DefinesCapabilities">false</bool>
       <int64 name="SourceAssetId">-1</int64>
       <float name="Spread">0.2</float>

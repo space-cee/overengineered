@@ -35,133 +35,7 @@
       <OptionalCoordinateFrame name="WorldPivotData">
       </OptionalCoordinateFrame>
     </Properties>
-    <Item class="Part" referent="1">
-      <Properties>
-        <string name="Name">ColBox</string>
-        <bool name="Anchored">true</bool>
-        <BinaryString name="AttributesSerialize"></BinaryString>
-        <bool name="AudioCanCollide">true</bool>
-        <float name="BackParamA">-0.5</float>
-        <float name="BackParamB">0.5</float>
-        <token name="BackSurface">0</token>
-        <token name="BackSurfaceInput">0</token>
-        <float name="BottomParamA">-0.5</float>
-        <float name="BottomParamB">0.5</float>
-        <token name="BottomSurface">0</token>
-        <token name="BottomSurfaceInput">0</token>
-        <CoordinateFrame name="CFrame">
-          <X>125.5</X>
-          <Y>-16379.365</Y>
-          <Z>63.65</Z>
-          <R00>1</R00>
-          <R01>0</R01>
-          <R02>0</R02>
-          <R10>0</R10>
-          <R11>1</R11>
-          <R12>0</R12>
-          <R20>0</R20>
-          <R21>0</R21>
-          <R22>1</R22>
-        </CoordinateFrame>
-        <bool name="CanCollide">true</bool>
-        <bool name="CanQuery">false</bool>
-        <bool name="CanTouch">true</bool>
-        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="CastShadow">false</bool>
-        <string name="CollisionGroup">ColBoxExclusive</string>
-        <int name="CollisionGroupId">10</int>
-        <Color3uint8 name="Color3uint8">16316664</Color3uint8>
-        <PhysicalProperties name="CustomPhysicalProperties">
-          <CustomPhysics>false</CustomPhysics>
-        </PhysicalProperties>
-        <bool name="EnableFluidForces">false</bool>
-        <token name="formFactorRaw">1</token>
-        <float name="FrontParamA">-0.5</float>
-        <float name="FrontParamB">0.5</float>
-        <token name="FrontSurface">0</token>
-        <token name="FrontSurfaceInput">0</token>
-        <float name="LeftParamA">-0.5</float>
-        <float name="LeftParamB">0.5</float>
-        <token name="LeftSurface">0</token>
-        <token name="LeftSurfaceInput">0</token>
-        <bool name="Locked">false</bool>
-        <bool name="Massless">true</bool>
-        <token name="Material">256</token>
-        <string name="MaterialVariantSerialized"></string>
-        <CoordinateFrame name="PivotOffset">
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <R00>1</R00>
-          <R01>0</R01>
-          <R02>0</R02>
-          <R10>0</R10>
-          <R11>1</R11>
-          <R12>0</R12>
-          <R20>0</R20>
-          <R21>0</R21>
-          <R22>1</R22>
-        </CoordinateFrame>
-        <float name="Reflectance">0</float>
-        <float name="RightParamA">-0.5</float>
-        <float name="RightParamB">0.5</float>
-        <token name="RightSurface">0</token>
-        <token name="RightSurfaceInput">0</token>
-        <int name="RootPriority">0</int>
-        <Vector3 name="RotVelocity">
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-        </Vector3>
-        <bool name="DefinesCapabilities">false</bool>
-        <token name="shape">1</token>
-        <Vector3 name="size">
-          <X>2</X>
-          <Y>2</Y>
-          <Z>2</Z>
-        </Vector3>
-        <int64 name="SourceAssetId">-1</int64>
-        <BinaryString name="Tags"></BinaryString>
-        <float name="TopParamA">-0.5</float>
-        <float name="TopParamB">0.5</float>
-        <token name="TopSurface">0</token>
-        <token name="TopSurfaceInput">0</token>
-        <float name="Transparency">1</float>
-        <Vector3 name="Velocity">
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-        </Vector3>
-      </Properties>
-      <Item class="WeldConstraint" referent="2">
-        <Properties>
-          <string name="Name">WeldConstraint</string>
-          <BinaryString name="AttributesSerialize"></BinaryString>
-          <CoordinateFrame name="CFrame0">
-            <X>0</X>
-            <Y>0</Y>
-            <Z>0</Z>
-            <R00>0</R00>
-            <R01>0</R01>
-            <R02>1</R02>
-            <R10>0</R10>
-            <R11>-1</R11>
-            <R12>0</R12>
-            <R20>1</R20>
-            <R21>0</R21>
-            <R22>0</R22>
-          </CoordinateFrame>
-          <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-          <Ref name="Part0Internal">1</Ref>
-          <Ref name="Part1Internal">3</Ref>
-          <bool name="DefinesCapabilities">false</bool>
-          <int64 name="SourceAssetId">-1</int64>
-          <int name="State">3</int>
-          <BinaryString name="Tags"></BinaryString>
-        </Properties>
-      </Item>
-    </Item>
-    <Item class="Folder" referent="4">
+    <Item class="Folder" referent="2">
       <Properties>
         <string name="Name">WeldRegions</string>
         <BinaryString name="AttributesSerialize"></BinaryString>
@@ -170,7 +44,7 @@
         <int64 name="SourceAssetId">-1</int64>
         <BinaryString name="Tags"></BinaryString>
       </Properties>
-      <Item class="Part" referent="5">
+      <Item class="Part" referent="3">
         <Properties>
           <string name="Name">Part</string>
           <bool name="Anchored">true</bool>
@@ -269,7 +143,7 @@
           </Vector3>
         </Properties>
       </Item>
-      <Item class="Part" referent="6">
+      <Item class="Part" referent="4">
         <Properties>
           <string name="Name">Part</string>
           <bool name="Anchored">true</bool>
@@ -368,7 +242,7 @@
           </Vector3>
         </Properties>
       </Item>
-      <Item class="Part" referent="7">
+      <Item class="Part" referent="5">
         <Properties>
           <string name="Name">Part</string>
           <bool name="Anchored">true</bool>
@@ -468,7 +342,133 @@
         </Properties>
       </Item>
     </Item>
-    <Item class="UnionOperation" referent="3">
+    <Item class="Part" referent="1">
+      <Properties>
+        <string name="Name">ColBox</string>
+        <bool name="Anchored">true</bool>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <bool name="AudioCanCollide">true</bool>
+        <float name="BackParamA">-0.5</float>
+        <float name="BackParamB">0.5</float>
+        <token name="BackSurface">0</token>
+        <token name="BackSurfaceInput">0</token>
+        <float name="BottomParamA">-0.5</float>
+        <float name="BottomParamB">0.5</float>
+        <token name="BottomSurface">0</token>
+        <token name="BottomSurfaceInput">0</token>
+        <CoordinateFrame name="CFrame">
+          <X>125.5</X>
+          <Y>-16379.365</Y>
+          <Z>63.65</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+        <bool name="CanCollide">true</bool>
+        <bool name="CanQuery">false</bool>
+        <bool name="CanTouch">true</bool>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <bool name="CastShadow">false</bool>
+        <string name="CollisionGroup">ColBoxExclusive</string>
+        <int name="CollisionGroupId">10</int>
+        <Color3uint8 name="Color3uint8">16316664</Color3uint8>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <bool name="EnableFluidForces">false</bool>
+        <token name="formFactorRaw">1</token>
+        <float name="FrontParamA">-0.5</float>
+        <float name="FrontParamB">0.5</float>
+        <token name="FrontSurface">0</token>
+        <token name="FrontSurfaceInput">0</token>
+        <float name="LeftParamA">-0.5</float>
+        <float name="LeftParamB">0.5</float>
+        <token name="LeftSurface">0</token>
+        <token name="LeftSurfaceInput">0</token>
+        <bool name="Locked">false</bool>
+        <bool name="Massless">true</bool>
+        <token name="Material">256</token>
+        <string name="MaterialVariantSerialized"></string>
+        <CoordinateFrame name="PivotOffset">
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+        <float name="Reflectance">0</float>
+        <float name="RightParamA">-0.5</float>
+        <float name="RightParamB">0.5</float>
+        <token name="RightSurface">0</token>
+        <token name="RightSurfaceInput">0</token>
+        <int name="RootPriority">0</int>
+        <Vector3 name="RotVelocity">
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Vector3>
+        <bool name="DefinesCapabilities">false</bool>
+        <token name="shape">1</token>
+        <Vector3 name="size">
+          <X>2</X>
+          <Y>2</Y>
+          <Z>2</Z>
+        </Vector3>
+        <int64 name="SourceAssetId">-1</int64>
+        <BinaryString name="Tags"></BinaryString>
+        <float name="TopParamA">-0.5</float>
+        <float name="TopParamB">0.5</float>
+        <token name="TopSurface">0</token>
+        <token name="TopSurfaceInput">0</token>
+        <float name="Transparency">1</float>
+        <Vector3 name="Velocity">
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Vector3>
+      </Properties>
+      <Item class="WeldConstraint" referent="6">
+        <Properties>
+          <string name="Name">WeldConstraint</string>
+          <BinaryString name="AttributesSerialize"></BinaryString>
+          <CoordinateFrame name="CFrame0">
+            <X>0</X>
+            <Y>0</Y>
+            <Z>0</Z>
+            <R00>0</R00>
+            <R01>0</R01>
+            <R02>1</R02>
+            <R10>0</R10>
+            <R11>-1</R11>
+            <R12>0</R12>
+            <R20>1</R20>
+            <R21>0</R21>
+            <R22>0</R22>
+          </CoordinateFrame>
+          <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+          <Ref name="Part0Internal">1</Ref>
+          <Ref name="Part1Internal">7</Ref>
+          <bool name="DefinesCapabilities">false</bool>
+          <int64 name="SourceAssetId">-1</int64>
+          <int name="State">3</int>
+          <BinaryString name="Tags"></BinaryString>
+        </Properties>
+      </Item>
+    </Item>
+    <Item class="UnionOperation" referent="7">
       <Properties>
         <string name="Name">Part</string>
         <SharedString name="AeroMeshData">rxNJufX5oaagQE3qNtzJSQ==</SharedString>
@@ -540,7 +540,7 @@
         </BinaryString>
         <SharedString name="MeshData2">rxNJufX5oaagQE3qNtzJSQ==</SharedString>
         <bool name="OffCentered">false</bool>
-        <SharedString name="PhysicalConfigData">k9ulP3LPLsJl+0tGE9SJ+w==</SharedString>
+        <SharedString name="PhysicalConfigData">aZQcMdcKhM8oUs81KT+7Tg==</SharedString>
         <BinaryString name="PhysicsData">
         </BinaryString>
         <CoordinateFrame name="PivotOffset">
@@ -610,7 +610,7 @@
     </Item>
   </Item>
   <SharedStrings>
-    <SharedString md5="k9ulP3LPLsJl+0tGE9SJ+w==">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</SharedString>
+    <SharedString md5="aZQcMdcKhM8oUs81KT+7Tg==">Q1NHUEhTCAAAAAIAKLUv/WCUARULALQOAQAAADAAAABctxhAAgAAIACAvwCAgL4A6H++AACAPwAAgD4A8H8+ZwGgKOVWAQCLZRbbs9QstvtWzWLv33sADfZTPrfBDj4s83+U4Qi7hv5yPuoooT0gAIC/oP9zPmPKnb0AAIA/74YP9g0+5WpUV/ufvV/Ucg6+uXco91W+f8UMhv5zvunanj3Z81K+i/UPPub0Db5KM1U/6KM9PpxyG/cOPgezVFb5Mz5K8DY4snO6APB/wP+jvTPpivs2vnVHMmuydzp7zKG9O/gzvlWbNuh/i/2fPTU+Bxo0vmzzf7/wfz4b9w4+B7NUPkWoYQ4RCyYnaf0N0CqQodkBIJaNsOEQjLGL/TmfvjqH8la8Dzim0lldqn7mAeu2XR+t3hUjyfeTJd/zHNVHPpRllteUCXLiMQiuS+dzJPObxVN0CsunjZU63juWyonhz4DqZlVrXov+oHEORcetBEJ2fqXwAw==</SharedString>
     <SharedString md5="rxNJufX5oaagQE3qNtzJSQ=="></SharedString>
   </SharedStrings>
 </roblox>

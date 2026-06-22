@@ -51,7 +51,7 @@
     </Properties>
     <Item class="Part" referent="1">
       <Properties>
-        <string name="Name">LaserProjectileVisual1</string>
+        <string name="Name">LaserProjectileVisual4</string>
         <bool name="Anchored">true</bool>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <bool name="AudioCanCollide">true</bool>
@@ -150,7 +150,7 @@
     </Item>
     <Item class="Part" referent="2">
       <Properties>
-        <string name="Name">Projectile</string>
+        <string name="Name">LaserProjectileVisual3</string>
         <bool name="Anchored">true</bool>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <bool name="AudioCanCollide">true</bool>
@@ -229,7 +229,7 @@
         <bool name="DefinesCapabilities">false</bool>
         <token name="shape">2</token>
         <Vector3 name="size">
-          <X>1</X>
+          <X>0.001</X>
           <Y>1</Y>
           <Z>1</Z>
         </Vector3>
@@ -239,7 +239,7 @@
         <float name="TopParamB">0.5</float>
         <token name="TopSurface">0</token>
         <token name="TopSurfaceInput">0</token>
-        <float name="Transparency">0</float>
+        <float name="Transparency">1</float>
         <Vector3 name="Velocity">
           <X>0</X>
           <Y>0</Y>
@@ -249,7 +249,7 @@
     </Item>
     <Item class="Part" referent="3">
       <Properties>
-        <string name="Name">LaserProjectileVisual2</string>
+        <string name="Name">LaserProjectileVisual5</string>
         <bool name="Anchored">true</bool>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <bool name="AudioCanCollide">true</bool>
@@ -348,7 +348,7 @@
     </Item>
     <Item class="Part" referent="4">
       <Properties>
-        <string name="Name">LaserProjectileVisual3</string>
+        <string name="Name">Projectile</string>
         <bool name="Anchored">true</bool>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <bool name="AudioCanCollide">true</bool>
@@ -427,7 +427,7 @@
         <bool name="DefinesCapabilities">false</bool>
         <token name="shape">2</token>
         <Vector3 name="size">
-          <X>0.001</X>
+          <X>1</X>
           <Y>1</Y>
           <Z>1</Z>
         </Vector3>
@@ -437,7 +437,7 @@
         <float name="TopParamB">0.5</float>
         <token name="TopSurface">0</token>
         <token name="TopSurfaceInput">0</token>
-        <float name="Transparency">1</float>
+        <float name="Transparency">0</float>
         <Vector3 name="Velocity">
           <X>0</X>
           <Y>0</Y>
@@ -447,7 +447,7 @@
     </Item>
     <Item class="Part" referent="5">
       <Properties>
-        <string name="Name">LaserProjectileVisual4</string>
+        <string name="Name">LaserProjectileVisual1</string>
         <bool name="Anchored">true</bool>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <bool name="AudioCanCollide">true</bool>
@@ -546,7 +546,7 @@
     </Item>
     <Item class="Part" referent="6">
       <Properties>
-        <string name="Name">LaserProjectileVisual5</string>
+        <string name="Name">LaserProjectileVisual2</string>
         <bool name="Anchored">true</bool>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <bool name="AudioCanCollide">true</bool>

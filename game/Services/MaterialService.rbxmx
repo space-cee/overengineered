@@ -2,7 +2,7 @@
   <Item class="MaterialService" referent="0">
     <Properties>
       <string name="Name">MaterialService</string>
-      <string name="AsphaltName">Asphalt</string>
+      <string name="AsphaltName">AshpaltReplace</string>
       <BinaryString name="AttributesSerialize"></BinaryString>
       <string name="BasaltName">Basalt</string>
       <string name="BrickName">Brick</string>
@@ -12,7 +12,7 @@
       <string name="CeramicTilesName">CeramicTiles</string>
       <string name="ClayRoofTilesName">ClayRoofTiles</string>
       <string name="CobblestoneName">Cobblestone</string>
-      <string name="ConcreteName">Concrete</string>
+      <string name="ConcreteName">ConcreteReplace</string>
       <string name="CorrodedMetalName">CorrodedMetal</string>
       <string name="CrackedLavaName">CrackedLava</string>
       <string name="DiamondPlateName">DiamondPlate</string>
@@ -27,17 +27,17 @@
       <string name="LeatherName">Leather</string>
       <string name="LimestoneName">Limestone</string>
       <string name="MarbleName">Marble</string>
-      <string name="MetalName">Metal</string>
+      <string name="MetalName">DentedMetalReplace</string>
       <string name="MudName">Mud</string>
       <string name="PavementName">Pavement</string>
       <string name="PebbleName">Pebble</string>
       <string name="PlasterName">Plaster</string>
-      <string name="PlasticName">Plastic</string>
+      <string name="PlasticName">PlasticReplace</string>
       <string name="RockName">Rock</string>
       <string name="RoofShinglesName">RoofShingles</string>
       <string name="RubberName">Rubber</string>
       <string name="SaltName">Salt</string>
-      <string name="SandName">Sand</string>
+      <string name="SandName">sandwavy</string>
       <bool name="DefinesCapabilities">false</bool>
       <string name="SandstoneName">Sandstone</string>
       <string name="SlateName">Slate</string>
@@ -46,8 +46,1000 @@
       <int64 name="SourceAssetId">-1</int64>
       <BinaryString name="Tags"></BinaryString>
       <bool name="Use2022MaterialsXml">true</bool>
-      <string name="WoodName">Wood</string>
+      <string name="WoodName">WoodReplace</string>
       <string name="WoodPlanksName">WoodPlanks</string>
     </Properties>
+    <Item class="MaterialVariant" referent="1">
+      <Properties>
+        <string name="Name">Apartments</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1376</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://79765141427352</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">0</token>
+        <Content name="MetalnessMapContent">
+          <uri>rbxassetid://71430916431580</uri>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://78832362361361</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://71430916431580</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">30</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://91344235324438</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="2">
+      <Properties>
+        <string name="Name">AshpaltReplace</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1376</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://74918325617796</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://84101899425370</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://90380637904673</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">30</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://71281692811971</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="3">
+      <Properties>
+        <string name="Name">Computer</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1040</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://81778776524175</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">0</token>
+        <Content name="MetalnessMapContent">
+          <uri>rbxassetid://96984840398434</uri>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://93520331961331</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">17</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://93113179672919</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="4">
+      <Properties>
+        <string name="Name">ConcreteReplace</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">816</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://93505509053992</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://108683936434695</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://77475850219169</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">10</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://82766647926669</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="5">
+      <Properties>
+        <string name="Name">Coral</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1328</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://103334674115270</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://100820402648778</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">5</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://89974859847174</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="6">
+      <Properties>
+        <string name="Name">DentedMetalReplace</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1088</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://94875452758346</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <uri>rbxassetid://120911685777710</uri>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://105390000488281</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://108375410800292</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">10</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://107252541462747</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="7">
+      <Properties>
+        <string name="Name">PlasticReplace</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">256</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://108505272264397</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://101588259403903</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://135872853816471</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">2.5</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://91622087305850</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="8">
+      <Properties>
+        <string name="Name">RoughMetal2</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1040</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://122822121386018</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <uri>rbxassetid://96324542381917</uri>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://74801353130821</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://120911685777710</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">35</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://113680020598496</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="9">
+      <Properties>
+        <string name="Name">Water</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1536</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://79222482833125</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <uri>rbxassetid://115321650905040</uri>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://97430324660854</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://86275349875707</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">50</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://93611387283165</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="10">
+      <Properties>
+        <string name="Name">WoodReplace</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">512</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://86203721351372</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://121953362947662</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://132071009149940</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">10</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://103216526693802</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="11">
+      <Properties>
+        <string name="Name">bonepile</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">912</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://71597799081773</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://93812752215919</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://109078527208860</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">3.5</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://78220869710739</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="12">
+      <Properties>
+        <string name="Name">cactus</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1280</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://97579633043823</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://89794444253431</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">3</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://124051328006759</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="13">
+      <Properties>
+        <string name="Name">cactusjevil</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1280</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://98107349253473</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://89794444253431</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">3</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://72116469512239</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="14">
+      <Properties>
+        <string name="Name">carbon</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">256</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://102896198507214</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">0</token>
+        <Content name="MetalnessMapContent">
+          <uri>rbxassetid://110706567280740</uri>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://113560082245357</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://110706567280740</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">10</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://111247082331127</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="15">
+      <Properties>
+        <string name="Name">chrome</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1088</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://140285092529533</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">0</token>
+        <Content name="MetalnessMapContent">
+          <uri>rbxassetid://140285092529533</uri>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://73390398053779</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://90670256858656</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">10</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://134192830741328</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="16">
+      <Properties>
+        <string name="Name">corrogated metal</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1088</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://74017690460143</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">0</token>
+        <Content name="MetalnessMapContent">
+          <uri>rbxassetid://74017690460143</uri>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://80798381193510</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://80798381193510</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">10</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://113110519298688</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="17">
+      <Properties>
+        <string name="Name">gravel</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1360</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://86839491073362</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://77637582812748</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://86839491073362</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">8</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://92868077181829</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="18">
+      <Properties>
+        <string name="Name">hay</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1280</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://106232885980081</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://125443539100164</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://91270241983406</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">3</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://104289385070494</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="19">
+      <Properties>
+        <string name="Name">oakleaves</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1280</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://124165475089936</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://134294737425728</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://91270241983406</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">3</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://122305822467633</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="20">
+      <Properties>
+        <string name="Name">pinebark</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">512</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://83784393315077</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://104887459719966</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://135885841721604</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">3</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://114060952170471</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="21">
+      <Properties>
+        <string name="Name">pineleaves</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1280</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://139472910186797</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://81152099541511</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://91270241983406</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">2</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://108692140939557</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="22">
+      <Properties>
+        <string name="Name">roughmetal</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1088</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <uri>rbxassetid://122822121386018</uri>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>false</CustomPhysics>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <uri>rbxassetid://123134558309952</uri>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://112809301111201</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">10</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://79930508700822</url>
+        </ContentId>
+      </Properties>
+    </Item>
+    <Item class="MaterialVariant" referent="23">
+      <Properties>
+        <string name="Name">sandwavy</string>
+        <token name="AlphaMode">3</token>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <token name="BaseMaterial">1296</token>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <Content name="ColorMapContent">
+          <null>
+          </null>
+        </Content>
+        <PhysicalProperties name="CustomPhysicalProperties">
+          <CustomPhysics>true</CustomPhysics>
+          <Density>1</Density>
+          <Friction>0.25</Friction>
+          <Elasticity>0</Elasticity>
+          <FrictionWeight>15</FrictionWeight>
+          <ElasticityWeight>5</ElasticityWeight>
+          <AcousticAbsorption>0.65</AcousticAbsorption>
+        </PhysicalProperties>
+        <Content name="EmissiveMaskContent">
+          <null>
+          </null>
+        </Content>
+        <float name="EmissiveStrength">1</float>
+        <Color3 name="EmissiveTint">
+          <R>1</R>
+          <G>1</G>
+          <B>1</B>
+        </Color3>
+        <token name="MaterialPattern">1</token>
+        <Content name="MetalnessMapContent">
+          <null>
+          </null>
+        </Content>
+        <Content name="NormalMapContent">
+          <uri>rbxassetid://122463093387256</uri>
+        </Content>
+        <Content name="RoughnessMapContent">
+          <uri>rbxassetid://17127337383</uri>
+        </Content>
+        <bool name="DefinesCapabilities">false</bool>
+        <int64 name="SourceAssetId">-1</int64>
+        <float name="StudsPerTile">25</float>
+        <BinaryString name="Tags"></BinaryString>
+        <ContentId name="TexturePack">
+          <url>rbxassetid://76117794747025</url>
+        </ContentId>
+      </Properties>
+    </Item>
   </Item>
 </roblox>

@@ -3,46 +3,46 @@
     <Properties>
       <string name="Name">Lighting</string>
       <Color3 name="Ambient">
-        <R>0.27450982</R>
-        <G>0.27450982</G>
-        <B>0.27450982</B>
+        <R>0.32941177</R>
+        <G>0.41960785</G>
+        <B>0.49803922</B>
       </Color3>
-      <BinaryString name="AttributesSerialize">AQAAACYAAABSQlhfTGlnaHRpbmdUZWNobm9sb2d5VW5pZmllZE1pZ3JhdGlvbgMB</BinaryString>
-      <float name="Brightness">3</float>
+      <BinaryString name="AttributesSerialize">AgAAACYAAABSQlhfTGlnaHRpbmdUZWNobm9sb2d5VW5pZmllZE1pZ3JhdGlvbgMBIAAAAFJCWF9PcmlnaW5hbFRlY2hub2xvZ3lPbkZpbGVMb2FkBAEAAAA=</BinaryString>
+      <float name="Brightness">4</float>
       <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
       <Color3 name="ColorShift_Bottom">
-        <R>0</R>
-        <G>0</G>
-        <B>0</B>
+        <R>0.32941177</R>
+        <G>0.41960785</G>
+        <B>0.49803922</B>
       </Color3>
       <Color3 name="ColorShift_Top">
-        <R>0</R>
-        <G>0</G>
-        <B>0</B>
+        <R>0.32941177</R>
+        <G>0.41960785</G>
+        <B>0.49803922</B>
       </Color3>
       <float name="EnvironmentDiffuseScale">1</float>
       <float name="EnvironmentSpecularScale">1</float>
       <float name="ExposureCompensation">0</float>
       <token name="ExtendLightRangeTo120">0</token>
       <Color3 name="FogColor">
-        <R>0.75</R>
-        <G>0.75</G>
-        <B>0.75</B>
+        <R>0.7490196</R>
+        <G>0.7490196</G>
+        <B>0.7490196</B>
       </Color3>
-      <float name="FogEnd">100000</float>
+      <float name="FogEnd">100000000000000000000</float>
       <float name="FogStart">0</float>
-      <float name="GeographicLatitude">41.733</float>
+      <float name="GeographicLatitude">50</float>
       <bool name="GlobalShadows">true</bool>
-      <token name="LightingStyle">1</token>
+      <token name="LightingStyle">0</token>
       <Color3 name="OutdoorAmbient">
-        <R>0.22352941</R>
-        <G>0.21960784</G>
-        <B>0.18039216</B>
+        <R>0.36862746</R>
+        <G>0.5411765</G>
+        <B>0.65882355</B>
       </Color3>
       <bool name="Outlines">true</bool>
-      <bool name="PrioritizeLightingQuality">false</bool>
+      <bool name="PrioritizeLightingQuality">true</bool>
       <bool name="DefinesCapabilities">false</bool>
-      <float name="ShadowSoftness">0.5</float>
+      <float name="ShadowSoftness">0.15</float>
       <int64 name="SourceAssetId">-1</int64>
       <BinaryString name="Tags"></BinaryString>
       <token name="Technology">1</token>

@@ -67,10 +67,10 @@
         <bool name="CanQuery">true</bool>
         <bool name="CanTouch">true</bool>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="CastShadow">false</bool>
+        <bool name="CastShadow">true</bool>
         <string name="CollisionGroup">Blocks</string>
         <int name="CollisionGroupId">2</int>
-        <Color3uint8 name="Color3uint8">11525631</Color3uint8>
+        <Color3uint8 name="Color3uint8">16777215</Color3uint8>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>
@@ -86,8 +86,8 @@
         <token name="LeftSurfaceInput">0</token>
         <bool name="Locked">false</bool>
         <bool name="Massless">false</bool>
-        <token name="Material">1568</token>
-        <string name="MaterialVariantSerialized"></string>
+        <token name="Material">816</token>
+        <string name="MaterialVariantSerialized">WornConcrete</string>
         <CoordinateFrame name="PivotOffset">
           <X>0</X>
           <Y>0</Y>
@@ -133,29 +133,7 @@
           <Z>0</Z>
         </Vector3>
       </Properties>
-      <Item class="VectorForce" referent="2">
-        <Properties>
-          <string name="Name">VectorForce</string>
-          <bool name="ApplyAtCenterOfMass">true</bool>
-          <Ref name="Attachment0">3</Ref>
-          <Ref name="Attachment1">null</Ref>
-          <BinaryString name="AttributesSerialize"></BinaryString>
-          <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-          <int name="Color">23</int>
-          <bool name="Enabled">true</bool>
-          <Vector3 name="Force">
-            <X>0</X>
-            <Y>0</Y>
-            <Z>0</Z>
-          </Vector3>
-          <token name="RelativeTo">2</token>
-          <bool name="DefinesCapabilities">false</bool>
-          <int64 name="SourceAssetId">-1</int64>
-          <BinaryString name="Tags"></BinaryString>
-          <bool name="Visible">false</bool>
-        </Properties>
-      </Item>
-      <Item class="Attachment" referent="3">
+      <Item class="Attachment" referent="2">
         <Properties>
           <string name="Name">Attachment</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
@@ -180,58 +158,26 @@
           <bool name="Visible">false</bool>
         </Properties>
       </Item>
-      <Item class="ParticleEmitter" referent="4">
+      <Item class="VectorForce" referent="3">
         <Properties>
-          <string name="Name">ParticleEmitter</string>
-          <Vector3 name="Acceleration">
+          <string name="Name">VectorForce</string>
+          <bool name="ApplyAtCenterOfMass">false</bool>
+          <Ref name="Attachment0">2</Ref>
+          <Ref name="Attachment1">null</Ref>
+          <BinaryString name="AttributesSerialize"></BinaryString>
+          <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+          <int name="Color">23</int>
+          <bool name="Enabled">true</bool>
+          <Vector3 name="Force">
             <X>0</X>
             <Y>0</Y>
             <Z>0</Z>
           </Vector3>
-          <BinaryString name="AttributesSerialize"></BinaryString>
-          <float name="Brightness">1</float>
-          <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-          <ColorSequence name="Color">0 1 1 1 0 1 0.6666667 1 1 0 </ColorSequence>
-          <float name="Drag">0</float>
-          <token name="EmissionDirection">1</token>
-          <bool name="Enabled">true</bool>
-          <NumberRange name="FlipbookFramerate">1 1 </NumberRange>
-          <string name="FlipbookIncompatible">Particle texture must be 1024 by 1024 to use flipbooks.</string>
-          <token name="FlipbookLayout">0</token>
-          <token name="FlipbookMode">0</token>
-          <int name="FlipbookSizeX">1</int>
-          <int name="FlipbookSizeY">1</int>
-          <bool name="FlipbookStartRandom">false</bool>
-          <NumberRange name="Lifetime">2 2 </NumberRange>
-          <float name="LightEmission">0</float>
-          <float name="LightInfluence">1</float>
-          <bool name="LockedToPart">true</bool>
-          <token name="Orientation">0</token>
-          <float name="Rate">3</float>
-          <NumberRange name="RotSpeed">90 360 </NumberRange>
-          <NumberRange name="Rotation">1 360 </NumberRange>
+          <token name="RelativeTo">2</token>
           <bool name="DefinesCapabilities">false</bool>
-          <token name="Shape">1</token>
-          <token name="ShapeInOut">0</token>
-          <float name="ShapePartial">1</float>
-          <token name="ShapeStyle">0</token>
-          <NumberSequence name="Size">0 0.2 0 0.8776329 0.15240371 0 1 0 0 </NumberSequence>
           <int64 name="SourceAssetId">-1</int64>
-          <NumberRange name="Speed">1 1 </NumberRange>
-          <Vector2 name="SpreadAngle">
-            <X>180</X>
-            <Y>180</Y>
-          </Vector2>
-          <NumberSequence name="Squash">0 0 0 1 0 0 </NumberSequence>
           <BinaryString name="Tags"></BinaryString>
-          <ContentId name="Texture">
-            <url>rbxassetid://15065389108</url>
-          </ContentId>
-          <float name="TimeScale">1</float>
-          <NumberSequence name="Transparency">0 0.5 0 1 0.5 0 </NumberSequence>
-          <float name="VelocityInheritance">0</float>
-          <bool name="WindAffectsDrag">false</bool>
-          <float name="ZOffset">0</float>
+          <bool name="Visible">false</bool>
         </Properties>
       </Item>
     </Item>

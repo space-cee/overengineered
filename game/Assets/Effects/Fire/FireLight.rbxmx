@@ -3,17 +3,17 @@
     <Properties>
       <string name="Name">FireLight</string>
       <BinaryString name="AttributesSerialize"></BinaryString>
-      <float name="Brightness">1</float>
+      <float name="Brightness">0.02</float>
       <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
       <Color3 name="Color">
         <R>1</R>
-        <G>0.33333334</G>
-        <B>0</B>
+        <G>0.6509804</G>
+        <B>0.36862746</B>
       </Color3>
       <bool name="Enabled">true</bool>
-      <float name="Range">14</float>
+      <float name="Range">120</float>
       <bool name="DefinesCapabilities">false</bool>
-      <bool name="Shadows">true</bool>
+      <bool name="Shadows">false</bool>
       <int64 name="SourceAssetId">-1</int64>
       <BinaryString name="Tags"></BinaryString>
     </Properties>

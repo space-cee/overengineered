@@ -10,10 +10,11 @@
       <BinaryString name="AttributesSerialize">AQAAAAkAAABFbWl0Q291bnQGAAAAAAAALkA=</BinaryString>
       <float name="Brightness">1</float>
       <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-      <ColorSequence name="Color">0 1 0.4 0 0 1 0.49019608 0.13725491 0.13725491 0 </ColorSequence>
+      <ColorSequence name="Color">0 1 0.8039216 0.4862745 0 1 0.49019608 0.13725491 0.13725491 0 </ColorSequence>
       <float name="Drag">0</float>
       <token name="EmissionDirection">1</token>
       <bool name="Enabled">false</bool>
+      <bool name="FlipbookBlendFrames">true</bool>
       <NumberRange name="FlipbookFramerate">1 1 </NumberRange>
       <string name="FlipbookIncompatible">Particle texture must be 1024 by 1024 to use flipbooks.</string>
       <token name="FlipbookLayout">0</token>
@@ -21,12 +22,12 @@
       <int name="FlipbookSizeX">1</int>
       <int name="FlipbookSizeY">1</int>
       <bool name="FlipbookStartRandom">false</bool>
-      <NumberRange name="Lifetime">0.2 0.2 </NumberRange>
-      <float name="LightEmission">1</float>
+      <NumberRange name="Lifetime">0.4 0.4 </NumberRange>
+      <float name="LightEmission">3</float>
       <float name="LightInfluence">1</float>
       <bool name="LockedToPart">false</bool>
       <token name="Orientation">0</token>
-      <float name="Rate">20</float>
+      <float name="Rate">100</float>
       <NumberRange name="RotSpeed">0 0 </NumberRange>
       <NumberRange name="Rotation">0 0 </NumberRange>
       <bool name="DefinesCapabilities">false</bool>
@@ -34,7 +35,7 @@
       <token name="ShapeInOut">0</token>
       <float name="ShapePartial">1</float>
       <token name="ShapeStyle">0</token>
-      <NumberSequence name="Size">0 30 0 1 30 0 </NumberSequence>
+      <NumberSequence name="Size">0 75 0 1 75 0 </NumberSequence>
       <int64 name="SourceAssetId">-1</int64>
       <NumberRange name="Speed">0 0 </NumberRange>
       <Vector2 name="SpreadAngle">

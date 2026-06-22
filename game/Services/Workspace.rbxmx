@@ -5,17 +5,18 @@
       <float name="AirDensity">0</float>
       <float name="AirTurbulenceIntensity">0</float>
       <bool name="AllowThirdPartySales">false</bool>
-      <BinaryString name="AttributesSerialize">AQAAABQAAABfX1Jvam9fQ29ubmVjdGlvblVybAIWAAAAaHR0cDovL2xvY2FsaG9zdDozNDg3Mg==</BinaryString>
+      <BinaryString name="AttributesSerialize"></BinaryString>
       <token name="AuthorityMode">1</token>
       <token name="AvatarUnificationMode">0</token>
       <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
       <token name="ClientAnimatorThrottling">2</token>
-      <BinaryString name="CollisionGroupData"><![CDATA[AQwABGX+//8HRGVmYXVsdAEEQvL//xlQbHVnaW5fVW5zZWxlY3RhYmxlX0dyb3VwAgTt9v//BkJsb2NrcwMELPL//wlCbG9ja1dlbGQEBDDy//8NQmxvY2tDb2xsaWRlcgUE/f7//xBTdHVkaW9TZWxlY3RhYmxlBgQn8v//ClByb2plY3RpbGUHBCTw//8MbW9kdWxlTWFya2VyCAQA9v//DFJhZGFyRGV0ZWN0cwkEf/f//wxCbG9ja1JheWNhc3QKBCXz//8PQ29sQm94RXhjbHVzaXZlCwQh8P//E1BsYXllclNjcmlwdFRyaWdnZXI=]]></BinaryString>
+      <BinaryString name="CollisionGroupData"><![CDATA[AQ0ABGXu//8HRGVmYXVsdAEEQvL//xlQbHVnaW5fVW5zZWxlY3RhYmxlX0dyb3VwAgTt9v//BkJsb2NrcwMELPL//wlCbG9ja1dlbGQEBDDy//8NQmxvY2tDb2xsaWRlcgUE/e7//xBTdHVkaW9TZWxlY3RhYmxlBgQn8v//ClByb2plY3RpbGUHBCTw//8MbW9kdWxlTWFya2VyCAQA9v//DFJhZGFyRGV0ZWN0cwkEf/f//wxCbG9ja1JheWNhc3QKBCXz//8PQ29sQm94RXhjbHVzaXZlCwQh8P//E1BsYXllclNjcmlwdFRyaWdnZXIMBN7///8NTWlycm9yZWRQYXJ0cw==]]></BinaryString>
       <Ref name="CurrentCamera">null</Ref>
       <double name="DistributedGameTime">0</double>
+      <token name="EnableSLIMAvatars">0</token>
       <bool name="ExplicitAutoJoints">true</bool>
       <bool name="FallHeightEnabled">true</bool>
-      <float name="FallenPartsDestroyHeight">-17000</float>
+      <float name="FallenPartsDestroyHeight">-50000</float>
       <token name="FluidForces">1</token>
       <Vector3 name="GlobalWind">
         <X>0</X>
@@ -24,9 +25,13 @@
       </Vector3>
       <float name="Gravity">180</float>
       <token name="IKControlConstraintSupport">0</token>
+      <token name="ImprovedAnimationConstraint">0</token>
+      <token name="ImprovedPhysicsReplication">0</token>
+      <token name="LayeredClothingCacheOptimizations">0</token>
       <token name="LevelOfDetail">0</token>
       <token name="LuauTypeCheckMode">0</token>
       <token name="MeshPartHeadsAndAccessories">0</token>
+      <token name="MeshStreamingAndImprovedLods">0</token>
       <CoordinateFrame name="ModelMeshCFrame">
         <X>0</X>
         <Y>0</Y>
@@ -49,24 +54,23 @@
       </Vector3>
       <token name="ModelStreamingBehavior">0</token>
       <token name="ModelStreamingMode">0</token>
-      <token name="MoverConstraintRootBehavior">0</token>
       <bool name="NeedsPivotMigration">false</bool>
       <token name="NextGenerationReplication">0</token>
-      <token name="PathfindingUseImprovedSearch">0</token>
+      <token name="PathfindingUseImprovedSearch">2</token>
       <token name="PhysicsImprovedSleep">0</token>
-      <token name="PhysicsSteppingMethod">2</token>
+      <token name="PhysicsSteppingMethod">1</token>
       <token name="PlayerCharacterDestroyBehavior">0</token>
       <token name="PlayerScriptsUseInputActionSystem">0</token>
       <token name="PrimalPhysicsSolver">0</token>
       <Ref name="PrimaryPart">null</Ref>
       <token name="RejectCharacterDeletions">0</token>
-      <token name="RenderingCacheOptimizations">2</token>
+      <token name="RenderingCacheOptimizations">0</token>
       <token name="ReplicateInstanceDestroySetting">0</token>
-      <token name="Retargeting">0</token>
+      <token name="Retargeting">2</token>
       <bool name="DefinesCapabilities">false</bool>
-      <token name="SandboxedInstanceMode">0</token>
+      <token name="SandboxedInstanceMode">1</token>
       <float name="ScaleFactor">1</float>
-      <token name="SignalBehavior2">0</token>
+      <token name="SignalBehavior2">3</token>
       <int64 name="SourceAssetId">-1</int64>
       <token name="StreamOutBehavior">1</token>
       <bool name="StreamingEnabled">false</bool>
@@ -79,6 +83,7 @@
       <bool name="TouchesUseCollisionGroups">true</bool>
       <token name="UseFixedSimulation">0</token>
       <token name="UseNewLuauTypeSolver">1</token>
+      <token name="ValidateEnabledProximityPrompt">0</token>
       <OptionalCoordinateFrame name="WorldPivotData">
         <CFrame>
           <X>0</X>

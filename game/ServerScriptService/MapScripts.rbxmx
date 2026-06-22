@@ -10,60 +10,10 @@
     </Properties>
     <Item class="Script" referent="1">
       <Properties>
-        <string name="Name">TreeRotationScript</string>
-        <BinaryString name="AttributesSerialize"></BinaryString>
-        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="Disabled">false</bool>
-        <ContentId name="LinkedSource">
-          <null>
-          </null>
-        </ContentId>
-        <token name="RunContext">0</token>
-        <bool name="DefinesCapabilities">false</bool>
-        <string name="Source">local function randomRotation(model, isDeadTree)
-	if not model.PrimaryPart then
-		model.PrimaryPart = model:FindFirstChild("Trunk") or model:FindFirstChild("Main") or model:GetChildren()[1]
-	end
-
-	if model.PrimaryPart then
-		local xRot, yRot, zRot
-
-		if isDeadTree then
-			xRot = math.random(-15, 15)
-			yRot = math.random(-360, 360)
-			zRot = math.random(-15, 15)
-		else
-			xRot = math.random(-5, 5)
-			yRot = math.random(-360, 360)
-			zRot = math.random(-5, 5)
-		end
-
-		local rotation = CFrame.Angles(math.rad(xRot), math.rad(yRot), math.rad(zRot))
-		model:SetPrimaryPartCFrame(model.PrimaryPart.CFrame * rotation)
-	end
-end
-
-local trees = {}
-for _, model in pairs(workspace:GetDescendants()) do
-	if model:IsA("Model") and (model.Name == "tree1" or model.Name == "tree2" or model.Name == "deadtree") then
-		table.insert(trees, model)
-	end
-end
-
-for _, tree in pairs(trees) do
-	local isDeadTree = (tree.Name == "deadtree")
-	randomRotation(tree, isDeadTree)
-end</string>
-        <int64 name="SourceAssetId">-1</int64>
-        <BinaryString name="Tags"></BinaryString>
-      </Properties>
-    </Item>
-    <Item class="Script" referent="2">
-      <Properties>
         <string name="Name">TireStackDestructionScript</string>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="Disabled">false</bool>
+        <bool name="Disabled">true</bool>
         <ContentId name="LinkedSource">
           <null>
           </null>
@@ -128,12 +78,12 @@ end</string>
         <BinaryString name="Tags"></BinaryString>
       </Properties>
     </Item>
-    <Item class="Script" referent="3">
+    <Item class="Script" referent="2">
       <Properties>
         <string name="Name">Rock&amp;BushRotationScript</string>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="Disabled">false</bool>
+        <bool name="Disabled">true</bool>
         <ContentId name="LinkedSource">
           <null>
           </null>
@@ -169,12 +119,12 @@ end</string>
         <BinaryString name="Tags"></BinaryString>
       </Properties>
     </Item>
-    <Item class="Script" referent="4">
+    <Item class="Script" referent="3">
       <Properties>
         <string name="Name">ParkingLotLightsDestructionScript</string>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="Disabled">false</bool>
+        <bool name="Disabled">true</bool>
         <ContentId name="LinkedSource">
           <null>
           </null>
@@ -248,12 +198,12 @@ end</string>
         <BinaryString name="Tags"></BinaryString>
       </Properties>
     </Item>
-    <Item class="Script" referent="5">
+    <Item class="Script" referent="4">
       <Properties>
         <string name="Name">FireHydrantDestructionScript</string>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-        <bool name="Disabled">false</bool>
+        <bool name="Disabled">true</bool>
         <ContentId name="LinkedSource">
           <null>
           </null>

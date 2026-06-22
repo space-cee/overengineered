@@ -1,0 +1,101 @@
+<roblox version="4">
+  <Item class="LocalScript" referent="0">
+    <Properties>
+      <string name="Name">Head Movement R6/R15 (Put it in StarterGUI!)</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+      <bool name="Disabled">false</bool>
+      <ContentId name="LinkedSource">
+        <null>
+        </null>
+      </ContentId>
+      <token name="RunContext">0</token>
+      <bool name="DefinesCapabilities">false</bool>
+      <string name="Source"><![CDATA[-- Head Follow Camera (CLIENT)
+
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local UserInputService = game:GetService("UserInputService")
+
+
+local HeadLookRemote = ReplicatedStorage:WaitForChild("HeadLookRemote") -- RemoteEvent
+local HeadLookToggle = ReplicatedStorage:WaitForChild("HeadLookToggle") -- BindableEvent
+
+local LookEnabled = false
+local ShiftHeld = false
+
+local function ResetHead()
+	HeadLookRemote:FireServer(0, 0)
+end
+--keyboard toggle (Shift + J)
+UserInputService.InputBegan:Connect(function(input, gp)
+	if gp then return end
+
+	if input.KeyCode == Enum.KeyCode.LeftShift then
+		ShiftHeld = true
+	elseif input.KeyCode == Enum.KeyCode.J and ShiftHeld then
+		LookEnabled = not LookEnabled
+		if not LookEnabled then
+			ResetHead()
+		end
+	end
+
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift then
+		ShiftHeld = false
+	end
+end)
+
+
+HeadLookToggle.Event:Connect(function(enabled)
+	LookEnabled = enabled
+	if not enabled then
+		ResetHead()
+	end
+end)
+
+
+
+local Player = Players.LocalPlayer
+local Character = Player.Character or Player.CharacterAdded:Wait()
+local Camera = Workspace.CurrentCamera
+
+local Head = Character:WaitForChild("Head")
+local Humanoid = Character:WaitForChild("Humanoid")
+local Root = Character:WaitForChild("HumanoidRootPart")
+
+local IsR6 = Humanoid.RigType == Enum.HumanoidRigType.R6
+local Torso = IsR6 and Character:WaitForChild("Torso") or Character:WaitForChild("UpperTorso")
+
+local MAX_ANGLE = math.rad(60)
+
+-- Main loop
+RunService.RenderStepped:Connect(function()
+	if not LookEnabled then return end
+	if Humanoid.Health <= 0 then return end
+
+	local camCF = Camera.CFrame
+	local headPos = Head.Position
+	local lookVector = (camCF.Position - headPos).Unit
+	local torsoLook = Torso.CFrame.LookVector
+
+	-- Pitch
+	local pitch = -math.asin(lookVector.Y)
+	pitch = math.clamp(pitch, -MAX_ANGLE, MAX_ANGLE)
+
+	-- Yaw
+	local yaw = (Vector3.new(-lookVector.X, 0, -lookVector.Z)):Cross(torsoLook).Y
+	yaw = math.clamp(yaw, -1, 1)
+
+	HeadLookRemote:FireServer(pitch, yaw)
+end)
+]]></string>
+      <int64 name="SourceAssetId">7275496560</int64>
+      <BinaryString name="Tags"></BinaryString>
+    </Properties>
+  </Item>
+</roblox>
