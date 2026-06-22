@@ -9,7 +9,6 @@ export const changelog = `
 - Fixed freecam speed modifier
 - Logic Visualizer bug fix?
 
-
 15 June 2026 (bug fixes):
 
 - colorable rope
