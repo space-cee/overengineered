@@ -31,10 +31,6 @@ class _ObservableValue<T> implements ObservableValueBase<T> {
 			value = this._middleware(value, this.get());
 		}
 
-		if (typeIs(value, "string") && value.size() > 4000) {
-			value = value.sub(0, 4000) as unknown as T;
-		}
-
 		if (this.value === value) return;
 
 		this.value = value;
