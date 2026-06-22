@@ -3,10 +3,11 @@ export const changelog = `
 22 June 2026:
 
 - Public Ai Block
-- LED Display optimizations (programthat)*
+- LED Display optimizations (programthat)* (UE)
 - PID Derivative fix
 - Customizable water height
 - Fixed freecam speed modifier
+- Logic Visualizer bug fix?
 
 
 15 June 2026 (bug fixes):

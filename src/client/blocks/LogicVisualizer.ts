@@ -99,7 +99,7 @@ export class LogicVisualizer extends Component {
 				});
 
 				const info = block.getDebugInfo(ctx).map((i) => formatDebugInfo(i));
-				label.Label.Text = info.join("\n");
+				label.Label.Text = info.join("\n").sub(0, 4000);
 			}
 		};
 		this.event.subscribeRegistration(() => runner.onAfterTick(tick));
