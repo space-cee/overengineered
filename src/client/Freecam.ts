@@ -41,6 +41,7 @@ let FFlagUserExitFreecamBreaksWithShiftlock: boolean;
 const INPUT_PRIORITY = Enum.ContextActionPriority.High.Value;
 
 const NAV_GAIN = Vector3.one.mul(64);
+let freecamSpeed = 1;
 class VelocitySpring {
 	p = Vector3.zero;
 	v = Vector3.zero;
@@ -161,7 +162,7 @@ namespace Input {
 		return base
 			.add(kGamepad)
 			.add(kKeyboard)
-			.mul(navSpeed * (shift ? NAV_SHIFT_MUL : 1));
+			.mul(navSpeed * (shift ? NAV_SHIFT_MUL : 1) * freecamSpeed);
 	}
 
 	function Keypress(action: string, state: Enum.UserInputState, input: InputObject) {
@@ -411,4 +412,8 @@ export namespace Freecam {
 			stop();
 		}
 	});
+
+	export function setSpeed(value: number) {
+		freecamSpeed = value;
+	}
 }

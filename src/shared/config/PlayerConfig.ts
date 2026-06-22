@@ -16,6 +16,7 @@ declare global {
 		readonly strictFollow: boolean;
 		readonly playerCentered: boolean;
 		readonly fov: number;
+		readonly freecamSpeed: number;
 	};
 	type GraphicsConfiguration = {
 		readonly localShadows: boolean;
@@ -200,6 +201,7 @@ export const PlayerConfigDefinition = {
 			improved: true as boolean,
 			strictFollow: false as boolean,
 			playerCentered: true as boolean,
+			freecamSpeed: 1 as number,
 			fov: 70 as number,
 		},
 	},

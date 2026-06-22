@@ -14,6 +14,10 @@ export class PlayerSettingsCamera extends ConfigControlList {
 			this.addSlider("Field of View", { min: 1, max: 120, inputStep: 1 }) //
 				.initToObjectPart(value, ["betterCamera", "fov"], "value");
 
+			this.addSlider("Buildcam Speed", { min: 0.01, max: 2, inputStep: 0.01 })
+				.initToObjectPart(value, ["betterCamera", "freecamSpeed"], "value")
+				.setDescription("Build mode freecam speed multiplier");
+
 			this.addToggle("Improved") //
 				.initToObjectPart(value, ["betterCamera", "improved"]);
 

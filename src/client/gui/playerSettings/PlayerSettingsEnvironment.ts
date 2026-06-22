@@ -122,7 +122,7 @@ export class PlayerSettingsEnvironment extends ConfigControlList {
 						mapUnload: asObject(GetUnloadables().mapToMap((e) => $tuple(e.Name, allDisabled))),
 					});
 				})
-					.setDescription("Toggles all toggleable map objects, reccomended for lower end devices")
+					.setDescription("Toggles all toggleable map objects, recommended for lower end devices")
 					.button.setButtonText("Toggle All");
 
 				const toggles = GetUnloadables().map((unloadable) =>

@@ -4,6 +4,7 @@ import { Transforms } from "engine/shared/component/Transforms";
 import { HostedService } from "engine/shared/di/HostedService";
 import type { MainScreenLayout } from "client/gui/MainScreenLayout";
 import type { PlayModeController } from "client/modes/PlayModeController";
+import type { PlayerDataStorage } from "client/PlayerDataStorage";
 import type { ReadonlyPlot } from "shared/building/ReadonlyPlot";
 
 const keydef = Keybinds.registerDefinition("freecam", ["Freecam"], [["LeftShift", "O"]]);
@@ -14,6 +15,7 @@ export class FreecamController extends HostedService {
 		@inject mainScreen: MainScreenLayout,
 		@inject keybinds: Keybinds,
 		@inject playMode: PlayModeController,
+		@inject playerData: PlayerDataStorage,
 		@inject plot: ReadonlyPlot,
 	) {
 		super();
@@ -29,6 +31,12 @@ export class FreecamController extends HostedService {
 		});
 
 		Freecam.toggle.initKeybind(keybinds.fromDefinition(keydef));
+
+		playerData.config
+			.fReadonlyCreateBased((c) => c.betterCamera.freecamSpeed)
+			.subscribe((speed) => {
+				Freecam.setSpeed(speed);
+			});
 
 		const button = this.parent(mainScreen.addTopRightButton("Freecam", 85551851050331)) //
 			.subscribeToAction(Freecam.toggle)

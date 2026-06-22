@@ -62,6 +62,7 @@ const v4: UpdatablePlayerConfigVersion<PlayerConfigV4, PlayerConfigV3> = {
 				improved: prev.betterCamera ?? true,
 				strictFollow: true,
 				playerCentered: false,
+				freecamSpeed: 1,
 				fov: 70,
 			},
 		};
