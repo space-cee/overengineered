@@ -19,8 +19,8 @@ import { ControllerSensorBlock } from "shared/blocks/blocks/ControllerSensorBloc
 import { CounterBlock } from "shared/blocks/blocks/CounterBlock";
 import { DelayBlock } from "shared/blocks/blocks/DelayBlock";
 import { DisconnectBlock } from "shared/blocks/blocks/DisconnectBlock";
-import { Display16Block } from "shared/blocks/blocks/Display16Block";
-import { Display32Block } from "shared/blocks/blocks/Display32Block";
+//import { Display16Block } from "shared/blocks/blocks/Display16Block";
+//import { Display32Block } from "shared/blocks/blocks/Display32Block";
 import { FallbackBlock } from "shared/blocks/blocks/FallbackBlock";
 import { FireSensorBlock } from "shared/blocks/blocks/FireSensorBlock";
 import { FloaterBlock } from "shared/blocks/blocks/FloaterBlock";
@@ -33,6 +33,7 @@ import { BasicOperationBlocks } from "shared/blocks/blocks/grouped/BasicOperatio
 import { BuildingBlocks } from "shared/blocks/blocks/grouped/BuildingBlocks";
 import { HingeBlocks } from "shared/blocks/blocks/grouped/HingeBlocks";
 import { LampBlocks } from "shared/blocks/blocks/grouped/LampBlocks";
+import { LedDisplayBlocks } from "shared/blocks/blocks/grouped/LEDDisplayBlocks.";
 import { LinearSliderBlocks } from "shared/blocks/blocks/grouped/LinearSliders";
 import { MechanicalBlocks } from "shared/blocks/blocks/grouped/MechanicalBlocks";
 import { PassengerSeatBlocks } from "shared/blocks/blocks/grouped/PassengerSeatBlocks";
@@ -60,7 +61,6 @@ import { JoystickSensorBlock } from "shared/blocks/blocks/JoystickSensorBlock";
 import { KeyboardBlock } from "shared/blocks/blocks/KeyboardBlock";
 import { KeySensorBlock } from "shared/blocks/blocks/KeySensorBlock";
 import { LaserBlock } from "shared/blocks/blocks/LaserBlock";
-import { LedDisplayBlock } from "shared/blocks/blocks/LedDisplayBlock";
 import { LegMountBlock } from "shared/blocks/blocks/LegMountBlock";
 import { LimbMountBlock } from "shared/blocks/blocks/LimbMountBlock";
 import { LinearEasingBlock } from "shared/blocks/blocks/LinearEasingBlock";
@@ -190,9 +190,9 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 		BearingShaftBlock,
 
 		ScreenBlock,
-		LedDisplayBlock,
-		Display16Block,
-		Display32Block,
+		...LedDisplayBlocks,
+		//Display16Block,
+		//Display32Block,
 		SevenSegmentDisplayBlock,
 		CameraBlock,
 		BeaconBlock,

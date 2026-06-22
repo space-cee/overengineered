@@ -6,8 +6,8 @@ import { BracedShaftServerLogic } from "server/blocks/logic/BracedShaftServerLog
 import { ButtonServerLogic } from "server/blocks/logic/ButtonServerLogic";
 import { CameraBlockServerLogic } from "server/blocks/logic/CameraBlockServerLogic";
 import { DisconnectBlockServerLogic } from "server/blocks/logic/DisconnectBlockServerLogic";
-import { Display16ServerLogic } from "server/blocks/logic/Display16ServerLogic";
-import { Display32ServerLogic } from "server/blocks/logic/Display32ServerLogic";
+//import { Display16ServerLogic } from "server/blocks/logic/Display16ServerLogic";
+//import { Display32ServerLogic } from "server/blocks/logic/Display32ServerLogic";
 import { HandleBlockServerLogic } from "server/blocks/logic/HandleBlockServerLogic";
 import { HeadMountBlockServerLogic } from "server/blocks/logic/HeadMountBlockServerLogic";
 import { LEDDisplayServerLogic } from "server/blocks/logic/LEDDisplayServerLogic";
@@ -79,8 +79,8 @@ export class ServerBlockLogicController extends HostedService {
 			armmount: ArmMountBlockServerLogic,
 			headmount: HeadMountBlockServerLogic,
 			limbmount: LimbMountBlockServerLogic,
-			display16: Display16ServerLogic,
-			display32: Display32ServerLogic,
+			//display16: Display16ServerLogic,
+			//display32: Display32ServerLogic,
 			legmount: LegMountBlockServerLogic,
 			unscaledscreen: UnscaledScreenServerLogic,
 			handle: HandleBlockServerLogic,

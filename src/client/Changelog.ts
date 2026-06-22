@@ -1,5 +1,13 @@
 export const changelog = `
 
+20 June 2026:
+
+- Public Ai Block
+- LED Display optimizations (programthat)
+- PID Derivative fix
+- Customizable water height
+
+
 15 June 2026 (bug fixes):
 
 - colorable rope
