@@ -2,7 +2,7 @@ export const changelog = `
 
 22 June 2026:
 
-- Public Ai Block
+- Public AI Block
 - LED Display optimizations (programthat)* (UE)
 - PID Derivative fix
 - Customizable water height
