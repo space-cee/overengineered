@@ -83,7 +83,7 @@ class WindSoundEffect extends HostedService {
 		super();
 
 		const sound = SoundController.getUISounds().Wind;
-		const maxVolume = 6;
+		const maxVolume = 1;
 		const maxSoundSpeed = 2;
 		const maxSpeed = 900;
 
