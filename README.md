@@ -4,16 +4,19 @@
   <a href="https://www.roblox.com/share/g/1035198532">
     <img src="https://img.shields.io/badge/Roblox-play-blue?style=flat-square&logo=roblox" alt="Play on Roblox" />
   </a>
-  <a href="https://github.com/Maks-gaming/OverEngineered">
+  <a href="https://github.com/anywaymachines/OverEngineered">
     <img src="https://img.shields.io/github/stars/anywaymachines/overengineered?style=flat-square" alt="GitHub Stars" />
   </a>
   <a href="https://github.com/anywaymachines/overengineered/network/members">
     <img src="https://img.shields.io/github/forks/anywaymachines/overengineered?style=flat-square" alt="GitHub Forks" />
   </a>
   <a href="https://discord.gg/raax9xUMDc">
-    <img src="https://img.shields.io/discord/1053774759244083280?color=blue&label=community&logo=discord&style=flat-square" alt="Join our Discord" />
+    <img src="https://img.shields.io/discord/1053774759244083280?color=blue&label=OverEngineered 2&logo=discord&style=flat-square" alt="Join our Discord" />
   </a>
-  <a href="https://github.com/anywaymachines/overengineered/actions">
+    <a href="https://discord.gg/5r8SSxCpPn">
+    <img src="https://img.shields.io/discord/1463364680713113717?color=blue&label=carpcat.co&logo=discord&style=flat-square" alt="Join our Discord" />
+  </a>
+  <a href="https://github.com/space-cee/overengineered/actions">
     <img src="https://img.shields.io/github/actions/workflow/status/space-cee/overengineered/build.yml?style=flat-square" alt="Build Status" />
   </a>
 </p>
