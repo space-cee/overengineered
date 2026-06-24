@@ -1,6 +1,7 @@
 import { Players } from "@rbxts/services";
 import { Db } from "engine/server/Database";
 import { isNotAdmin_AutoBanned } from "server/BanAdminExploiter";
+import { useExternalDatabaseOnly } from "server/database/DatabaseConfig";
 import { ExternalDatabase } from "server/database/ExternalDatabase";
 import { BlocksSerializer } from "shared/building/BlocksSerializer";
 import { GameDefinitions } from "shared/data/GameDefinitions";
@@ -95,7 +96,8 @@ export class SlotDatabase {
 	}
 
 	private setMeta(userId: number, slots: readonly SlotMeta[], external?: boolean) {
-		this.players.set(userId, { ...this.players.get(userId), slots }, external);
+		const shouldUseExternal = external || useExternalDatabaseOnly;
+		this.players.set(userId, { ...this.players.get(userId), slots }, shouldUseExternal);
 
 		if (!this.onlinePlayers.has(userId)) {
 			for (const slot of slots) {

@@ -6,6 +6,7 @@ import { Logger } from "engine/shared/Logger";
 import { AchievementController } from "server/AchievementController";
 import { BadgeController } from "server/BadgeController";
 import { ServerBlockLogicController } from "server/blocks/ServerBlockLogicController";
+import { useExternalDatabaseOnly } from "server/database/DatabaseConfig";
 import { PlayerDatabase } from "server/database/PlayerDatabase";
 import { SlotDatabase } from "server/database/SlotDatabase";
 import { PlayModeController as PlayModeController } from "server/modes/PlayModeController";
@@ -56,7 +57,7 @@ export namespace SandboxGame {
 			builder.services
 				.registerSingletonClass(SlotDatabase) //
 				.withArgs([new InMemoryDatabaseBackend()]);
-		} else if (game.PlaceId === 0 && useExternalSaves) {
+		} else if (useExternalDatabaseOnly || (game.PlaceId === 0 && useExternalSaves)) {
 			// Both empty means External will automatically load them
 			builder.services
 				.registerSingletonClass(PlayerDatabase) //
