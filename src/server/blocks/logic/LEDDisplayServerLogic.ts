@@ -32,6 +32,7 @@ export class LEDDisplayServerLogic extends ServerBlockLogic<LedDisplayBlockLogic
 
 		logic.events.prepare.invoked.Connect((player, { block, baseColor, size }) => {
 			if (!this.isValidBlock(block, player)) return;
+
 			const scale = 16;
 			const gui = block.WaitForChild("Screen").WaitForChild("SurfaceGui") as SurfaceGui;
 			gui.CanvasSize = new Vector2(size * scale, size * scale);
@@ -88,21 +89,6 @@ export class LEDDisplayServerLogic extends ServerBlockLogic<LedDisplayBlockLogic
 				const newColor = Color3.fromRGB(r, g, b);
 
 				if (f.BackgroundColor3 !== newColor) f.BackgroundColor3 = newColor;
-			}
-		});
-
-		logic.events.fill.invoked.Connect((player, { block, color }) => {
-			if (!this.isValidBlock(block, player)) return;
-
-			const frames = blockFrames.get(block);
-			if (!frames) {
-				warn("BlockMap for block does not exist!!! :O (fill)");
-				return;
-			}
-
-			// Just repeat for each frame and set its background
-			for (const frame of frames) {
-				frame.BackgroundColor3 = color;
 			}
 		});
 	}
