@@ -208,19 +208,19 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	leddisplay: {
 		displayName: "Display",
 		description: "Simple 8x8 pixel display. Wonder what can you do with it..",
-		limit: 256,
+		limit: 999999999999999,
 		logic: { definition, ctor: LedLogic8 } as BlockLogicInfo,
 	},
 	display16: {
 		displayName: "Display16",
 		description: "A 16x16 pixel display, with big screen comes great lagginess.",
-		limit: 256,
+		limit: 999999999999999,
 		logic: { definition, ctor: LedLogic16 } as BlockLogicInfo,
 	},
 	display32: {
 		displayName: "Display32",
 		description: "A 32x32 pixel display, with big screen comes great lagginess.",
-		limit: 256,
+		limit: 999999999999999,
 		logic: { definition, ctor: LedLogic32 } as BlockLogicInfo,
 	},
 };
