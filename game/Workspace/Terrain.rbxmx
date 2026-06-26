@@ -122,8 +122,8 @@
           <G>1</G>
           <B>1</B>
         </Color3>
-        <float name="Cover">0.659</float>
-        <float name="Density">0.333</float>
+        <float name="Cover">0.688</float>
+        <float name="Density">0.301</float>
         <bool name="Enabled">true</bool>
         <bool name="DefinesCapabilities">false</bool>
         <int64 name="SourceAssetId">-1</int64>
@@ -132,157 +132,13 @@
     </Item>
     <Item class="Folder" referent="2">
       <Properties>
-        <string name="Name">DO.NOT.TOUCH</string>
+        <string name="Name">Foliage</string>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
         <bool name="DefinesCapabilities">false</bool>
         <int64 name="SourceAssetId">-1</int64>
         <BinaryString name="Tags"></BinaryString>
       </Properties>
-      <Item class="ModuleScript" referent="3">
-        <Properties>
-          <string name="Name">PlayerInventory</string>
-          <BinaryString name="AttributesSerialize"></BinaryString>
-          <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-          <ContentId name="LinkedSource">
-            <null>
-            </null>
-          </ContentId>
-          <bool name="DefinesCapabilities">false</bool>
-          <string name="Source"><![CDATA[-- Compiled with roblox-ts v3.0.0
-local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local ComponentMacros = TS.import(script, game:GetService("ReplicatedStorage"), "engine", "component", "Component.propmacro").ComponentMacros
-local ComponentEvents2Macros = TS.import(script, game:GetService("ReplicatedStorage"), "engine", "component", "ComponentEvents.propmacro").ComponentEvents2Macros
-local Players = TS.import(script, game:GetService("ReplicatedStorage"), "rbxts_include", "node_modules", "@rbxts", "services").Players
-local LocalPlayer = TS.import(script, script.Parent, "LocalPlayer").LocalPlayer
-local ComponentKeyedChildren = TS.import(script, game:GetService("ReplicatedStorage"), "engine", "component", "ComponentKeyedChildren").ComponentKeyedChildren
-local HostedService = TS.import(script, game:GetService("ReplicatedStorage"), "engine", "di", "HostedService").HostedService
-local PlayerInventory
-do
-	local super = HostedService
-	PlayerInventory = setmetatable({}, {
-		__tostring = function()
-			return "PlayerInventory"
-		end,
-		__csymbol = "engine/client/PlayerInventory.ts$PlayerInventory",
-		__index = super,
-	})
-	PlayerInventory.__index = PlayerInventory
-	function PlayerInventory.new(...)
-		local self = setmetatable({}, PlayerInventory)
-		return self:constructor(...) or self
-	end
-	function PlayerInventory:constructor()
-		super.constructor(self)
-		self.registeredTools = {}
-		local _self = self
-		local _componentKeyedChildren = ComponentKeyedChildren.new()
-		local _ = _self
-		self.items = if type(_) == "table" and _.parentDestroyOnly ~= nil then _.parentDestroyOnly(_, _componentKeyedChildren) else ComponentMacros.parentDestroyOnly(_, _componentKeyedChildren)
-		local add = function(tool)
-			if not tool:IsA("Tool") then
-				return nil
-			end
-			local _exp = self.items:getAll()
-			local _tool = tool
-			if _exp[_tool] ~= nil then
-				return nil
-			end
-			local _registeredTools = self.registeredTools
-			local _name = tool.Name
-			local registered = _registeredTools[_name]
-			if not registered then
-				return nil
-			end
-			local controller = registered(tool)
-			self.items:add(tool, controller)
-		end
-		-- backpack is recreated every time a Character is created
-		local _event = self.event
-		local _character = LocalPlayer.character
-		local _1 = _event
-		local _2 = function()
-			local backpack = Players.LocalPlayer:WaitForChild("Backpack")
-			backpack.ChildAdded:Connect(add)
-			for _3, child in backpack:GetChildren() do
-				add(child)
-			end
-		end
-		local _3 = if type(_1) == "table" and _1.subscribeObservable ~= nil then _1.subscribeObservable(_1, _character, _2, true) else ComponentEvents2Macros.subscribeObservable(_1, _character, _2, true)
-	end
-	function PlayerInventory:registerTool(id, func)
-		local _registeredTools = self.registeredTools
-		local _id = id
-		local _func = func
-		_registeredTools[_id] = _func
-	end
-	function PlayerInventory:registerToolClass(id, di, clazz, args)
-		self:registerTool(id, function(instance)
-			local _di = di
-			local _exp = clazz
-			local _array = { instance }
-			local _length = #_array
-			local _array_1 = (args or {})
-			table.move(_array_1, 1, #_array_1, _length + 1, _array)
-			return _di:resolveForeignClass(_exp, _array)
-		end)
-	end
-end
-return {
-	PlayerInventory = PlayerInventory,
-}
-]]></string>
-          <int64 name="SourceAssetId">-1</int64>
-          <BinaryString name="Tags"></BinaryString>
-        </Properties>
-      </Item>
-      <Item class="ModuleScript" referent="4">
-        <Properties>
-          <string name="Name">PlayerInventoryItem</string>
-          <BinaryString name="AttributesSerialize"></BinaryString>
-          <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-          <ContentId name="LinkedSource">
-            <null>
-            </null>
-          </ContentId>
-          <bool name="DefinesCapabilities">false</bool>
-          <string name="Source"><![CDATA[-- Compiled with roblox-ts v3.0.0
-local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local InstanceComponent = TS.import(script, game:GetService("ReplicatedStorage"), "engine", "component", "InstanceComponent").InstanceComponent
---* Player inventory item. Enabled when the player equips the item and disabled when unequips 
-local PlayerInventoryItem
-do
-	local super = InstanceComponent
-	PlayerInventoryItem = setmetatable({}, {
-		__tostring = function()
-			return "PlayerInventoryItem"
-		end,
-		__csymbol = "engine/client/PlayerInventoryItem.ts$PlayerInventoryItem",
-		__index = super,
-	})
-	PlayerInventoryItem.__index = PlayerInventoryItem
-	function PlayerInventoryItem.new(...)
-		local self = setmetatable({}, PlayerInventoryItem)
-		return self:constructor(...) or self
-	end
-	function PlayerInventoryItem:constructor(instance)
-		super.constructor(self, instance)
-		instance.Equipped:Connect(function()
-			return self:enable()
-		end)
-		instance.Unequipped:Connect(function()
-			return self:disable()
-		end)
-	end
-end
-return {
-	PlayerInventoryItem = PlayerInventoryItem,
-}
-]]></string>
-          <int64 name="SourceAssetId">-1</int64>
-          <BinaryString name="Tags"></BinaryString>
-        </Properties>
-      </Item>
     </Item>
   </Item>
   <SharedStrings>
