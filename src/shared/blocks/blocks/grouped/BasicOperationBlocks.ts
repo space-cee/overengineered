@@ -309,6 +309,31 @@ const constants = {
 			(input) => ({ result: { type: input.valueType, value: input.value } }),
 		),
 	},
+	volatileConstant: {
+		displayName: "Volatile Constant",
+		description: "Returns the configured value, forever... once",
+		modelSource: autoModel("ConstLogicBlockPrefab", "VCONST", BlockCreation.Categories.other),
+		logic: logic(
+			{
+				input: {
+					value: {
+						displayName: "Value",
+						group: "0",
+						types: BlockConfigDefinitions.any,
+						connectorHidden: true,
+					},
+				},
+				output: {
+					result: {
+						displayName: "Result",
+						group: "0",
+						types: asMap(BlockConfigDefinitions.any).keys(),
+					},
+				},
+			},
+			(input) => ({ result: { type: input.valueType, value: input.value } }),
+		),
+	},
 	pi: {
 		displayName: "Pi",
 		description: `So called "free thinkers" will make a thousand Pie jokes as soon as they'll see the Pi constant..`,

@@ -107,11 +107,16 @@ namespace Filter {
 
 const read = {
 	blockV3: (block: BlockModel, buildingCenter: CFrame): LatestSerializedBlock => {
-		const data: LatestSerializedBlock = {
+		const data = Objects.writable({
 			...BlockManager.getBlockDataByBlockModel(block),
 			location: buildingCenter.ToObjectSpace(block.GetPivot()),
 			["instance" as never]: undefined,
-		};
+		} as LatestSerializedBlock);
+
+		if (data.id === "volatileConstant") {
+			delete data.config;
+		}
+
 		Filter.deleteDefaultValues(data);
 
 		return data;
