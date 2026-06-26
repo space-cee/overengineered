@@ -108,19 +108,21 @@ export class BlockDamageController extends HostedService {
 	constructor(
 		@inject private readonly sparksEffect: SparksEffect,
 		@inject private readonly blockList: BlockList,
-		@inject private readonly playerDataStorage: PlayerDataStorage,
+		@tryInject private readonly playerDataStorage?: PlayerDataStorage,
 	) {
 		super();
 
 		//init values
-		this.event.subscribeObservable(
-			playerDataStorage.config,
-			(config) => {
-				blockStrength = config.blockHealthModifier;
-				minimalDamageModifier = config.blockMinimalDamageThreshold / 100;
-			},
-			true,
-		);
+		if (playerDataStorage) {
+			this.event.subscribeObservable(
+				playerDataStorage.config,
+				(config) => {
+					blockStrength = config.blockHealthModifier;
+					minimalDamageModifier = config.blockMinimalDamageThreshold / 100;
+				},
+				true,
+			);
+		}
 
 		this.event.subscribe(RunService.Heartbeat, () => {
 			if (this.partBreakQueue.size() === 0) return;
@@ -153,6 +155,8 @@ export class BlockDamageController extends HostedService {
 	}
 
 	initHealth(block: BlockModel) {
+		if (blockHealthList.has(block)) return;
+
 		const pp = block.PrimaryPart;
 		if (!pp) throw "Trying to init block health with no PrimaryPart";
 
@@ -219,8 +223,13 @@ export class BlockDamageController extends HostedService {
 	applyDamage(block: BlockModel, damage: damageType) {
 		const { explosiveDamage = 0, impactDamage = 0, heatDamage = 0 } = damage;
 
+		let currentHealth = blockHealthList.get(block);
+		if (currentHealth === undefined) {
+			this.initHealth(block);
+			currentHealth = blockHealthList.get(block);
+		}
+
 		// check if it's not destroyed
-		const currentHealth = blockHealthList.get(block);
 		if (!currentHealth || currentHealth <= 0) return;
 
 		// also check if it's not destroyed

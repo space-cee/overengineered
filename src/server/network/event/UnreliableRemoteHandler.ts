@@ -6,6 +6,8 @@ import { BlockManager } from "shared/building/BlockManager";
 import { RemoteEvents } from "shared/RemoteEvents";
 import { CustomRemotes } from "shared/Remotes";
 import { PartUtils } from "shared/utils/PartUtils";
+import { WeaponProjectile } from "shared/weaponProjectiles/BaseProjectileLogic";
+import type { BlockDamageController } from "engine/shared/BlockDamageController";
 import type { PlayModeController } from "server/modes/PlayModeController";
 import type { ServerPlayersController } from "server/ServerPlayersController";
 import type { SpreadingFireController } from "server/SpreadingFireController";
@@ -21,6 +23,7 @@ export class UnreliableRemoteController extends HostedService {
 		@inject explosionEffect: ExplosionEffect,
 		@inject playModeController: PlayModeController,
 		@inject private readonly playersController: ServerPlayersController,
+		@inject private readonly blockDamageController: BlockDamageController,
 	) {
 		super();
 
@@ -131,5 +134,58 @@ export class UnreliableRemoteController extends HostedService {
 		this.event.subscribe(RemoteEvents.ImpactBreak.invoked, impactBreakEvent);
 		this.event.subscribe(RemoteEvents.Burn.invoked, (_, parts) => burnEvent(parts));
 		this.event.subscribe(RemoteEvents.Explode.invoked, explode);
+
+		const damageEvent = (
+			player: Player,
+			{
+				part,
+				damage,
+				modifiers,
+			}: {
+				readonly part: BasePart;
+				readonly damage: number;
+				readonly modifiers: Array<
+					Partial<
+						Record<
+							"heatDamage" | "impactDamage" | "explosiveDamage" | "speedModifier" | "lifetimeModifier",
+							{ value: number; isRelative?: boolean }
+						>
+					>
+				>;
+			},
+		) => {
+			if (!BlockManager.isBlockPart(part)) return;
+
+			const block = part.Parent as BlockModel;
+			if (!block) return;
+
+			// Calculate total damage from all modifiers
+			let totalImpactDamage = damage;
+			let totalHeatDamage = 0;
+			let totalExplosiveDamage = 0;
+
+			for (const modifier of modifiers) {
+				if (modifier.impactDamage) {
+					const value = modifier.impactDamage.value;
+					totalImpactDamage += modifier.impactDamage.isRelative ? damage * value : value;
+				}
+				if (modifier.heatDamage) {
+					const value = modifier.heatDamage.value;
+					totalHeatDamage += modifier.heatDamage.isRelative ? damage * value : value;
+				}
+				if (modifier.explosiveDamage) {
+					const value = modifier.explosiveDamage.value;
+					totalExplosiveDamage += modifier.explosiveDamage.isRelative ? damage * value : value;
+				}
+			}
+
+			this.blockDamageController.applyDamage(block, {
+				impactDamage: totalImpactDamage,
+				heatDamage: totalHeatDamage,
+				explosiveDamage: totalExplosiveDamage,
+			});
+		};
+
+		this.event.subscribe(WeaponProjectile.damageInstance.invoked, damageEvent);
 	}
 }

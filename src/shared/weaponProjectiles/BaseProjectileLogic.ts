@@ -1,6 +1,7 @@
 import { RunService, Workspace } from "@rbxts/services";
 import { InstanceComponent } from "engine/shared/component/InstanceComponent";
 import { C2SRemoteEvent } from "engine/shared/event/PERemoteEvent";
+import { BlockManager } from "shared/building/BlockManager";
 import { ReplicatedAssets } from "shared/ReplicatedAssets";
 import { ModuleCollection } from "shared/weaponProjectiles/WeaponModuleSystem";
 import type { damageType } from "engine/shared/BlockDamageController";
@@ -68,8 +69,7 @@ export class WeaponProjectile extends InstanceComponent<BasePart> {
 		newModel.CanCollide = false;
 		newModel.CanTouch = true;
 		newModel.Massless = true;
-		//newModel.CollisionGroup = "Projectile";
-		//newModel.EnableFluidForces = false;
+		newModel.CollisionGroup = "Projectile";
 		newModel.AssemblyLinearVelocity = baseVelocity;
 		//transform projectile and shit
 		//ELONgate the projectile to avoid clipping
@@ -114,12 +114,18 @@ export class WeaponProjectile extends InstanceComponent<BasePart> {
 	}
 
 	onHit(part: BasePart, point: Vector3, destroyOnHit = false): void {
-		if (!part.Anchored && !RunService.IsServer())
+		if (BlockManager.isBlockPart(part) && RunService.IsClient()) {
+			const finalModifier: projectileModifier = {
+				...this.baseModifier,
+				impactDamage: { value: 1, isRelative: true },
+			};
+
 			WeaponProjectile.damageInstance.send({
 				part,
 				damage: this.baseDamage,
-				modifiers: [this.baseModifier, ...this.rawModifiers],
+				modifiers: [finalModifier, ...this.rawModifiers],
 			});
+		}
 		if (destroyOnHit) this.destroy();
 	}
 
