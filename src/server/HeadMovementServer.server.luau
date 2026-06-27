@@ -2,7 +2,7 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Remote = ReplicatedStorage:WaitForChild("HeadLookRemote")
+local Remote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("HeadLookRemote")
 
 Remote.OnServerEvent:Connect(function(player, pitch, yaw)
 	local char = player.Character

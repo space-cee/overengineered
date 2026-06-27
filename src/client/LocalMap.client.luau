@@ -6,8 +6,7 @@ local TeleportService = game:GetService("TeleportService")
 local TEST_PLACE_ID = 125844796933744
 local MAIN_PLACE_ID = 104961158429462
 
-local toggleEvent = rs:WaitForChild("HeadLookToggle")
-
+local toggleEvent = rs:WaitForChild("Remotes"):WaitForChild("HeadLookToggle")
 local lastTab = "Other" -- Defaults to Other since Maps is removed
 
 -- gui
@@ -262,7 +261,9 @@ joinPrivateButton.MouseButton1Click:Connect(function()
 
     if code and code ~= "" then
         statusLabel.Text = "Joining / Creating server..."
-        rs:WaitForChild("JoinPrivateServer"):FireServer(code)
+game:GetService("ReplicatedStorage")
+    :WaitForChild("Remotes")
+    :WaitForChild("JoinPrivateServer"):FireServer(code)
     else
         statusLabel.Text = "Enter a code first"
     end
@@ -274,7 +275,9 @@ codeBox.FocusLost:Connect(function(enterPressed)
     end
 end)
 
-rs:WaitForChild("JoinPrivateServer").OnClientEvent:Connect(function(message)
+game:GetService("ReplicatedStorage")
+    :WaitForChild("Remotes")
+    :WaitForChild("JoinPrivateServer").OnClientEvent:Connect(function(message)
     if message == "InvalidCode" then
         statusLabel.Text = "Invalid code"
     elseif message == "TooLong" then

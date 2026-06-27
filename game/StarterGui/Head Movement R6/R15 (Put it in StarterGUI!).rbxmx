@@ -1,7 +1,7 @@
 <roblox version="4">
   <Item class="LocalScript" referent="0">
     <Properties>
-      <string name="Name">Head Movement R6/R15 (Put it in StarterGUI!)</string>
+      <string name="Name">R15 (Put it in StarterGUI!)</string>
       <BinaryString name="AttributesSerialize"></BinaryString>
       <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
       <bool name="Disabled">false</bool>
@@ -20,8 +20,8 @@ local Workspace = game:GetService("Workspace")
 local UserInputService = game:GetService("UserInputService")
 
 
-local HeadLookRemote = ReplicatedStorage:WaitForChild("HeadLookRemote") -- RemoteEvent
-local HeadLookToggle = ReplicatedStorage:WaitForChild("HeadLookToggle") -- BindableEvent
+local HeadLookRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("HeadLookRemote")
+local HeadLookToggle = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("HeadLookToggle")
 
 local LookEnabled = false
 local ShiftHeld = false

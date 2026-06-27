@@ -9,15 +9,15 @@
         <X>-316.75003</X>
         <Y>-0.01171875</Y>
         <Z>420.99994</Z>
-        <R00>0.9999995</R00>
+        <R00>1</R00>
         <R01>0</R01>
         <R02>0</R02>
         <R10>0</R10>
-        <R11>0.9999993</R11>
+        <R11>1</R11>
         <R12>0</R12>
         <R20>0</R20>
         <R21>0</R21>
-        <R22>0.9999995</R22>
+        <R22>1</R22>
       </CoordinateFrame>
       <SharedString name="ModelMeshData">rxNJufX5oaagQE3qNtzJSQ==</SharedString>
       <Vector3 name="ModelMeshSize">

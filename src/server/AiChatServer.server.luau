@@ -11,11 +11,13 @@ local local_endpoint = config:GetValue(LOCAL_ENDPOINT)
 
 local AI_ASLEEP_MESSAGE = "AI is asleep"
 
-local rf = ReplicatedStorage:FindFirstChild("AiChatRF")
+local Remotes = ReplicatedStorage:WaitForChild("Remotes")
+
+local rf = Remotes:FindFirstChild("AiChatRF")
 if not rf then
     rf = Instance.new("RemoteFunction")
     rf.Name = "AiChatRF"
-    rf.Parent = ReplicatedStorage
+    rf.Parent = Remotes
 end
 
 local activeRequests = {}

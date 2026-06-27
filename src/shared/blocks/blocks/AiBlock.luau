@@ -5,7 +5,7 @@ local BlockCreation = TS.import(script, game:GetService("ReplicatedStorage"), "T
 local _Players = game:GetService("Players")
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local AiChatRF = ReplicatedStorage:WaitForChild("AiChatRF")
+local AiChatRF = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("AiChatRF")
 
 local MODEL_URLS = {
 	awms = "awms",

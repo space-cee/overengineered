@@ -2,7 +2,7 @@ local TeleportService = game:GetService("TeleportService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local DataStoreService = game:GetService("DataStoreService")
 
-local joinEvent = ReplicatedStorage:WaitForChild("JoinPrivateServer")
+local joinEvent = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("JoinPrivateServer")
 
 local serverStore = DataStoreService:GetDataStore("PrivateServers_V1")
 
