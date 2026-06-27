@@ -1,5 +1,15 @@
 export const changelog = `
 
+27 June 2026:
+
+- slop damage system (plasma only)
+- plasma bullet drop
+- Classic/Triangle terrain fix (UE)
+- LED Display reset fixed (programthat)
+- volatile constant
+
+
+
 22 June 2026:
 
 - Public AI Block

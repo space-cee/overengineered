@@ -19,8 +19,6 @@ import { ControllerSensorBlock } from "shared/blocks/blocks/ControllerSensorBloc
 import { CounterBlock } from "shared/blocks/blocks/CounterBlock";
 import { DelayBlock } from "shared/blocks/blocks/DelayBlock";
 import { DisconnectBlock } from "shared/blocks/blocks/DisconnectBlock";
-//import { Display16Block } from "shared/blocks/blocks/Display16Block";
-//import { Display32Block } from "shared/blocks/blocks/Display32Block";
 import { FallbackBlock } from "shared/blocks/blocks/FallbackBlock";
 import { FireSensorBlock } from "shared/blocks/blocks/FireSensorBlock";
 import { FloaterBlock } from "shared/blocks/blocks/FloaterBlock";
@@ -191,8 +189,6 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 
 		ScreenBlock,
 		...LedDisplayBlocks,
-		//Display16Block,
-		//Display32Block,
 		SevenSegmentDisplayBlock,
 		CameraBlock,
 		BeaconBlock,
@@ -286,8 +282,11 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 		...GraviEngineBlocks,
 	];
 
-	// DEVELOPER ACCESS ONLY
-	for (const devBlock of weapons) {
+	for (const block of weapons) {
+		blocksArr.push(block);
+	}
+
+	for (const devBlock of [LaserLensBlock, LaserEmitterBlock]) {
 		blocksArr.push({
 			...devBlock,
 			devOnly: true,
@@ -295,9 +294,14 @@ export const CreateSandboxBlocks = (di: DIContainer): BlockList => {
 	}
 
 	if (GameDefinitions.isTesting) {
-		const testBlocks: readonly BlockBuilder[] = [...weapons];
-		for (const block of testBlocks) {
+		for (const block of weapons) {
 			blocksArr.push(block);
+		}
+		for (const devBlock of [LaserLensBlock, LaserEmitterBlock]) {
+			blocksArr.push({
+				...devBlock,
+				devOnly: true,
+			});
 		}
 	}
 
