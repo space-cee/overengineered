@@ -74,6 +74,7 @@ const definition = {
 					config: false,
 				},
 			},
+			connectorHidden: true,
 		},
 	},
 	output: {},
