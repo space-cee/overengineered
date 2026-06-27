@@ -1,14 +1,10 @@
-import { Workspace } from "@rbxts/services";
 import { Easing } from "engine/shared/component/Easing";
 import { C2CRemoteEvent } from "engine/shared/event/PERemoteEvent";
 import { WeaponProjectile } from "shared/weaponProjectiles/BaseProjectileLogic";
 import type { modifierValue, projectileModifier } from "shared/weaponProjectiles/BaseProjectileLogic";
 
-type palsmaProjectile = BasePart & { VectorForce: VectorForce };
-
 export class PlasmaProjectile extends WeaponProjectile {
 	private startSize = this.projectilePart.Size;
-	private readonly vectorForce: VectorForce;
 	static readonly spawnProjectile = new C2CRemoteEvent<{
 		readonly startPosition: Vector3;
 		readonly baseVelocity: Vector3;
@@ -35,7 +31,6 @@ export class PlasmaProjectile extends WeaponProjectile {
 			color,
 		);
 
-		this.vectorForce = (this.projectilePart as unknown as palsmaProjectile).VectorForce;
 		this.updateLifetimeModifier(1);
 	}
 
@@ -89,7 +84,6 @@ export class PlasmaProjectile extends WeaponProjectile {
 		this.projectilePart.Transparency = percentage;
 		this.updateLifetimeModifier(reversePercentage);
 		this.projectilePart.Size = this.startSize.mul(new Vector3(1, 1 + this.baseVelocity.Magnitude / 100, 1));
-		this.vectorForce.Force = new Vector3(0, this.projectilePart.Mass * Workspace.Gravity, 0);
 	}
 }
 

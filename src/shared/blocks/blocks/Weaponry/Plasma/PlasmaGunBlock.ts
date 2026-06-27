@@ -53,7 +53,6 @@ const definition = {
 			},
 		},
 		recoilMultiplier: {
-			// <-- New slider
 			displayName: "Recoil Multiplier",
 			tooltip: "Adjusts how strong the recoil is.",
 			types: {
@@ -67,6 +66,15 @@ const definition = {
 				},
 			},
 		},
+		bulletDrop: {
+			displayName: "Bullet Drop",
+			tooltip: "Adds a small downward offset to the projectile velocity.",
+			types: {
+				bool: {
+					config: false,
+				},
+			},
+		},
 	},
 	output: {},
 } satisfies BlockLogicFullBothDefinitions;
@@ -77,13 +85,15 @@ const definition = {
 export type { Logic as PlasmaGunBlockLogic };
 class Logic extends InstanceBlockLogic<typeof definition> {
 	private currentSpeedModifier: number;
-	private currentRecoilMultiplier: number; // <-- store multiplier
+	private currentRecoilMultiplier: number;
+	private currentBulletDrop: boolean;
 
 	constructor(block: InstanceBlockLogicArgs) {
 		super(definition, block);
 
-		this.currentSpeedModifier = 10; // default value
-		this.currentRecoilMultiplier = 1; // default recoil multiplier
+		this.currentSpeedModifier = 10;
+		this.currentRecoilMultiplier = 1;
+		this.currentBulletDrop = false;
 
 		const relativeOuts = new Map<BasePart, CFrame>();
 		const module = WeaponModule.allModules[this.instance.Name];
@@ -104,10 +114,14 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 		});
 
 		// Subscribe to input changes
-		this.onk(["speedModifier", "recoilMultiplier"], ({ speedModifier, recoilMultiplier }) => {
-			this.currentSpeedModifier = speedModifier;
-			this.currentRecoilMultiplier = recoilMultiplier;
-		});
+		this.onk(
+			["speedModifier", "recoilMultiplier", "bulletDrop"],
+			({ speedModifier, recoilMultiplier, bulletDrop }) => {
+				this.currentSpeedModifier = speedModifier;
+				this.currentRecoilMultiplier = recoilMultiplier;
+				this.currentBulletDrop = bulletDrop;
+			},
+		);
 
 		this.onk(["fireTrigger", "projectileColor"], ({ fireTrigger, projectileColor }) => {
 			if (!fireTrigger) return;
@@ -133,12 +147,16 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 					const inheritedSpeed = e.module.instance.PrimaryPart!.AssemblyLinearVelocity.Magnitude;
 					const forwardOffset = math.clamp(inheritedSpeed * 0.05, 1, 50);
 					const spawnPos = o.markerInstance.Position.add(direction.mul(forwardOffset));
+					const launchVelocity = e.module.instance.PrimaryPart!.AssemblyLinearVelocity.add(
+						direction.mul(this.currentSpeedModifier),
+					);
+					const projectileVelocity = this.currentBulletDrop
+						? launchVelocity.add(new Vector3(0, -this.currentSpeedModifier * 0.05, 0))
+						: launchVelocity;
 
 					PlasmaProjectile.spawnProjectile.send({
 						startPosition: spawnPos,
-						baseVelocity: e.module.instance.PrimaryPart!.AssemblyLinearVelocity.add(
-							direction.mul(this.currentSpeedModifier),
-						),
+						baseVelocity: projectileVelocity,
 						baseDamage: 100,
 						modifier: e.modifier,
 						color: projectileColor,
