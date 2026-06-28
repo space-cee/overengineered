@@ -5,12 +5,15 @@ import type { modifierValue, projectileModifier } from "shared/weaponProjectiles
 
 export class PlasmaProjectile extends WeaponProjectile {
 	private startSize = this.projectilePart.Size;
+	private readonly acceleration: Vector3;
+	private currentVelocity: Vector3;
 	static readonly spawnProjectile = new C2CRemoteEvent<{
 		readonly startPosition: Vector3;
 		readonly baseVelocity: Vector3;
 		readonly baseDamage: number;
 		readonly modifier: projectileModifier;
 		readonly color?: Color3;
+		readonly acceleration?: Vector3;
 	}>("plasma_spawn", "RemoteEvent");
 
 	constructor(
@@ -19,6 +22,7 @@ export class PlasmaProjectile extends WeaponProjectile {
 		baseDamage: number,
 		modifier: projectileModifier,
 		color?: Color3,
+		acceleration: Vector3 = Vector3.zero,
 	) {
 		super(
 			startPosition,
@@ -31,6 +35,8 @@ export class PlasmaProjectile extends WeaponProjectile {
 			color,
 		);
 
+		this.acceleration = acceleration;
+		this.currentVelocity = baseVelocity;
 		this.updateLifetimeModifier(1);
 	}
 
@@ -80,14 +86,17 @@ export class PlasmaProjectile extends WeaponProjectile {
 
 	onTick(dt: number, percentage: number, reversePercentage: number): void {
 		super.onTick(dt, percentage, reversePercentage);
-		//this.projectilePart.AssemblyLinearVelocity = this.baseVelocity;
+		this.currentVelocity = this.currentVelocity.add(this.acceleration.mul(dt));
+		this.projectilePart.AssemblyLinearVelocity = this.currentVelocity;
 		this.projectilePart.Transparency = percentage;
 		this.updateLifetimeModifier(reversePercentage);
 		this.projectilePart.Size = this.startSize.mul(new Vector3(1, 1 + this.baseVelocity.Magnitude / 100, 1));
 	}
 }
 
-PlasmaProjectile.spawnProjectile.invoked.Connect(({ startPosition, baseVelocity, baseDamage, modifier, color }) => {
-	print("Plasma ball spawned");
-	new PlasmaProjectile(startPosition, baseVelocity, baseDamage, modifier, color);
-});
+PlasmaProjectile.spawnProjectile.invoked.Connect(
+	({ startPosition, baseVelocity, baseDamage, modifier, color, acceleration }) => {
+		print("Plasma ball spawned");
+		new PlasmaProjectile(startPosition, baseVelocity, baseDamage, modifier, color, acceleration);
+	},
+);

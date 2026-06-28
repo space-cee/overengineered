@@ -1,4 +1,4 @@
-import { RunService } from "@rbxts/services";
+import { RunService, Workspace } from "@rbxts/services";
 import { InstanceBlockLogic } from "shared/blockLogic/BlockLogic";
 import { BlockCreation } from "shared/blocks/BlockCreation";
 import { Colors } from "shared/Colors";
@@ -68,7 +68,7 @@ const definition = {
 		},
 		bulletDrop: {
 			displayName: "Bullet Drop",
-			tooltip: "Adds a small downward offset to the projectile velocity.",
+			tooltip: "Applies a gravity-based acceleration vector while the projectile is in flight.",
 			types: {
 				bool: {
 					config: false,
@@ -148,12 +148,10 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 					const inheritedSpeed = e.module.instance.PrimaryPart!.AssemblyLinearVelocity.Magnitude;
 					const forwardOffset = math.clamp(inheritedSpeed * 0.05, 1, 50);
 					const spawnPos = o.markerInstance.Position.add(direction.mul(forwardOffset));
-					const launchVelocity = e.module.instance.PrimaryPart!.AssemblyLinearVelocity.add(
-						direction.mul(this.currentSpeedModifier),
-					);
-					const projectileVelocity = this.currentBulletDrop
-						? launchVelocity.add(new Vector3(0, -this.currentSpeedModifier * 0.05, 0))
-						: launchVelocity;
+					const projectileVelocity = direction.mul(this.currentSpeedModifier);
+					const projectileAcceleration = this.currentBulletDrop
+						? new Vector3(0, -Workspace.Gravity, 0)
+						: Vector3.zero;
 
 					PlasmaProjectile.spawnProjectile.send({
 						startPosition: spawnPos,
@@ -161,6 +159,7 @@ class Logic extends InstanceBlockLogic<typeof definition> {
 						baseDamage: 100,
 						modifier: e.modifier,
 						color: projectileColor,
+						acceleration: projectileAcceleration,
 					});
 				}
 			}
