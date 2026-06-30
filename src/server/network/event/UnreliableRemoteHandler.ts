@@ -3,6 +3,7 @@ import { HostedService } from "engine/shared/di/HostedService";
 import { ServerBlockLogic } from "server/blocks/ServerBlockLogic";
 import { ServerPartUtils } from "server/plots/ServerPartUtils";
 import { BlockManager } from "shared/building/BlockManager";
+import { SharedPlots } from "shared/building/SharedPlots";
 import { RemoteEvents } from "shared/RemoteEvents";
 import { CustomRemotes } from "shared/Remotes";
 import { PartUtils } from "shared/utils/PartUtils";
@@ -155,6 +156,9 @@ export class UnreliableRemoteController extends HostedService {
 			},
 		) => {
 			if (!BlockManager.isBlockPart(part)) return;
+			if (playModeController.getPlayerMode(player) !== "ride") return;
+			const plot = SharedPlots.staticTryGetPlotByOwnerID(player.UserId);
+			if (!plot || !part.IsDescendantOf(plot)) return;
 
 			const block = part.Parent as BlockModel;
 			if (!block) return;

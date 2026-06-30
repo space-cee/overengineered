@@ -92,6 +92,7 @@ export class ImpactController extends Component {
 
 			// Do nothing for non-collidable blocks
 			if (!hit.CanCollide) return;
+			if (hit.IsA("BasePart") && hit.CollisionGroup === "Projectile") return;
 
 			// Compute magnitudes
 			const partSpeed = part.AssemblyLinearVelocity.Magnitude + part.AssemblyAngularVelocity.Magnitude;
