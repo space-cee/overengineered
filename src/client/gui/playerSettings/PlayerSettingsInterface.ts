@@ -1,4 +1,5 @@
 import { ConfigControlList } from "client/gui/configControls/ConfigControlsList";
+import { Observables } from "engine/shared/event/Observables";
 import type {
 	ConfigControlListDefinition,
 	ConfigControlTemplateList,
@@ -28,6 +29,20 @@ export class PlayerSettingsInterface extends ConfigControlList {
 
 			this.addSlider("Wire thickness multiplier", { min: 0.01, max: 4 }) //
 				.initToObjectPart(value, ["visuals", "wires", "wireThicknessMultiplier"]);
+
+			this.addToggle("Limit wires shown") //
+				.initToObjectPart(value, ["visuals", "wires", "limitEnabled"]);
+
+			const maxWiresSlider = this.addSlider("Max wires", { min: 10, max: 1000, inputStep: 1 }) //
+				.initToObjectPart(value, ["visuals", "wires", "maxWires"]);
+
+			maxWiresSlider.event.subscribeObservable(
+				Observables.createObservableFromObjectProperty<boolean>(value, ["visuals", "wires", "limitEnabled"]),
+				(enabled) => {
+					maxWiresSlider.instance.Visible = enabled;
+				},
+				true,
+			);
 		}
 
 		this.addCategory("Beacons") //

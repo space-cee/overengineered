@@ -33,6 +33,56 @@ const wireParent = Element.create("ViewportFrame", {
 });
 
 const looped = new Map<defined, (tick: number) => void>();
+const allWires = new Set<MarkerWireVisualizer.Wire>();
+
+let pendingVisibilityUpdate = false;
+let pendingVisibilityPlayerDataStorage: PlayerDataStorage | undefined;
+
+function scheduleWireVisibilityUpdate(playerDataStorage?: PlayerDataStorage) {
+	if (!playerDataStorage) return;
+
+	pendingVisibilityPlayerDataStorage = playerDataStorage;
+	if (pendingVisibilityUpdate) return;
+
+	pendingVisibilityUpdate = true;
+	task.defer(() => {
+		pendingVisibilityUpdate = false;
+		updateWireVisibility(pendingVisibilityPlayerDataStorage);
+		pendingVisibilityPlayerDataStorage = undefined;
+	});
+}
+
+function updateWireVisibility(playerDataStorage?: PlayerDataStorage) {
+	if (!playerDataStorage) return;
+
+	const config = playerDataStorage.config.get().visuals.wires;
+	const maxWires = math.clamp(config.maxWires, 50, 1000);
+
+	if (!config.limitEnabled) {
+		for (const wire of allWires) {
+			wire.setEnabled(true);
+		}
+		return;
+	}
+
+	const camera = Workspace.CurrentCamera;
+	const cameraPos = camera?.CFrame.Position || Vector3.zero;
+	const wireDistances = new Array<[MarkerWireVisualizer.Wire, number]>();
+
+	for (const wire of allWires) {
+		const wirePos = wire.instance.Position;
+		const distToCamera = cameraPos.sub(wirePos).Magnitude;
+		wireDistances.push([wire, distToCamera]);
+	}
+
+	wireDistances.sort((a, b) => a[1] < b[1]);
+
+	for (let i = 0; i < wireDistances.size(); i++) {
+		const [wire] = wireDistances[i];
+		wire.setEnabled(i < maxWires);
+	}
+}
+
 task.spawn(() => {
 	let tick = 0;
 	while (true as boolean) {
@@ -235,7 +285,16 @@ export namespace MarkerWireVisualizer {
 			super(instance);
 			this.colors = this.parent(new ColorLooper((color) => (this.instance.Color = color)));
 
+			let activePlayerDataStorage: PlayerDataStorage | undefined;
+
+			allWires.add(this);
+			this.onDestroy(() => {
+				allWires.delete(this);
+				scheduleWireVisibilityUpdate(activePlayerDataStorage);
+			});
+
 			this.$onInjectAuto((playerDataStorage: PlayerDataStorage) => {
+				activePlayerDataStorage = playerDataStorage;
 				this.valuesComponent()
 					.get("Transparency")
 					.addTransitionBetweenBoolObservables(
@@ -262,6 +321,18 @@ export namespace MarkerWireVisualizer {
 						),
 					),
 				);
+
+				this.event.subscribeObservable(
+					playerDataStorage.config.fReadonlyCreateBased(
+						(c) => `${c.visuals.wires.limitEnabled}-${c.visuals.wires.maxWires}`,
+					),
+					() => {
+						scheduleWireVisibilityUpdate(playerDataStorage);
+					},
+					false,
+				);
+
+				scheduleWireVisibilityUpdate(playerDataStorage);
 			});
 
 			this.onDisable(() => (instance.Transparency = 1));

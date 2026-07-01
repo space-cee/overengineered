@@ -37,6 +37,8 @@ declare global {
 		readonly markerSizeMultiplier: number;
 		readonly wireTransparency: number;
 		readonly wireThicknessMultiplier: number;
+		readonly limitEnabled: boolean;
+		readonly maxWires: number;
 	};
 	type LogicDebugColorConfig = {
 		readonly fontSize: number;
@@ -327,6 +329,8 @@ export const PlayerConfigDefinition = {
 				markerSizeMultiplier: 1,
 				markerTransparency: 0.6,
 				wireThicknessMultiplier: 1,
+				limitEnabled: false as boolean,
+				maxWires: 200 as number,
 			},
 			logicDebug: {
 				fontSize: 14,
