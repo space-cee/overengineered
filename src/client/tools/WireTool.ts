@@ -149,6 +149,7 @@ namespace Markers {
 								(gui.Size.X.Scale / ReplicatedStorage.Assets.Wires.WireMarker.Size.X.Scale) * 0.15,
 								from.position,
 								this.position,
+								[from, this],
 							),
 						);
 						wire.colors.sub(

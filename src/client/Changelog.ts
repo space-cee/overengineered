@@ -1,5 +1,10 @@
 export const changelog = `
 
+30 June 2026:
+
+- toggleable wire vizualizer limits
+- fixed plasma breaking blocks in build mode
+
 28 June 2026:
 
 - Triangle tool (programthat) (UE)

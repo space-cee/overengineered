@@ -34,6 +34,7 @@ const wireParent = Element.create("ViewportFrame", {
 
 const looped = new Map<defined, (tick: number) => void>();
 const allWires = new Set<MarkerWireVisualizer.Wire>();
+const allMarkers = new Set<MarkerWireVisualizer.Marker>();
 
 let pendingVisibilityUpdate = false;
 let pendingVisibilityPlayerDataStorage: PlayerDataStorage | undefined;
@@ -58,13 +59,6 @@ function updateWireVisibility(playerDataStorage?: PlayerDataStorage) {
 	const config = playerDataStorage.config.get().visuals.wires;
 	const maxWires = math.clamp(config.maxWires, 50, 1000);
 
-	if (!config.limitEnabled) {
-		for (const wire of allWires) {
-			wire.setEnabled(true);
-		}
-		return;
-	}
-
 	const camera = Workspace.CurrentCamera;
 	const cameraPos = camera?.CFrame.Position || Vector3.zero;
 	const wireDistances = new Array<[MarkerWireVisualizer.Wire, number]>();
@@ -77,9 +71,34 @@ function updateWireVisibility(playerDataStorage?: PlayerDataStorage) {
 
 	wireDistances.sort((a, b) => a[1] < b[1]);
 
+	const visibleWires = new Set<MarkerWireVisualizer.Wire>();
 	for (let i = 0; i < wireDistances.size(); i++) {
 		const [wire] = wireDistances[i];
-		wire.setEnabled(i < maxWires);
+		const shouldShow = !config.limitEnabled || i < maxWires;
+		wire.instance.Parent = shouldShow ? wireParent : undefined;
+		wire.setEnabled(shouldShow);
+
+		if (shouldShow) {
+			visibleWires.add(wire);
+		}
+	}
+
+	for (const marker of allMarkers) {
+		const linkedWires = marker.getLinkedWires();
+		if (linkedWires.size() === 0) {
+			marker.setVisible(true);
+			continue;
+		}
+
+		let hasVisibleWire = false;
+		for (const linkedWire of linkedWires) {
+			if (visibleWires.has(linkedWire)) {
+				hasVisibleWire = true;
+				break;
+			}
+		}
+
+		marker.setVisible(hasVisibleWire);
 	}
 }
 
@@ -166,6 +185,8 @@ export namespace MarkerWireVisualizer {
 		};
 	};
 	export abstract class Marker extends InstanceComponent<MarkerDefinition> {
+		private readonly linkedWires = new Set<Wire>();
+
 		static createInstance(
 			origin: BasePart,
 			offset: Vector3 | "center",
@@ -202,6 +223,14 @@ export namespace MarkerWireVisualizer {
 
 		constructor(instance: MarkerDefinition) {
 			super(instance);
+			allMarkers.add(this);
+			this.onDestroy(() => {
+				allMarkers.delete(this);
+				for (const wire of this.linkedWires) {
+					wire.removeLinkedMarker(this);
+				}
+				this.linkedWires.clear();
+			});
 
 			this.$onInjectAuto((playerDataStorage: PlayerDataStorage) => {
 				const trp = this.event.addObservable(
@@ -250,6 +279,23 @@ export namespace MarkerWireVisualizer {
 			this.onDisable(() => (instance.Adornee = undefined));
 		}
 
+		addLinkedWire(wire: Wire) {
+			this.linkedWires.add(wire);
+		}
+
+		removeLinkedWire(wire: Wire) {
+			this.linkedWires.delete(wire);
+		}
+
+		getLinkedWires(): readonly Wire[] {
+			return [...this.linkedWires];
+		}
+
+		setVisible(visible: boolean) {
+			this.instance.Parent = visible ? markerParent : undefined;
+			this.setEnabled(visible);
+		}
+
 		highlight() {
 			this.colors.tempOverride(Colors.red);
 		}
@@ -260,8 +306,10 @@ export namespace MarkerWireVisualizer {
 
 	export type WireDefinition = Part;
 	export class Wire extends InstanceComponent<WireDefinition> {
-		static create(thickness: number, from?: Vector3, to?: Vector3): Wire {
-			return new Wire(this.createInstance(thickness), from, to);
+		private readonly linkedMarkers = new Set<Marker>();
+
+		static create(thickness: number, from?: Vector3, to?: Vector3, linkedMarkers?: readonly Marker[]): Wire {
+			return new Wire(this.createInstance(thickness), from, to, linkedMarkers);
 		}
 		private static createInstance(thickness: number): WireDefinition {
 			return Element.create("Part", {
@@ -281,15 +329,25 @@ export namespace MarkerWireVisualizer {
 
 		readonly colors;
 
-		constructor(instance: WireDefinition, from?: Vector3, to?: Vector3) {
+		constructor(instance: WireDefinition, from?: Vector3, to?: Vector3, linkedMarkers?: readonly Marker[]) {
 			super(instance);
 			this.colors = this.parent(new ColorLooper((color) => (this.instance.Color = color)));
+
+			if (linkedMarkers) {
+				for (const marker of linkedMarkers) {
+					this.addLinkedMarker(marker);
+				}
+			}
 
 			let activePlayerDataStorage: PlayerDataStorage | undefined;
 
 			allWires.add(this);
 			this.onDestroy(() => {
 				allWires.delete(this);
+				for (const marker of this.linkedMarkers) {
+					marker.removeLinkedWire(this);
+				}
+				this.linkedMarkers.clear();
 				scheduleWireVisibilityUpdate(activePlayerDataStorage);
 			});
 
@@ -340,6 +398,20 @@ export namespace MarkerWireVisualizer {
 			if (from && to) {
 				Wire.staticSetPosition(this.instance, from, to);
 			}
+		}
+
+		addLinkedMarker(marker: Marker) {
+			this.linkedMarkers.add(marker);
+			marker.addLinkedWire(this);
+		}
+
+		removeLinkedMarker(marker: Marker) {
+			this.linkedMarkers.delete(marker);
+			marker.removeLinkedWire(this);
+		}
+
+		getLinkedMarkers(): readonly Marker[] {
+			return [...this.linkedMarkers];
 		}
 
 		static staticSetPosition(wire: WireDefinition, from: Vector3, to: Vector3) {

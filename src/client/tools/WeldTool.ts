@@ -448,6 +448,7 @@ export class WeldTool extends ToolBase {
 					) * 0.15,
 					weld.Part0.Position,
 					weld.Part1.Position,
+					[marker1, marker2],
 				),
 			);
 			wire.event
