@@ -1,3 +1,4 @@
+import { AltWaterTerrainChunkRenderer } from "client/terrain/AltWaterTerrainChunkRenderer";
 import { ChunkLoader } from "client/terrain/ChunkLoader";
 import { DefaultChunkGenerator } from "client/terrain/DefaultChunkGenerator";
 import { FlatTerrainRenderer } from "client/terrain/FlatTerrainRenderer";
@@ -71,6 +72,9 @@ export class TerrainController extends HostedService {
 					);
 					break;
 				case "Void":
+					break;
+				case "Alt Water":
+					loaders.add(new ChunkLoader(AltWaterTerrainChunkRenderer(), terrain.loadDistance));
 					break;
 			}
 		};

@@ -1,5 +1,9 @@
 export const changelog = `
 
+3 July 2026:
+
+- Alternate Water Option
+
 30 June 2026:
 
 - toggleable wire vizualizer limits
