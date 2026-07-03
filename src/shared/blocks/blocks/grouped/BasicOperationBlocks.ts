@@ -1186,6 +1186,71 @@ const trigonometry = {
 			},
 		),
 	},
+	signedangle: {
+		displayName: "Normalize Angle (Signed)",
+		description: "Normalizes an angle to a signed range (-π to π or -180 to 180)",
+		modelSource: autoModel("GenericLogicBlockPrefab", "±180°", categories.trigonometry),
+		logic: logic(
+			{
+				input: {
+					value: defpartsf.number("Angle"),
+					unit: {
+						displayName: "Unit",
+						types: {
+							enum: {
+								config: "degrees",
+								elementOrder: ["radians", "degrees"],
+								elements: {
+									radians: { displayName: "Radians" },
+									degrees: { displayName: "Degrees" },
+								},
+							},
+						},
+						connectorHidden: true,
+					},
+				},
+				output: { result: { displayName: "Result", types: ["number"] } },
+			},
+			({ value, unit }) => {
+				const full = unit === "degrees" ? 360 : math.pi * 2;
+				const half = full / 2;
+				const result = ((((value + half) % full) + full) % full) - half;
+				return { result: { type: "number", value: result } };
+			},
+		),
+	},
+	unsignedangle: {
+		displayName: "Normalize Angle (Unsigned)",
+		description: "Normalizes an angle to an unsigned range (0 to 2π or 0 to 360)",
+		modelSource: autoModel("GenericLogicBlockPrefab", "360°", categories.trigonometry),
+		logic: logic(
+			{
+				input: {
+					value: defpartsf.number("Angle"),
+					unit: {
+						displayName: "Unit",
+						types: {
+							enum: {
+								config: "degrees",
+								elementOrder: ["radians", "degrees"],
+								elements: {
+									radians: { displayName: "Radians" },
+									degrees: { displayName: "Degrees" },
+								},
+							},
+						},
+						connectorHidden: true,
+					},
+				},
+				output: { result: { displayName: "Result", types: ["number"] } },
+			},
+			({ value, unit }) => {
+				const full = unit === "degrees" ? 360 : math.pi * 2;
+				const result = ((value % full) + full) % full;
+				return { result: { type: "number", value: result } };
+			},
+		),
+	},
 } as const satisfies BlockBuildersWithoutIdAndDefaults;
 
 const vec3 = {

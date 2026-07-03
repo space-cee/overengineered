@@ -3,6 +3,7 @@ export const changelog = `
 3 July 2026:
 
 - Alternate Water Option
+- signed/unsigned angle normalization
 
 30 June 2026:
 
