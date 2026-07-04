@@ -1,10 +1,13 @@
 export const changelog = `
 
+4 July 2026:
+
+- signed/unsigned angle normalization
+- Mouse buttons and velocity added to Mouse Sensor
+
 3 July 2026:
 
 - Alternate Water Option
-- signed/unsigned angle normalization
-- Mouse buttons and velocity added to Mouse Sensor
 
 30 June 2026:
 
