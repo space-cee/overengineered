@@ -152,6 +152,7 @@ export namespace BlockCreation {
 	export const Categories = {
 		math: ["Logic", "Math"],
 		trigonometry: ["Logic", "Math", "Trigonometry"],
+		matrix: ["Logic", "Math", "Matrix"],
 		byte: ["Logic", "Math", "Byte"],
 		converter: ["Logic", "Converter"],
 		converterByte: ["Logic", "Converter", "Byte"],

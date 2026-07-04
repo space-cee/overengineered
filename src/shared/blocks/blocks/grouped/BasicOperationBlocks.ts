@@ -2171,6 +2171,120 @@ const other = {
 	},
 } as const satisfies BlockBuildersWithoutIdAndDefaults;
 
+const matrix = {
+	matrixadd: {
+		displayName: "Matrix Addition",
+		description: "Adds two 3x3 matrices together element-by-element.",
+		modelSource: autoModel("DoubleGenericLogicBlockPrefab", "M+M", categories.math),
+		logic: logic(
+			{
+				inputOrder: ["aRow1", "aRow2", "aRow3", "bRow1", "bRow2", "bRow3"],
+				input: {
+					aRow1: defpartsf.vector3("Matrix A Row 1"),
+					aRow2: defpartsf.vector3("Matrix A Row 2"),
+					aRow3: defpartsf.vector3("Matrix A Row 3"),
+
+					bRow1: defpartsf.vector3("Matrix B Row 1"),
+					bRow2: defpartsf.vector3("Matrix B Row 2"),
+					bRow3: defpartsf.vector3("Matrix B Row 3"),
+				},
+				outputOrder: ["outRow1", "outRow2", "outRow3"],
+				output: {
+					outRow1: { displayName: "Out Row 1", types: ["vector3"] },
+					outRow2: { displayName: "Out Row 2", types: ["vector3"] },
+					outRow3: { displayName: "Out Row 3", types: ["vector3"] },
+				},
+			},
+			(i) => {
+				const add = (a: Vector3, b: Vector3) => ({
+					type: "vector3" as const,
+					value: new Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z),
+				});
+				return {
+					outRow1: add(i.aRow1, i.bRow1),
+					outRow2: add(i.aRow2, i.bRow2),
+					outRow3: add(i.aRow3, i.bRow3),
+				};
+			},
+		),
+	},
+	matrixsub: {
+		displayName: "Matrix Subtraction",
+		description: "Subtracts Matrix B from Matrix A element-by-element.",
+		modelSource: autoModel("DoubleGenericLogicBlockPrefab", "M-M", categories.math),
+		logic: logic(
+			{
+				inputOrder: ["aRow1", "aRow2", "aRow3", "bRow1", "bRow2", "bRow3"],
+				input: {
+					aRow1: defpartsf.vector3("Matrix A Row 1"),
+					aRow2: defpartsf.vector3("Matrix A Row 2"),
+					aRow3: defpartsf.vector3("Matrix A Row 3"),
+
+					bRow1: defpartsf.vector3("Matrix B Row 1"),
+					bRow2: defpartsf.vector3("Matrix B Row 2"),
+					bRow3: defpartsf.vector3("Matrix B Row 3"),
+				},
+				outputOrder: ["outRow1", "outRow2", "outRow3"],
+				output: {
+					outRow1: { displayName: "Out Row 1", types: ["vector3"] },
+					outRow2: { displayName: "Out Row 2", types: ["vector3"] },
+					outRow3: { displayName: "Out Row 3", types: ["vector3"] },
+				},
+			},
+			(i) => {
+				const sub = (a: Vector3, b: Vector3) => ({
+					type: "vector3" as const,
+					value: new Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z),
+				});
+				return {
+					outRow1: sub(i.aRow1, i.bRow1),
+					outRow2: sub(i.aRow2, i.bRow2),
+					outRow3: sub(i.aRow3, i.bRow3),
+				};
+			},
+		),
+	},
+	matrixmultiply: {
+		displayName: "Matrix Multiplication",
+		description: "Multiplies two 3x3 matrices together (Matrix A * Matrix B).",
+		modelSource: autoModel("DoubleGenericLogicBlockPrefab", "M*M", categories.math),
+		logic: logic(
+			{
+				inputOrder: ["aRow1", "aRow2", "aRow3", "bRow1", "bRow2", "bRow3"],
+				input: {
+					aRow1: defpartsf.vector3("Matrix A Row 1"),
+					aRow2: defpartsf.vector3("Matrix A Row 2"),
+					aRow3: defpartsf.vector3("Matrix A Row 3"),
+
+					bRow1: defpartsf.vector3("Matrix B Row 1"),
+					bRow2: defpartsf.vector3("Matrix B Row 2"),
+					bRow3: defpartsf.vector3("Matrix B Row 3"),
+				},
+				outputOrder: ["outRow1", "outRow2", "outRow3"],
+				output: {
+					outRow1: { displayName: "Out Row 1", types: ["vector3"] },
+					outRow2: { displayName: "Out Row 2", types: ["vector3"] },
+					outRow3: { displayName: "Out Row 3", types: ["vector3"] },
+				},
+			},
+			(i) => {
+				const colB = (axis: "X" | "Y" | "Z") => new Vector3(i.bRow1[axis], i.bRow2[axis], i.bRow3[axis]);
+				const cX = colB("X"),
+					cY = colB("Y"),
+					cZ = colB("Z");
+				const mulRow = (rowA: Vector3) => ({
+					type: "vector3" as const,
+					value: new Vector3(rowA.Dot(cX), rowA.Dot(cY), rowA.Dot(cZ)),
+				});
+				return {
+					outRow1: mulRow(i.aRow1),
+					outRow2: mulRow(i.aRow2),
+					outRow3: mulRow(i.aRow3),
+				};
+			},
+		),
+	},
+} as const satisfies BlockBuildersWithoutIdAndDefaults;
 const test: {} = !RunService.IsStudio()
 	? {}
 	: ({
@@ -2240,6 +2354,7 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	...bool,
 	...byte,
 	...other,
+	...matrix,
 	...units,
 	...test,
 };
