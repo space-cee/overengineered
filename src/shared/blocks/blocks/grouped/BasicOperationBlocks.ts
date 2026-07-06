@@ -2175,7 +2175,7 @@ const matrix = {
 	matrixadd: {
 		displayName: "Matrix Addition",
 		description: "Adds two 3x3 matrices together element-by-element.",
-		modelSource: autoModel("DoubleGenericLogicBlockPrefab", "M+M", categories.math),
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M+M", categories.matrix),
 		logic: logic(
 			{
 				inputOrder: ["aRow1", "aRow2", "aRow3", "bRow1", "bRow2", "bRow3"],
@@ -2211,7 +2211,7 @@ const matrix = {
 	matrixsub: {
 		displayName: "Matrix Subtraction",
 		description: "Subtracts Matrix B from Matrix A element-by-element.",
-		modelSource: autoModel("DoubleGenericLogicBlockPrefab", "M-M", categories.math),
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M-M", categories.matrix),
 		logic: logic(
 			{
 				inputOrder: ["aRow1", "aRow2", "aRow3", "bRow1", "bRow2", "bRow3"],
@@ -2247,7 +2247,7 @@ const matrix = {
 	matrixmultiply: {
 		displayName: "Matrix Multiplication",
 		description: "Multiplies two 3x3 matrices together (Matrix A * Matrix B).",
-		modelSource: autoModel("DoubleGenericLogicBlockPrefab", "M*M", categories.math),
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M*M", categories.matrix),
 		logic: logic(
 			{
 				inputOrder: ["aRow1", "aRow2", "aRow3", "bRow1", "bRow2", "bRow3"],
@@ -2280,6 +2280,174 @@ const matrix = {
 					outRow1: mulRow(i.aRow1),
 					outRow2: mulRow(i.aRow2),
 					outRow3: mulRow(i.aRow3),
+				};
+			},
+		),
+	},
+	matrixinverse: {
+		displayName: "Matrix Inverse",
+		description: "Calculates the inverse of a 3x3 matrix. Returns identity if non-invertible.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M^-1", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["row1", "row2", "row3"],
+				input: {
+					row1: defpartsf.vector3("Matrix Row 1"),
+					row2: defpartsf.vector3("Matrix Row 2"),
+					row3: defpartsf.vector3("Matrix Row 3"),
+				},
+				outputOrder: ["outRow1", "outRow2", "outRow3"],
+				output: {
+					outRow1: { displayName: "Out Row 1", types: ["vector3"] },
+					outRow2: { displayName: "Out Row 2", types: ["vector3"] },
+					outRow3: { displayName: "Out Row 3", types: ["vector3"] },
+				},
+			},
+			(i) => {
+				const r1 = i.row1;
+				const r2 = i.row2;
+				const r3 = i.row3;
+
+				const c1 = r2.Cross(r3);
+				const c2 = r3.Cross(r1);
+				const c3 = r1.Cross(r2);
+
+				const det = r1.Dot(c1);
+
+				if (math.abs(det) < 1e-6) {
+					return {
+						outRow1: { type: "vector3" as const, value: new Vector3(1, 0, 0) },
+						outRow2: { type: "vector3" as const, value: new Vector3(0, 1, 0) },
+						outRow3: { type: "vector3" as const, value: new Vector3(0, 0, 1) },
+					};
+				}
+
+				const invDet = 1 / det;
+
+				return {
+					outRow1: {
+						type: "vector3" as const,
+						value: new Vector3(c1.X * invDet, c2.X * invDet, c3.X * invDet),
+					},
+					outRow2: {
+						type: "vector3" as const,
+						value: new Vector3(c1.Y * invDet, c2.Y * invDet, c3.Y * invDet),
+					},
+					outRow3: {
+						type: "vector3" as const,
+						value: new Vector3(c1.Z * invDet, c2.Z * invDet, c3.Z * invDet),
+					},
+				};
+			},
+		),
+	},
+	matrixtransform: {
+		displayName: "Matrix Transform Vector",
+		description: "Multiplies a 3x3 matrix by a 3D vector (Matrix * Vector).",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M*V", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["row1", "row2", "row3", "vec"],
+				input: {
+					row1: defpartsf.vector3("Matrix Row 1"),
+					row2: defpartsf.vector3("Matrix Row 2"),
+					row3: defpartsf.vector3("Matrix Row 3"),
+					vec: defpartsf.vector3("Vector"),
+				},
+				outputOrder: ["outVec"],
+				output: {
+					outVec: { displayName: "Out Vector", types: ["vector3"] },
+				},
+			},
+			(i) => ({
+				outVec: {
+					type: "vector3" as const,
+					value: new Vector3(i.row1.Dot(i.vec), i.row2.Dot(i.vec), i.row3.Dot(i.vec)),
+				},
+			}),
+		),
+	},
+	matrixtranspose: {
+		displayName: "Matrix Transpose",
+		description: "Swaps the rows and columns of a 3x3 matrix.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M^T", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["row1", "row2", "row3"],
+				input: {
+					row1: defpartsf.vector3("Matrix Row 1"),
+					row2: defpartsf.vector3("Matrix Row 2"),
+					row3: defpartsf.vector3("Matrix Row 3"),
+				},
+				outputOrder: ["outRow1", "outRow2", "outRow3"],
+				output: {
+					outRow1: { displayName: "Out Row 1", types: ["vector3"] },
+					outRow2: { displayName: "Out Row 2", types: ["vector3"] },
+					outRow3: { displayName: "Out Row 3", types: ["vector3"] },
+				},
+			},
+			(i) => ({
+				outRow1: { type: "vector3" as const, value: new Vector3(i.row1.X, i.row2.X, i.row3.X) },
+				outRow2: { type: "vector3" as const, value: new Vector3(i.row1.Y, i.row2.Y, i.row3.Y) },
+				outRow3: { type: "vector3" as const, value: new Vector3(i.row1.Z, i.row2.Z, i.row3.Z) },
+			}),
+		),
+	},
+	matrixdeterminant: {
+		displayName: "Matrix Determinant",
+		description: "Calculates the determinant of a 3x3 matrix.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "det(M)", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["row1", "row2", "row3"],
+				input: {
+					row1: defpartsf.vector3("Matrix Row 1"),
+					row2: defpartsf.vector3("Matrix Row 2"),
+					row3: defpartsf.vector3("Matrix Row 3"),
+				},
+				outputOrder: ["det"],
+				output: {
+					det: { displayName: "Determinant", types: ["number"] },
+				},
+			},
+			(i) => ({
+				det: {
+					type: "number" as const,
+					value: i.row1.Dot(i.row2.Cross(i.row3)),
+				},
+			}),
+		),
+	},
+	matrixscale: {
+		displayName: "Matrix Scale",
+		description: "Multiplies all elements of a matrix by a scalar value.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M*s", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["row1", "row2", "row3", "scalar"],
+				input: {
+					row1: defpartsf.vector3("Matrix Row 1"),
+					row2: defpartsf.vector3("Matrix Row 2"),
+					row3: defpartsf.vector3("Matrix Row 3"),
+					scalar: defpartsf.number("Scalar"),
+				},
+				outputOrder: ["outRow1", "outRow2", "outRow3"],
+				output: {
+					outRow1: { displayName: "Out Row 1", types: ["vector3"] },
+					outRow2: { displayName: "Out Row 2", types: ["vector3"] },
+					outRow3: { displayName: "Out Row 3", types: ["vector3"] },
+				},
+			},
+			(i) => {
+				const s = i.scalar;
+				const scaleRow = (r: Vector3) => ({
+					type: "vector3" as const,
+					value: new Vector3(r.X * s, r.Y * s, r.Z * s),
+				});
+				return {
+					outRow1: scaleRow(i.row1),
+					outRow2: scaleRow(i.row2),
+					outRow3: scaleRow(i.row3),
 				};
 			},
 		),
