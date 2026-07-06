@@ -6,10 +6,20 @@ import type { BlockLogicArgs, BlockLogicFullBothDefinitions } from "shared/block
 import type { BlockBuilder } from "shared/blocks/Block";
 
 const definition = {
-	outputOrder: ["dir", "angle", "pos3d", "mb3", "pos", "vel", "mb2", "angle3d", "mb1"],
+	outputOrder: [
+		"direction",
+		"angle",
+		"position3d",
+		"middleClick",
+		"position",
+		"velocity",
+		"rightClick",
+		"angle3d",
+		"leftClick",
+	],
 	input: {},
 	output: {
-		dir: {
+		direction: {
 			displayName: "3D Direction",
 			unit: "Vector3 unit",
 			types: ["vector3"],
@@ -19,27 +29,27 @@ const definition = {
 			unit: "Degrees",
 			types: ["number"],
 		},
-		pos3d: {
+		position3d: {
 			displayName: "3D Position",
 			unit: "Vector3 Global position",
 			types: ["vector3"],
 		},
-		mb3: {
+		middleClick: {
 			displayName: "Mouse Button 3",
 			unit: "Boolean",
 			types: ["bool"],
 		},
-		pos: {
+		position: {
 			displayName: "Position",
 			unit: "Vector2 0-1",
 			types: ["vector3"],
 		},
-		vel: {
+		velocity: {
 			displayName: "Velocity",
 			unit: "Pixels/Sec",
 			types: ["vector3"],
 		},
-		mb2: {
+		rightClick: {
 			displayName: "Mouse Button 2",
 			unit: "Boolean",
 			types: ["bool"],
@@ -49,7 +59,7 @@ const definition = {
 			unit: "Radians",
 			types: ["vector3"],
 		},
-		mb1: {
+		leftClick: {
 			displayName: "Mouse Button 1",
 			unit: "Boolean",
 			types: ["bool"],
@@ -77,13 +87,13 @@ class Logic extends BlockLogic<typeof definition> {
 			const mousePos = UserInputService.GetMouseLocation();
 			const relaPos = mousePos.div(Workspace.CurrentCamera!.ViewportSize);
 
-			this.output.pos.set("vector3", new Vector3(relaPos.X, relaPos.Y, wheel));
+			this.output.position.set("vector3", new Vector3(relaPos.X, relaPos.Y, wheel));
 			wheel = 0;
 
 			const deltaPos = mousePos.sub(lastMousePos);
 			const mouseVelocity = dt > 0 ? deltaPos.div(dt) : Vector2.zero;
 			lastMousePos = mousePos;
-			this.output.vel.set("vector3", new Vector3(mouseVelocity.X, mouseVelocity.Y, 0));
+			this.output.velocity.set("vector3", new Vector3(mouseVelocity.X, mouseVelocity.Y, 0));
 
 			this.output.angle.set("number", math.deg(math.atan2(-(relaPos.Y - 0.5), relaPos.X - 0.5)));
 
@@ -92,9 +102,9 @@ class Logic extends BlockLogic<typeof definition> {
 				const ray = camera.ViewportPointToRay(mousePos.X, mousePos.Y);
 				const [x, y, z] = CFrame.lookAt(Vector3.zero, ray.Direction).ToOrientation();
 
-				this.output.dir.set("vector3", ray.Direction);
+				this.output.direction.set("vector3", ray.Direction);
 				this.output.angle3d.set("vector3", new Vector3(x, y, z));
-				this.output.pos3d.set(
+				this.output.position3d.set(
 					"vector3",
 					Players.LocalPlayer.GetMouse()!.Hit.Position.sub(new Vector3(0, GameDefinitions.HEIGHT_OFFSET, 0)),
 				);
@@ -103,9 +113,9 @@ class Logic extends BlockLogic<typeof definition> {
 			const mb1 = UserInputService.IsMouseButtonPressed(Enum.UserInputType.MouseButton1);
 			const mb2 = UserInputService.IsMouseButtonPressed(Enum.UserInputType.MouseButton2);
 			const mb3 = UserInputService.IsMouseButtonPressed(Enum.UserInputType.MouseButton3);
-			this.output.mb1.set("bool", mb1);
-			this.output.mb2.set("bool", mb2);
-			this.output.mb3.set("bool", mb3);
+			this.output.leftClick.set("bool", mb1);
+			this.output.rightClick.set("bool", mb2);
+			this.output.middleClick.set("bool", mb3);
 		});
 	}
 }
