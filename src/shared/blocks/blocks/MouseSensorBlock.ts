@@ -35,8 +35,7 @@ const definition = {
 			types: ["vector3"],
 		},
 		middleClick: {
-			displayName: "Mouse Button 3",
-			unit: "Boolean",
+			displayName: "Mouse Wheel Click",
 			types: ["bool"],
 		},
 		position: {
@@ -50,8 +49,7 @@ const definition = {
 			types: ["vector3"],
 		},
 		rightClick: {
-			displayName: "Mouse Button 2",
-			unit: "Boolean",
+			displayName: "Right Click",
 			types: ["bool"],
 		},
 		angle3d: {
@@ -60,8 +58,7 @@ const definition = {
 			types: ["vector3"],
 		},
 		leftClick: {
-			displayName: "Mouse Button 1",
-			unit: "Boolean",
+			displayName: "Left Click",
 			types: ["bool"],
 		},
 	},
