@@ -122,10 +122,7 @@ class Logic extends InstanceBlockLogic<typeof definition, SuspensionModel> {
 
 		const blockScale = BlockManager.manager.scale.get(block.instance) ?? Vector3.one;
 		const scale = blockScale.X * blockScale.Y * blockScale.Z;
-
-		spring.Radius *= blockScale.findMin();
-		spring.Thickness *= blockScale.findMin();
-
+		const minScale = blockScale.findMin();
 		const setSpringParameters = ({
 			max_force,
 			damping,
@@ -162,6 +159,7 @@ class Logic extends InstanceBlockLogic<typeof definition, SuspensionModel> {
 			spring.FreeLength = len;
 			spring.MaxLength = len * 2;
 			spring.MinLength = 0.1;
+			spring.Radius = minScale * 0.6;
 
 			if (color !== undefined) {
 				spring.Color = new BrickColor(color);
@@ -172,7 +170,7 @@ class Logic extends InstanceBlockLogic<typeof definition, SuspensionModel> {
 			}
 
 			if (thickness !== undefined) {
-				spring.Thickness = thickness;
+				spring.Thickness = thickness * minScale;
 			}
 		};
 
@@ -191,5 +189,22 @@ export const SuspensionBlock = {
 		aliases: ["sus", "spring", "coil"],
 	},
 
-	logic: { definition, ctor: Logic },
+	logic: {
+		definition,
+		ctor: Logic,
+		immediate: (model) => {
+			const springSide = model.FindFirstChild("SpringSide") as BasePart | undefined;
+			const spring = springSide?.FindFirstChildOfClass("SpringConstraint");
+			if (!spring) return;
+			const blockScale = BlockManager.manager.scale.get(model) ?? Vector3.one;
+			const minScale = math.min(blockScale.X, blockScale.Y, blockScale.Z);
+			const config = BlockManager.manager.config.get(model);
+			const inputs = config?.inputs as Record<string, unknown> | undefined;
+			const rawThickness = (inputs?.thickness as number | undefined) ?? 0.25;
+			const rawFreeLength = (inputs?.free_length as number | undefined) ?? 2;
+			spring.Radius = minScale * 0.6;
+			spring.Thickness = rawThickness * minScale;
+			spring.FreeLength = rawFreeLength * blockScale.Y;
+		},
+	},
 } as const satisfies BlockBuilder;
