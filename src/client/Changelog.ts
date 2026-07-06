@@ -1,9 +1,11 @@
 export const changelog = `
 
-4 July 2026:
+6 July 2026:
 
 - signed/unsigned angle normalization
 - Mouse buttons and velocity added to Mouse Sensor
+- Matrix Operation Blocks
+- Suspension now scales in build mode
 
 3 July 2026:
 
