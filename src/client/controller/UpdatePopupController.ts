@@ -15,11 +15,12 @@ export class UpdatePopupController extends HostedService {
 			playerDataStorage.sendPlayerDataValue("lastJoin", DateTime.now().UnixTimestamp);
 			if (!lastJoin) return;
 
-			if (lastJoin < DateTime.fromUniversalTime(2025, 5, 9, 4, 38).UnixTimestamp) {
+			if (lastJoin < DateTime.fromUniversalTime(2026, 7, 7, 8, 0).UnixTimestamp) {
 				popupController.showPopup(
 					new AlertPopup(`
-Hi! This is the first update coming back to TS 
-Things will break, let us know in bug reports
+Hi! External database is now public
+To enable go to Settings > General > space-cee database
+Reliability is not guarateed, but this should not affect your current saves
 Join our community server for more information.
 `),
 				);

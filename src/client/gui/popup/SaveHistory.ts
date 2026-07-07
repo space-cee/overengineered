@@ -3,7 +3,6 @@ import { Control } from "engine/client/gui/Control";
 import { Interface } from "engine/client/gui/Interface";
 import { PartialControl } from "engine/client/gui/PartialControl";
 import { Strings } from "engine/shared/fixes/String.propmacro";
-import type { ShowAdminGui } from "client/gui/AdminGui";
 import type { PlayerDataStorage } from "client/PlayerDataStorage";
 
 type ListDefinition = GuiObject & {
@@ -36,7 +35,7 @@ export class SaveHistoryPopup extends PartialControl<SlotsPopupParts> {
 
 		this.parts.TitleLabel.Text = `SLOT HISTORY FOR D${history.databaseSlotId}`;
 
-		this.$onInjectAuto((playerData: PlayerDataStorage, di: DIContainer) => {
+		this.$onInjectAuto((playerData: PlayerDataStorage) => {
 			this.parent(new ButtonControl(this.parts.CloseButton, () => this.hide()));
 
 			const slotTemplate = this.asTemplate(this.parts.SlotList.SlotTemplate);
@@ -57,8 +56,13 @@ export class SaveHistoryPopup extends PartialControl<SlotsPopupParts> {
 					.addButtonAction(() => {
 						this.hide();
 
-						const useSpaceCee = di.tryResolve<ShowAdminGui>()?.useSpaceCee.get() ?? false;
-						playerData.loadPlayerSlotFromHistory(part.slotId, part.id, undefined, useSpaceCee);
+						const settings = playerData.config.get();
+						playerData.loadPlayerSlotFromHistory(
+							part.slotId,
+							part.id,
+							undefined,
+							settings.useSpaceCee ?? false,
+						);
 					});
 			}
 		});

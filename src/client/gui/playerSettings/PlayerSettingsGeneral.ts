@@ -24,6 +24,22 @@ export class PlayerSettingsGeneral extends ConfigControlList {
 				.initToObjectPart(value, ["autoPlotTeleport"])
 				.setDescription("Automatically teleport to plot after despawning your vehicle");
 
+			const saveToExternal = this.addToggle("Save to external") //
+				.initToObjectPart(value, ["saveToExternal"])
+				.setDescription("Save slots to the external database as well");
+
+			this.addToggle("space-cee database") //
+				.initToObjectPart(value, ["useSpaceCee"])
+				.setDescription("Use the space-cee database for external save/load operations");
+
+			this.event.subscribeObservable(
+				value,
+				(config) => {
+					saveToExternal.setVisibleAndEnabled(config.useSpaceCee ?? false);
+				},
+				true,
+			);
+
 			this.addToggle("Public speakers") //
 				.initToObjectPart(value, ["publicSpeakers"])
 				.setDescription("Allow others to hear your speaker block and hear speakers of others");

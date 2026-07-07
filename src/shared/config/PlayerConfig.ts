@@ -183,6 +183,14 @@ export const PlayerConfigDefinition = {
 		type: "bool",
 		config: true as boolean,
 	},
+	saveToExternal: {
+		type: "bool",
+		config: false as boolean,
+	},
+	useSpaceCee: {
+		type: "bool",
+		config: false as boolean,
+	},
 	sprintSpeed: {
 		type: "clampedNumber",
 		min: 20,

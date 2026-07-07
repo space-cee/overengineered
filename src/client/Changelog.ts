@@ -1,5 +1,9 @@
 export const changelog = `
 
+7 July 2026:
+
+- Public Access to External Database
+
 6 July 2026:
 
 - signed/unsigned angle normalization

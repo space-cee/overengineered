@@ -17,7 +17,6 @@ import { Colors } from "shared/Colors";
 import { GameDefinitions } from "shared/data/GameDefinitions";
 import { Serializer } from "shared/Serializer";
 import { SlotsMeta } from "shared/SlotsMeta";
-import type { ShowAdminGui } from "client/gui/AdminGui";
 import type { PopupController } from "client/gui/PopupController";
 import type { PlayerDataStorage } from "client/PlayerDataStorage";
 import type { Theme } from "client/Theme";
@@ -103,19 +102,13 @@ class SaveItem extends PartialControl<SaveItemParts, SaveItemDefinition> impleme
 			.subCanExecuteFrom({ can: this.event.addObservable(meta.fReadonlyCreateBased(isWritable)) });
 
 		this.$onInjectAuto(
-			(
-				popup: SavePopup,
-				popupController: PopupController,
-				playerData: PlayerDataStorage,
-				plot: ReadonlyPlot,
-				di: DIContainer,
-			) => {
+			(popup: SavePopup, popupController: PopupController, playerData: PlayerDataStorage, plot: ReadonlyPlot) => {
 				this.load.subscribe(() => {
 					const load = () => {
 						popup.destroy();
 						task.spawn(() => {
-							const useSpaceCee = di.tryResolve<ShowAdminGui>()?.useSpaceCee.get() ?? false;
-							playerData.loadPlayerSlot(slot.index, undefined, useSpaceCee);
+							const settings = playerData.config.get();
+							playerData.loadPlayerSlot(slot.index, undefined, settings.useSpaceCee ?? false);
 						});
 					};
 
@@ -128,8 +121,9 @@ class SaveItem extends PartialControl<SaveItemParts, SaveItemDefinition> impleme
 				});
 
 				this.save.subscribe(() => {
-					const external = di.tryResolve<ShowAdminGui>()?.useExternal.get() ?? false;
-					const useSpaceCee = di.tryResolve<ShowAdminGui>()?.useSpaceCee.get() ?? false;
+					const settings = playerData.config.get();
+					const external = settings.saveToExternal ?? false;
+					const useSpaceCee = settings.useSpaceCee ?? false;
 					const save = () => {
 						task.spawn(() => {
 							const response = playerData.sendPlayerSlot({
@@ -278,10 +272,11 @@ class NewSaveItem extends Control<GuiButton> implements CurrentItem {
 		this.setColor = this.parent(new Action<[Color3]>());
 		this.setName = this.parent(new Action<[string]>());
 
-		this.$onInjectAuto((popupController: PopupController, di: DIContainer) => {
+		this.$onInjectAuto((popupController: PopupController) => {
 			this.save.subscribe(() => {
-				const external = di.tryResolve<ShowAdminGui>()?.useExternal.get() ?? false;
-				const useSpaceCee = di.tryResolve<ShowAdminGui>()?.useSpaceCee.get() ?? false;
+				const settings = playerData.config.get();
+				const external = settings.saveToExternal ?? false;
+				const useSpaceCee = settings.useSpaceCee ?? false;
 				task.spawn(() => {
 					const slot = this.meta.get();
 					const response = playerData.sendPlayerSlot({
