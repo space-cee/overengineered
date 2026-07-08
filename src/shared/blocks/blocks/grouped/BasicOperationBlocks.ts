@@ -279,6 +279,52 @@ const defs = {
 			},
 		},
 	},
+	ascii_to_number: {
+		input: {
+			value: defpartsf.string("Value"),
+		},
+		output: {
+			result: {
+				displayName: "Result",
+				types: ["number"],
+			},
+		},
+	},
+
+	number_to_ascii: {
+		input: {
+			value: defpartsf.number("Value"),
+		},
+		output: {
+			result: {
+				displayName: "Result",
+				types: ["string"],
+			},
+		},
+	},
+	byte_to_ascii: {
+		input: {
+			value: defpartsf.byte("Value"),
+		},
+		output: {
+			result: {
+				displayName: "Result",
+				types: ["string"],
+			},
+		},
+	},
+
+	ascii_to_byte: {
+		input: {
+			value: defpartsf.string("Value"),
+		},
+		output: {
+			result: {
+				displayName: "Result",
+				types: ["byte"],
+			},
+		},
+	},
 } as const satisfies { readonly [k in string]: BlockLogicFullBothDefinitions };
 
 //
@@ -1011,6 +1057,28 @@ const maths = {
 		logic: logic(defs.num2_bool, ({ value1, value2 }) => ({
 			result: { type: "bool", value: value1 <= value2 },
 		})),
+	},
+	asciiToNumber: {
+		displayName: "ASCII to Number",
+		description: "Converts an ASCII character string into its matching numeric byte value.",
+		modelSource: autoModel("GenericLogicBlockPrefab", "A->N", categories.math),
+		logic: logic(defs.ascii_to_number, ({ value }) => {
+			const byteValue = string.byte(value)[0] ?? 0;
+			return {
+				result: { type: "number", value: byteValue },
+			};
+		}),
+	},
+	numberToAscii: {
+		displayName: "Number to ASCII",
+		description: "Converts a numeric byte value into its ASCII character string format.",
+		modelSource: autoModel("GenericLogicBlockPrefab", "N->A", categories.math),
+		logic: logic(defs.number_to_ascii, ({ value }) => {
+			const charStr = string.char(value);
+			return {
+				result: { type: "string", value: charStr },
+			};
+		}),
 	},
 } as const satisfies BlockBuildersWithoutIdAndDefaults;
 
@@ -2015,6 +2083,29 @@ const byte = {
 		logic: logic(defs.byteshift, ({ value1: num, value2: shift }) => ({
 			result: { type: "byte", value: (num >> shift) | ((num & 0x80) !== 0 ? 0xff << (8 - shift) : 0) },
 		})),
+	},
+	byteToAscii: {
+		displayName: "Byte to ASCII",
+		description: "Converts a numeric byte value into its ASCII character string format.",
+		modelSource: autoModel("GenericLogicBlockPrefab", "B->A", categories.math),
+		logic: logic(defs.byte_to_ascii, ({ value }) => {
+			const charStr = string.char(value);
+			return {
+				result: { type: "string", value: charStr },
+			};
+		}),
+	},
+
+	asciiToByte: {
+		displayName: "ASCII to Byte",
+		description: "Converts an ASCII character string into its matching numeric byte value.",
+		modelSource: autoModel("GenericLogicBlockPrefab", "A->B", categories.math),
+		logic: logic(defs.ascii_to_byte, ({ value }) => {
+			const byteValue = string.byte(value)[0] ?? 0;
+			return {
+				result: { type: "byte", value: byteValue },
+			};
+		}),
 	},
 } as const satisfies BlockBuildersWithoutIdAndDefaults;
 
