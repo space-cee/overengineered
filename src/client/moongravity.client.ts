@@ -14,7 +14,7 @@ const ws = Workspace as Workspace & {
 };
 
 const moon = ws.Map.Unloadables.Moon["The Moon"]["The Moon (PBR)"];
-const gravityRange = 20000;
+const gravityRange = 40000;
 const gravityRangeSq = gravityRange * gravityRange;
 
 const gravityStrength = 50; // tuning constant
