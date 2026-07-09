@@ -88,9 +88,10 @@ export class SlotDatabase {
 		arr !== undefined && arr.size() > 0;
 
 	private getMeta(userId: number) {
-		const get = this.players.get(userId)?.slots;
+		const playerData = this.players.get(userId);
+		const get = playerData?.slots;
 		if (this.notEmpty(get)) return get;
-		const external = ExternalDatabase.GetPlayer(userId)?.slots;
+		const external = ExternalDatabase.GetPlayer(userId, playerData?.settings?.useSpaceCee)?.slots;
 		if (this.notEmpty(external)) return external;
 		return [];
 	}

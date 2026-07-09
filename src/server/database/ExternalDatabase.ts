@@ -22,8 +22,13 @@ export type MigrationResponse = {
 	saves: "SUCCESS" | "FAIL";
 };
 
-const getExternalBaseUrl = (useSpaceCee = false) =>
+const getExternalBaseUrl = (useSpaceCee: boolean | undefined) =>
 	useSpaceCee ? "https://api.space-cee.com/overengineered" : "https://www.ftrookie.com/overengineered";
+
+const resolveUseSpaceCee = (UID: number, useSpaceCee: boolean | undefined) => {
+	assert(useSpaceCee !== undefined, `Missing live useSpaceCee setting for player ${UID}`);
+	return useSpaceCee;
+};
 
 const ParseData = (data: string): LatestSerializedBlocks | undefined => {
 	try {
@@ -65,10 +70,11 @@ export namespace ExternalDatabase {
 		CustomRemotes.admin.adminMigrateReply.send(player, MigratePlayer(arg.from, arg.to));
 	});
 
-	export const GetPlayer = (UID: number, useSpaceCee = false): PlayerDatabaseData | undefined => {
+	export const GetPlayer = (UID: number, useSpaceCee: boolean | undefined): PlayerDatabaseData | undefined => {
+		const resolvedUseSpaceCee = resolveUseSpaceCee(UID, useSpaceCee);
 		const result = HttpService.RequestAsync({
 			Method: "GET",
-			Url: `${getExternalBaseUrl(useSpaceCee)}/player/${UID}`,
+			Url: `${getExternalBaseUrl(resolvedUseSpaceCee)}/player/${UID}`,
 		});
 		assert(result.Body, "RETURNED INVALID DATA");
 		if (result.StatusCode === 404) return undefined;
@@ -81,15 +87,20 @@ export namespace ExternalDatabase {
 		return val;
 	};
 
-	export const SetPlayer = (UID: number, data: PlayerDatabaseData, useSpaceCee = false) => {
+	export const SetPlayer = (UID: number, data: PlayerDatabaseData, useSpaceCee: boolean | undefined) => {
+		const resolvedUseSpaceCee = resolveUseSpaceCee(UID, useSpaceCee);
 		const token = getToken();
-		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
+		if (!token)
+			return {
+				error: "No token was found. Switch to space-cee in Settings>General",
+				err_type: "INCORRECT_TOKEN",
+			};
 		const requestResult = HttpService.RequestAsync({
 			Method: "POST",
 			Headers: {
 				"Content-Type": "application/json",
 			},
-			Url: `${getExternalBaseUrl(useSpaceCee)}/player`,
+			Url: `${getExternalBaseUrl(resolvedUseSpaceCee)}/player`,
 			Body: JSON.serialize({
 				playerID: tostring(UID),
 				data, // Technically different from how processed player data is inserted
@@ -121,7 +132,7 @@ export namespace ExternalDatabase {
 	// 	return val;
 	// };
 
-	export const GetSave = ([ownerID, slotID]: SlotKeys, useSpaceCee = false): LatestSerializedBlocks | undefined => {
+	export const GetSave = ([ownerID, slotID]: SlotKeys, useSpaceCee?: boolean): LatestSerializedBlocks | undefined => {
 		let result = "";
 		try {
 			// Attempt to parse the first call, on exception continue trying to load more pages
@@ -169,7 +180,7 @@ export namespace ExternalDatabase {
 	export const SaveSlot = (
 		UID: number,
 		slot: ExternalSlot,
-		useSpaceCee = false,
+		useSpaceCee?: boolean,
 	): ExternalError | { status: string } => {
 		const token = getToken();
 		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
@@ -191,7 +202,7 @@ export namespace ExternalDatabase {
 		return JSON.deserialize<ExternalError | { status: string }>(requestResult.Body);
 	};
 
-	export const MigratePlayer = (fromPlayer: number, toPlayer: number, useSpaceCee = false): MigrationResponse => {
+	export const MigratePlayer = (fromPlayer: number, toPlayer: number, useSpaceCee?: boolean): MigrationResponse => {
 		const token = getToken();
 		if (!token) return { metadata: "FAIL", saves: "FAIL" } as MigrationResponse;
 		print(`Migrating saves from ${fromPlayer} to ${toPlayer}`);
