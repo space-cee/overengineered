@@ -293,7 +293,6 @@ export namespace MarkerWireVisualizer {
 
 		setVisible(visible: boolean) {
 			this.instance.Parent = visible ? markerParent : undefined;
-			this.setEnabled(visible);
 		}
 
 		highlight() {
