@@ -6,7 +6,6 @@ import { ExternalDatabase } from "server/database/ExternalDatabase";
 import { PlayerConfigUpdater } from "server/PlayerConfigVersioning";
 import type { DatabaseBackend } from "engine/server/backend/DatabaseBackend";
 import type { AchievementData } from "shared/AchievementData";
-
 export type PlayerFeature = "lua_circuit";
 export type PlayerDatabaseData = {
 	readonly purchasedSlots?: number;
@@ -62,7 +61,6 @@ export class PlayerDatabase {
 
 	notEmpty = (arr: PlayerDatabaseData | undefined): arr is PlayerDatabaseData =>
 		arr !== undefined && Objects.size(arr) > 0;
-
 	get(userId: number) {
 		const existingData = this.db.get([userId]) as PlayerDatabaseData | undefined;
 		if (this.notEmpty(existingData)) return existingData;

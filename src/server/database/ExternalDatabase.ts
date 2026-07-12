@@ -1,8 +1,6 @@
 import { ConfigService, HttpService, ServerScriptService } from "@rbxts/services";
 import { JSON } from "engine/shared/fixes/Json";
-import { isNotAdmin_AutoBanned } from "server/BanAdminExploiter";
 import { BlocksSerializer } from "shared/building/BlocksSerializer";
-import { CustomRemotes } from "shared/Remotes";
 import type { PlayerDatabaseData } from "server/database/PlayerDatabase";
 import type { LatestSerializedBlocks } from "shared/building/BlocksSerializer";
 
@@ -25,10 +23,7 @@ export type MigrationResponse = {
 const getExternalBaseUrl = (useSpaceCee: boolean | undefined) =>
 	useSpaceCee ? "https://api.space-cee.com/overengineered" : "https://www.ftrookie.com/overengineered";
 
-const resolveUseSpaceCee = (UID: number, useSpaceCee: boolean | undefined) => {
-	assert(useSpaceCee !== undefined, `Missing live useSpaceCee setting for player ${UID}`);
-	return useSpaceCee;
-};
+const resolveUseSpaceCee = (UID: number, useSpaceCee: boolean | undefined) => useSpaceCee ?? true;
 
 const ParseData = (data: string): LatestSerializedBlocks | undefined => {
 	try {
@@ -65,11 +60,6 @@ const getToken = () => {
 };
 
 export namespace ExternalDatabase {
-	CustomRemotes.admin.adminMigrateRequest.invoked.Connect((player, arg) => {
-		if (isNotAdmin_AutoBanned(player, "adm_request_migration")) return;
-		CustomRemotes.admin.adminMigrateReply.send(player, MigratePlayer(arg.from, arg.to));
-	});
-
 	export const GetPlayer = (UID: number, useSpaceCee: boolean | undefined): PlayerDatabaseData | undefined => {
 		const resolvedUseSpaceCee = resolveUseSpaceCee(UID, useSpaceCee);
 		const result = HttpService.RequestAsync({

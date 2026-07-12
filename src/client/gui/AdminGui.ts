@@ -232,6 +232,7 @@ class DeveloperManageDataTab extends ConfigControlList {
 			{
 				const fromV = new ObservableValue("123456789");
 				const toV = new ObservableValue("123456789");
+				const forceDatastoreV = new ObservableValue<boolean>(false);
 
 				this.addString("From ID") //
 					.setDescription("The player to copy data from")
@@ -241,10 +242,15 @@ class DeveloperManageDataTab extends ConfigControlList {
 					.setDescription("The player receiving the data ⚠️ existing entries will be wiped")
 					.initToObservable(toV);
 
+				this.addToggle("Force Datastore")
+					.setDescription("Bypass the external DB, copy directly via Roblox datastore (Studio only)")
+					.initToObservable(forceDatastoreV);
+
 				const submit = this.addButton("Submit", () => {
 					CustomRemotes.admin.adminMigrateRequest.send({
 						from: getNumberID(fromV.get()),
 						to: getNumberID(toV.get()),
+						forceDatastore: forceDatastoreV.get(),
 					});
 				});
 				CustomRemotes.admin.adminMigrateReply.invoked.Connect((arg) => {
