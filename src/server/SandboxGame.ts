@@ -16,6 +16,7 @@ import { ServerPlots } from "server/plots/ServerPlots";
 import { RagdollController } from "server/RagdollController";
 import { ServerEffectCreator } from "server/ServerEffectCreator";
 import { ServerPlayersController } from "server/ServerPlayersController";
+import { BanInvoker } from "server/services/BanInvoker";
 import { SpreadingFireController } from "server/SpreadingFireController";
 import { UsernameGuiController } from "server/UsernameGuiController";
 import { SharedPlots } from "shared/building/SharedPlots";
@@ -81,6 +82,7 @@ export namespace SandboxGame {
 		}
 
 		builder.services.registerService(ServerPlayersController);
+		builder.services.registerService(BanInvoker);
 		builder.services.registerSingletonClass(SpreadingFireController);
 
 		builder.services
