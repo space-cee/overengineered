@@ -1,7 +1,6 @@
 //UnderEngineered
 import { ProtectedClass } from "client/integrity/ProtectedClass";
 import { LocalPlayer } from "engine/client/LocalPlayer";
-//import type { IntegrityChecker } from "anywaymachines/client/integrity/IntegrityChecker";
 import { CustomRemotes } from "shared/Remotes";
 
 const scriptInstances: (keyof Instances)[] = ["LocalScript", "ModuleScript", "Script"];
@@ -23,6 +22,8 @@ const forbiddenInstances: (keyof Instances)[] = [
 	"Highlight",
 ];
 
+const allowedVectorForces = ["SwimForce", "GravityForce", "AttractorForce"];
+
 export class CharacterIntegrityChecker extends ProtectedClass {
 	constructor() {
 		super(script, (info) => CustomRemotes.integrityViolation.send(info));
@@ -36,6 +37,15 @@ export class CharacterIntegrityChecker extends ProtectedClass {
 
 			character.DescendantAdded.Connect((desc) => {
 				task.wait();
+
+				if (desc.IsA("VectorForce")) {
+					if (allowedVectorForces.includes(desc.Name)) {
+						return;
+					}
+
+					CustomRemotes.integrityViolation.send("Unknown VectorForce added to character");
+					return;
+				}
 
 				if (forbiddenInstances.includes(desc.ClassName as keyof Instances)) {
 					CustomRemotes.integrityViolation.send(`${desc.ClassName} added to character`);

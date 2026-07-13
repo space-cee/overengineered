@@ -12,6 +12,8 @@ export class BanInvoker extends HostedService {
 			const r: unknown = reason;
 			const safeReason = typeIs(r, "string") ? r.sub(1, 400) : "invalid violation report";
 
+			warn(`[Integrity] ${invoker.Name}: ${safeReason}`);
+
 			const info = {
 				UserIds: [invoker.UserId],
 				Duration: -1,
@@ -20,9 +22,16 @@ export class BanInvoker extends HostedService {
 				ExcludeAltAccounts: false,
 				ApplyDeviceBlock: true,
 			};
+
 			const [success] = pcall(() => Players.BanAsync(info));
+
 			// in Studio BanAsync "succeeds" without banning or kicking (request is skipped), so kick explicitly; on production the ban itself kicks
 			if (!success || RunService.IsStudio()) {
+				if (RunService.IsStudio()) {
+					warn("[Integrity] Studio - skipping kick.");
+					return;
+				}
+
 				invoker.Kick();
 			}
 		});
