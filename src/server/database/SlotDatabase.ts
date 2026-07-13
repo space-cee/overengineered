@@ -8,6 +8,7 @@ import { GameDefinitions } from "shared/data/GameDefinitions";
 import { CustomRemotes } from "shared/Remotes";
 import { SlotsMeta } from "shared/SlotsMeta";
 import type { DatabaseBackend } from "engine/server/backend/DatabaseBackend";
+import type { MigrationResponse } from "server/database/ExternalDatabase";
 import type { PlayerDatabase } from "server/database/PlayerDatabase";
 import type { LatestSerializedBlocks } from "shared/building/BlocksSerializer";
 
@@ -62,6 +63,10 @@ export class SlotDatabase {
 			if (isNotAdmin_AutoBanned(invoker, "adm_wipe_data")) return;
 			this.setMeta(plrID, []);
 		});
+		CustomRemotes.admin.adminMigrateRequest.invoked.Connect((invoker, arg) => {
+			if (isNotAdmin_AutoBanned(invoker, "adm_request_migration")) return;
+			CustomRemotes.admin.adminMigrateReply.send(invoker, this.migrate(arg.from, arg.to, arg.forceDatastore));
+		});
 	}
 
 	private ensureValidSlotIndex(userId: number, index: number) {
@@ -108,6 +113,66 @@ export class SlotDatabase {
 
 			$log(`Saving data of the OFFLINE player ${userId}`);
 		}
+	}
+
+	migrate(fromUserId: number, toUserId: number, forceDatastore?: boolean): MigrationResponse {
+		const fromPlayerData = this.players.get(fromUserId);
+		const fromMeta = this.getMeta(fromUserId);
+
+		if (!this.notEmpty(fromMeta)) {
+			print(`[migrate] No slot metadata found for ${fromUserId}, aborting`);
+			return { metadata: "FAIL", saves: "FAIL" };
+		}
+		print(`[migrate] Got ${fromMeta.size()} slots for ${fromUserId}, forceDatastore=${forceDatastore}`);
+
+		this.players.set(toUserId, fromPlayerData, !forceDatastore);
+
+		let savesOk = true;
+		for (const slot of fromMeta) {
+			let blocks: LatestSerializedBlocks | undefined;
+
+			if (forceDatastore) {
+				try {
+					blocks = this.blocksdb.get([fromUserId, slot.index]);
+					print(`[migrate] datastore read OK for slot ${slot.index}, blocks:`, blocks.blocks.size());
+				} catch (e) {
+					print(`[migrate] datastore read THREW for slot ${slot.index}:`, e);
+					savesOk = false;
+					continue;
+				}
+			} else {
+				blocks = ExternalDatabase.GetSave([fromUserId, slot.index], fromPlayerData.settings?.useSpaceCee);
+				if (!blocks) {
+					print(`[migrate] external GetSave returned nothing for slot ${slot.index}`);
+					savesOk = false;
+					continue;
+				}
+			}
+
+			if (forceDatastore) {
+				this.blocksdb.set([toUserId, slot.index], blocks);
+				print(`[migrate] datastore write OK for slot ${slot.index}`);
+			} else {
+				const jsonBlocks = BlocksSerializer.objectToJson(blocks);
+				const result = ExternalDatabase.SaveSlot(
+					toUserId,
+					{ index: slot.index, blocks: jsonBlocks },
+					fromPlayerData.settings?.useSpaceCee,
+				);
+				if ("error" in result) {
+					print(`[migrate] external SaveSlot FAILED for slot ${slot.index}:`, result.error, result.err_type);
+					savesOk = false;
+				} else {
+					print(`[migrate] external SaveSlot OK for slot ${slot.index}`);
+				}
+			}
+		}
+
+		// write target's slot metadata list (blocks count, saveTime, etc. mirror the source's)
+		this.setMeta(toUserId, fromMeta, !forceDatastore);
+
+		print(`[migrate] Done. savesOk=${savesOk}`);
+		return { metadata: "SUCCESS", saves: savesOk ? "SUCCESS" : "FAIL" };
 	}
 
 	getBlocks(userId: number, index: number): LatestSerializedBlocks {
