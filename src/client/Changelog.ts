@@ -1,6 +1,6 @@
 export const changelog = `
 
-7 July 2026:
+7 July 2026: 
 
 - Public Access to External Database
 
