@@ -1,6 +1,8 @@
 import { ConfigService, HttpService, ServerScriptService } from "@rbxts/services";
 import { JSON } from "engine/shared/fixes/Json";
+import { isNotAdmin_AutoBanned } from "server/BanAdminExploiter";
 import { BlocksSerializer } from "shared/building/BlocksSerializer";
+import { CustomRemotes } from "shared/Remotes";
 import type { PlayerDatabaseData } from "server/database/PlayerDatabase";
 import type { LatestSerializedBlocks } from "shared/building/BlocksSerializer";
 
@@ -20,10 +22,8 @@ export type MigrationResponse = {
 	saves: "SUCCESS" | "FAIL";
 };
 
-const getExternalBaseUrl = (useSpaceCee: boolean | undefined) =>
+const getExternalBaseUrl = (useSpaceCee = false) =>
 	useSpaceCee ? "https://api.space-cee.com/overengineered" : "https://www.ftrookie.com/overengineered";
-
-const resolveUseSpaceCee = (UID: number, useSpaceCee: boolean | undefined) => useSpaceCee ?? true;
 
 const ParseData = (data: string): LatestSerializedBlocks | undefined => {
 	try {
@@ -60,11 +60,15 @@ const getToken = () => {
 };
 
 export namespace ExternalDatabase {
-	export const GetPlayer = (UID: number, useSpaceCee: boolean | undefined): PlayerDatabaseData | undefined => {
-		const resolvedUseSpaceCee = resolveUseSpaceCee(UID, useSpaceCee);
+	CustomRemotes.admin.adminMigrateRequest.invoked.Connect((player, arg) => {
+		if (isNotAdmin_AutoBanned(player, "adm_request_migration")) return;
+		CustomRemotes.admin.adminMigrateReply.send(player, MigratePlayer(arg.from, arg.to));
+	});
+
+	export const GetPlayer = (UID: number, useSpaceCee = false): PlayerDatabaseData | undefined => {
 		const result = HttpService.RequestAsync({
 			Method: "GET",
-			Url: `${getExternalBaseUrl(resolvedUseSpaceCee)}/player/${UID}`,
+			Url: `${getExternalBaseUrl(useSpaceCee)}/player/${UID}`,
 		});
 		assert(result.Body, "RETURNED INVALID DATA");
 		if (result.StatusCode === 404) return undefined;
@@ -77,20 +81,15 @@ export namespace ExternalDatabase {
 		return val;
 	};
 
-	export const SetPlayer = (UID: number, data: PlayerDatabaseData, useSpaceCee: boolean | undefined) => {
-		const resolvedUseSpaceCee = resolveUseSpaceCee(UID, useSpaceCee);
+	export const SetPlayer = (UID: number, data: PlayerDatabaseData, useSpaceCee = false) => {
 		const token = getToken();
-		if (!token)
-			return {
-				error: "No token was found. Switch to space-cee in Settings>General",
-				err_type: "INCORRECT_TOKEN",
-			};
+		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
 		const requestResult = HttpService.RequestAsync({
 			Method: "POST",
 			Headers: {
 				"Content-Type": "application/json",
 			},
-			Url: `${getExternalBaseUrl(resolvedUseSpaceCee)}/player`,
+			Url: `${getExternalBaseUrl(useSpaceCee)}/player`,
 			Body: JSON.serialize({
 				playerID: tostring(UID),
 				data, // Technically different from how processed player data is inserted
@@ -122,7 +121,7 @@ export namespace ExternalDatabase {
 	// 	return val;
 	// };
 
-	export const GetSave = ([ownerID, slotID]: SlotKeys, useSpaceCee?: boolean): LatestSerializedBlocks | undefined => {
+	export const GetSave = ([ownerID, slotID]: SlotKeys, useSpaceCee = false): LatestSerializedBlocks | undefined => {
 		let result = "";
 		try {
 			// Attempt to parse the first call, on exception continue trying to load more pages
@@ -170,7 +169,7 @@ export namespace ExternalDatabase {
 	export const SaveSlot = (
 		UID: number,
 		slot: ExternalSlot,
-		useSpaceCee?: boolean,
+		useSpaceCee = false,
 	): ExternalError | { status: string } => {
 		const token = getToken();
 		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
@@ -192,7 +191,7 @@ export namespace ExternalDatabase {
 		return JSON.deserialize<ExternalError | { status: string }>(requestResult.Body);
 	};
 
-	export const MigratePlayer = (fromPlayer: number, toPlayer: number, useSpaceCee?: boolean): MigrationResponse => {
+	export const MigratePlayer = (fromPlayer: number, toPlayer: number, useSpaceCee = false): MigrationResponse => {
 		const token = getToken();
 		if (!token) return { metadata: "FAIL", saves: "FAIL" } as MigrationResponse;
 		print(`Migrating saves from ${fromPlayer} to ${toPlayer}`);

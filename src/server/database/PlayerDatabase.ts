@@ -6,6 +6,7 @@ import { ExternalDatabase } from "server/database/ExternalDatabase";
 import { PlayerConfigUpdater } from "server/PlayerConfigVersioning";
 import type { DatabaseBackend } from "engine/server/backend/DatabaseBackend";
 import type { AchievementData } from "shared/AchievementData";
+
 export type PlayerFeature = "lua_circuit";
 export type PlayerDatabaseData = {
 	readonly purchasedSlots?: number;
@@ -61,11 +62,11 @@ export class PlayerDatabase {
 
 	notEmpty = (arr: PlayerDatabaseData | undefined): arr is PlayerDatabaseData =>
 		arr !== undefined && Objects.size(arr) > 0;
+
 	get(userId: number) {
-		const existingData = this.db.get([userId]) as PlayerDatabaseData | undefined;
-		if (this.notEmpty(existingData)) return existingData;
-		const existingSettings = (existingData as { settings?: { useSpaceCee?: boolean } } | undefined)?.settings;
-		const external = ExternalDatabase.GetPlayer(userId, existingSettings?.useSpaceCee);
+		const db = this.db.get([userId]);
+		if (this.notEmpty(db)) return db;
+		const external = ExternalDatabase.GetPlayer(userId);
 		if (this.notEmpty(external)) {
 			const migrated = migrateData(external);
 			this.set(userId, migrated);
@@ -77,8 +78,7 @@ export class PlayerDatabase {
 	set(userId: number, data: PlayerDatabaseData, external?: boolean) {
 		this.db.set([userId], data);
 		if (external) {
-			const settings = (data as { settings?: { useSpaceCee?: boolean } }).settings;
-			const result = ExternalDatabase.SetPlayer(userId, data, settings?.useSpaceCee);
+			const result = ExternalDatabase.SetPlayer(userId, data);
 			if ("error" in result) {
 				$err(result.err_type, result.error);
 			}
