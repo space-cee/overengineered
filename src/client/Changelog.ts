@@ -1,5 +1,9 @@
 export const changelog = `
 
+20 July 2026:
+
+- Hex string overwrite (UE)
+
 7 July 2026: 
 
 - Public Access to External Database
