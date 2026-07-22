@@ -348,7 +348,10 @@ const cones: BlockBuildersWithoutIdAndDefaults = {
 		displayName: "Cut Cone",
 		description: "Filled with weird geome",
 	},
-
+	halfcutcone: {
+		displayName: "Half Cut Cone",
+		description: "Half Filled with weird geome",
+	},
 	hollowcone: {
 		displayName: "Hollow Cone",
 		description: "Finally, ice cream jokes are on the menu",
@@ -382,7 +385,6 @@ const cones: BlockBuildersWithoutIdAndDefaults = {
 		displayName: "Hollow Cut Cone",
 		description: "It's about time",
 	},
-
 	halfhollowcutcone: {
 		displayName: "Half Hollow Cut Cone",
 		description: "It's about half time",
@@ -398,6 +400,22 @@ const cones: BlockBuildersWithoutIdAndDefaults = {
 	hollowangledcutcone: {
 		displayName: "Hollow Angled Cut Cone",
 		description: "Cut, hollow, angled. Yes, all of them",
+	},
+	hollowbezel: {
+		displayName: "Hollow Bezel",
+		description: "Filled with weird geome",
+	},
+	bezel: {
+		displayName: "Bezel",
+		description: "Filled with weird geome",
+	},
+	hollowthickbezel: {
+		displayName: "Hollow Thick Bezel",
+		description: "Filled with weird geome",
+	},
+	thickbezel: {
+		displayName: "Thick Bezel",
+		description: "Filled with weird geome",
 	},
 };
 
