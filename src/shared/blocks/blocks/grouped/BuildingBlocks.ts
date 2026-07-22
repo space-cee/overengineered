@@ -403,19 +403,23 @@ const cones: BlockBuildersWithoutIdAndDefaults = {
 	},
 	hollowbezel: {
 		displayName: "Hollow Bezel",
-		description: "Filled with weird geome",
+		description: "most cut hollow cone of them all",
+		search: { partialAliases: ["cut cone", "hollow cut cone"] },
 	},
 	bezel: {
 		displayName: "Bezel",
-		description: "Filled with weird geome",
+		description: "most cut cone of them all",
+		search: { partialAliases: ["cut cone"] },
 	},
 	hollowthickbezel: {
 		displayName: "Hollow Thick Bezel",
-		description: "Filled with weird geome",
+		description: "second most cut hollow cone of them all",
+		search: { partialAliases: ["cut cone", "hollow cut cone"] },
 	},
 	thickbezel: {
 		displayName: "Thick Bezel",
-		description: "Filled with weird geome",
+		description: "second most cut cone of them all",
+		search: { partialAliases: ["cut cone"] },
 	},
 };
 
