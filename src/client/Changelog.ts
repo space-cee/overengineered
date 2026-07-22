@@ -1,7 +1,12 @@
 export const changelog = `
 
-20 July 2026:
+22 July 2026:
 
+- Triangle Tool Update (programthat)
+- Bezel blocks
+- Half Cut Cone
+- fixed some gears not centering
+- fixed plot 0.05 offset?
 - Hex string overwrite (UE)
 
 7 July 2026: 
