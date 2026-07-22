@@ -12,7 +12,7 @@ export class MainScene extends Scene {
 		super();
 
 		this.openSettingsAction = this.parent(new Action(() => popupController.showPopup(new SettingsPopup())));
-		this.parent(mainScreen.top.main.addButton("Settings", { iconId: 18626485941 })) //
+		this.parent(mainScreen.top.main.addButton("Settings", { iconId: 11385220704 })) //
 			.subscribeToAction(this.openSettingsAction)
 			.subscribeVisibilityFrom({ main_enabled: this.enabledState });
 	}
