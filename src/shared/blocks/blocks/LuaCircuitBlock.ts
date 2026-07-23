@@ -50,7 +50,7 @@ onTick(function(deltaTime, tick)
 end)
 
 print("Hello, OverEngineered!")`,
-					lengthLimit: 8192,
+					lengthLimit: 16384,
 				},
 			},
 			tooltip: "Lua code to run.",
