@@ -158,7 +158,13 @@ const blocks: BlockBuildersWithoutIdAndDefaults = {
 		displayName: "Mirroed Herringbone gear 12 tooth",
 		description: "double twisted gear",
 	},
-
+	tanksprocket1: {
+		displayName: "Tank Sprocket 1",
+		description: "Spiky tank sprocket",
+		search: {
+			partialAliases: ["sprocket", "running gear", "tracks"],
+		},
+	},
 	wingrounding: {
 		displayName: "Wing Rounding",
 		description: "A wing rounding. Literally rounds your wing",
