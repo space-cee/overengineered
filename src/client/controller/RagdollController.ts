@@ -131,6 +131,9 @@ function initRagdollKey(event: ComponentEvents, key: ReadonlyObservableValue<{ t
 	const actionName = "ragdoll";
 
 	function bind(key: KeyCode, func: () => void) {
+		const keyCode = Keys.Keys[key];
+		if (!keyCode) return;
+
 		ContextActionService.BindAction(
 			actionName,
 			(name, state, input) => {
@@ -141,7 +144,7 @@ function initRagdollKey(event: ComponentEvents, key: ReadonlyObservableValue<{ t
 				return Enum.ContextActionResult.Pass;
 			},
 			InputController.inputType.get() === "Touch",
-			Keys.Keys[key],
+			keyCode,
 		);
 
 		ContextActionService.SetDescription(actionName, "funny falling");
