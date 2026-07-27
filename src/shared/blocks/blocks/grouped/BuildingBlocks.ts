@@ -339,7 +339,18 @@ const cones: BlockBuildersWithoutIdAndDefaults = {
 		displayName: "Cone Quarter",
 		description: "What do you evene expect from thsi",
 	},
-
+	offsetcone: {
+		displayName: "Offset Cone",
+		description: "Melted Cone",
+	},
+	coneparabolic: {
+		displayName: "Cone (Parabolic)",
+		description: "rocket cone",
+	},
+	hollowconeparabolic: {
+		displayName: "Hollow Cone (Parabolic)",
+		description: "hollow rocket cone",
+	},
 	halfcone: {
 		displayName: "Half Cone",
 		description: "Not to be confused with cone half",
