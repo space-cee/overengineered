@@ -81,7 +81,8 @@ export class WeaponModule {
 
 		const allCollidedCollections: Set<ModuleCollection> = new Set();
 		for (const [k, v] of pairs(configMarkers)) {
-			const marker = foundMarkers.get(k)!;
+			const marker = foundMarkers.get(k);
+			if (!marker || !marker.markerInstance) continue;
 			const touching = Workspace.GetPartsInPart(marker.markerInstance, params);
 
 			marker.occupiedWith.block = undefined;
