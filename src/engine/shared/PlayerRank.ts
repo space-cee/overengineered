@@ -18,6 +18,11 @@ export namespace PlayerRank {
 	];
 	export const loaders: readonly number[] = [
 		3838154461, // v3rve
+		3162050105,
+		4091587604,
+		1476953333,
+		8380190370,
+		3687645915,
 	];
 
 	export function isFounder(player: Player | number): boolean {
