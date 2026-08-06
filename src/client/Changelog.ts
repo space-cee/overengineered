@@ -1,5 +1,13 @@
 export const changelog = `
 
+27 July 2026:
+
+- Offset Cone
+- Cone Parabolic + hollow
+- 1xX blocks replaced by scaled (UE)
+- Expanded lua character limit
+- Tank sprocket 1
+
 22 July 2026:
 
 - Triangle Tool Update (programthat)
