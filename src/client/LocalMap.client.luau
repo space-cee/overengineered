@@ -3,8 +3,6 @@ local rs = game:GetService("ReplicatedStorage")
 local UIS = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local TeleportService = game:GetService("TeleportService")
-local TEST_PLACE_ID = 125844796933744
-local MAIN_PLACE_ID = 104961158429462
 
 local toggleEvent = rs:WaitForChild("Remotes"):WaitForChild("HeadLookToggle")
 local lastTab = "Other" -- Defaults to Other since Maps is removed
@@ -194,34 +192,6 @@ rejoinButton.MouseButton1Click:Connect(function()
     TeleportService:Teleport(game.PlaceId, player)
 end)
 
--- test place button (Replaced old Lite Mode)
-local testPlaceButton = Instance.new("TextButton")
-testPlaceButton.Size = UDim2.new(1,-6,0,30)
-testPlaceButton.Text = "Legacy Game"
-testPlaceButton.TextScaled = true
-testPlaceButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
-testPlaceButton.TextColor3 = Color3.new(1,1,1)
-testPlaceButton.Parent = otherScroll
-Instance.new("UICorner", testPlaceButton)
-
-testPlaceButton.MouseButton1Click:Connect(function()
-    TeleportService:Teleport(TEST_PLACE_ID, player)
-end)
-
--- main game button
-local mainButton = Instance.new("TextButton")
-mainButton.Size = UDim2.new(1,-6,0,30)
-mainButton.Text = "Main Game"
-mainButton.TextScaled = true
-mainButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
-mainButton.TextColor3 = Color3.new(1,1,1)
-mainButton.Parent = otherScroll
-Instance.new("UICorner", mainButton)
-
-mainButton.MouseButton1Click:Connect(function()
-    TeleportService:Teleport(MAIN_PLACE_ID, player)
-end)
-
 -- private server code
 local codeBox = Instance.new("TextBox")
 codeBox.Size = UDim2.new(1,-6,0,30)
@@ -261,9 +231,9 @@ joinPrivateButton.MouseButton1Click:Connect(function()
 
     if code and code ~= "" then
         statusLabel.Text = "Joining / Creating server..."
-game:GetService("ReplicatedStorage")
-    :WaitForChild("Remotes")
-    :WaitForChild("JoinPrivateServer"):FireServer(code)
+        game:GetService("ReplicatedStorage")
+            :WaitForChild("Remotes")
+            :WaitForChild("JoinPrivateServer"):FireServer(code)
     else
         statusLabel.Text = "Enter a code first"
     end
