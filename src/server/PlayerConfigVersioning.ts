@@ -32,6 +32,7 @@ const v2: UpdatablePlayerConfigVersion<PlayerConfigV2, PlayerConfigV1> = {
 			beacons: {
 				plot: prev.beacons ?? true,
 				players: false,
+				cameraOrigin: false,
 			},
 		};
 	},

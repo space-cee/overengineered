@@ -10,6 +10,7 @@ declare global {
 	type BeaconsConfiguration = {
 		readonly plot: boolean;
 		readonly players: boolean;
+		readonly cameraOrigin: boolean;
 	};
 	type CameraConfiguration = {
 		readonly improved: boolean;
@@ -236,6 +237,7 @@ export const PlayerConfigDefinition = {
 		config: {
 			plot: true as boolean,
 			players: false as boolean,
+			cameraOrigin: false as boolean,
 		},
 	},
 	impact_destruction: {

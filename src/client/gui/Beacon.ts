@@ -4,6 +4,7 @@ import { Component } from "engine/shared/component/Component";
 import { InstanceComponent } from "engine/shared/component/InstanceComponent";
 import { PartUtils } from "shared/utils/PartUtils";
 import { VectorUtils } from "shared/utils/VectorUtils";
+import type { PlayerDataStorage } from "client/PlayerDataStorage";
 
 /**
  * Beacon with a public position setter
@@ -13,9 +14,20 @@ export class ManualBeacon extends Component {
 	showUpDistance = 30;
 
 	position = Vector3.zero;
+	private cameraOrigin = false;
 
-	constructor(name: string) {
+	constructor(name: string, playerData?: PlayerDataStorage) {
 		super();
+
+		if (playerData) {
+			this.event.subscribeObservable(
+				playerData.config.createBased((c) => c.beacons.cameraOrigin),
+				(cameraOrigin) => {
+					this.cameraOrigin = cameraOrigin;
+				},
+				true,
+			);
+		}
 
 		this.billboard = ReplicatedStorage.Assets.Guis.BeaconBillboardGui.Clone();
 
@@ -33,7 +45,11 @@ export class ManualBeacon extends Component {
 			const character = Players.LocalPlayer.Character;
 			if (!character) return;
 
-			const distance = this.position.sub(character.GetPivot().Position).Magnitude;
+			const referencePosition = this.cameraOrigin
+				? (Workspace.CurrentCamera?.GetPivot().Position ?? character.GetPivot().Position)
+				: character.GetPivot().Position;
+
+			const distance = this.position.sub(referencePosition).Magnitude;
 			if (!distance) return;
 
 			const transparencyMultiplier = 0.8;
@@ -100,10 +116,10 @@ export class ManualBeacon extends Component {
  * Beacon that gets its position from a PVInstance
  */
 export class Beacon extends InstanceComponent<PVInstance> {
-	constructor(part: PVInstance, name: string) {
+	constructor(part: PVInstance, name: string, playerData?: PlayerDataStorage) {
 		super(part);
 
-		const beacon = this.parent(new ManualBeacon(name));
+		const beacon = this.parent(new ManualBeacon(name, playerData));
 		this.event.subscribe(RunService.RenderStepped, () => {
 			beacon.position = part.GetPivot().Position;
 		});

@@ -47,6 +47,12 @@ export class PlayerSettingsGeneral extends ConfigControlList {
 			this.addToggle("Public particles") //
 				.initToObjectPart(value, ["publicParticles"])
 				.setDescription("Allow others to see your particles and see particles of others (Particle Block only)");
+
+			this.addToggle("Beacon distance uses camera") //
+				.initToObjectPart(value, ["beacons", "cameraOrigin"])
+				.setDescription(
+					"Use the camera location as the beacon reference origin instead of the local player root",
+				);
 		}
 	}
 }

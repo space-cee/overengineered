@@ -566,7 +566,7 @@ export class RideModeScene extends Control<RideModeSceneDefinition> {
 				.filter((c) => c instanceof beaconBlockClass) as unknown as readonly BeaconBlockLogic[];
 
 			for (const beacon of beacons) {
-				beacon.beaconInstance = new ManualBeacon(beacon.definition.input.text.displayName);
+				beacon.beaconInstance = new ManualBeacon(beacon.definition.input.text.displayName, this.playerData);
 				beacon.updateData(beacon.definition.input.text.displayName, true);
 			}
 		}

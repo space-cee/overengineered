@@ -3,7 +3,9 @@ export namespace Config {
 		config: Partial<ConfigDefinitionsToConfig<TKeys, TDef>> | undefined,
 		definition: TDef,
 	): ConfigDefinitionsToConfig<TKeys, TDef> {
-		config ??= {};
+		if (!typeIs(config, "table")) {
+			config = {};
+		}
 
 		for (const [key, def] of pairs(definition)) {
 			if (typeIs(config[key], "table") || typeIs(def.config, "table")) {
@@ -45,5 +47,55 @@ export namespace Config {
 		}
 
 		return config as ConfigDefinitionsToConfig<TKeys, TDef>;
+	}
+
+	export function removeDeprecated<TKeys extends keyof TDef & string, TDef extends UnknownConfigDefinitions>(
+		config: Partial<ConfigDefinitionsToConfig<TKeys, TDef>> | undefined,
+		definition: TDef,
+	): ConfigDefinitionsToConfig<TKeys, TDef> {
+		if (!typeIs(config, "table")) {
+			config = {};
+		}
+
+		const out: Record<string, unknown> = {};
+
+		for (const [key, def] of pairs(definition)) {
+			const k = key as string;
+			const value = (config as Record<string, unknown>)[k];
+			if (value === undefined) continue;
+
+			if (typeIs(def.config, "table") && typeIs(value, "table")) {
+				// def.config here is a plain reference VALUE (e.g. mapUnload's {[name]: bool}
+				// or terrain's fields), not a nested definitions map — recurse on shape, not defs.
+				out[k] = removeDeprecatedObject(value as Record<string, unknown>, def.config as object);
+			} else {
+				out[k] = value;
+			}
+		}
+
+		return out as ConfigDefinitionsToConfig<TKeys, TDef>;
+	}
+
+	/**
+	 * Recursively strips keys from `value` that don't exist in `reference`.
+	 * Both sides are plain data objects (not ConfigDefinitions), so this only
+	 * ever compares values to values — never a boolean's `.config`.
+	 */
+	function removeDeprecatedObject(value: Record<string, unknown>, reference: object): Record<string, unknown> {
+		const out: Record<string, unknown> = {};
+
+		for (const [key, refValue] of pairs(reference as Record<string, unknown>)) {
+			const k = key as string;
+			const v = value[k];
+			if (v === undefined) continue;
+
+			if (typeIs(refValue, "table") && typeIs(v, "table")) {
+				out[k] = removeDeprecatedObject(v as Record<string, unknown>, refValue as object);
+			} else {
+				out[k] = v;
+			}
+		}
+
+		return out;
 	}
 }

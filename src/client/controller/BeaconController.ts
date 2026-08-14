@@ -13,8 +13,8 @@ export class BeaconController extends HostedService {
 	constructor(@inject plot: ReadonlyPlot, @inject playerData: PlayerDataStorage) {
 		super();
 
-		const plotBeacon = this.initializePlotBeacon(plot);
-		const playerBeacons = this.initializePlayerBeacons();
+		const plotBeacon = this.initializePlotBeacon(plot, playerData);
+		const playerBeacons = this.initializePlayerBeacons(playerData);
 
 		this.event.subscribeObservable(
 			playerData.config.createBased((c) => c.beacons),
@@ -29,7 +29,7 @@ export class BeaconController extends HostedService {
 		);
 	}
 
-	private initializePlotBeacon(plot: ReadonlyPlot): Beacon {
+	private initializePlotBeacon(plot: ReadonlyPlot, playerData: PlayerDataStorage): Beacon {
 		const part = new Instance("Part");
 		part.Name = "LocalPlotBeacon";
 		part.Anchored = true;
@@ -38,10 +38,10 @@ export class BeaconController extends HostedService {
 		part.PivotTo(plot.origin);
 		part.Parent = Workspace;
 
-		return this.parent(new Beacon(part, "Plot"));
+		return this.parent(new Beacon(part, "Plot", playerData));
 	}
 
-	private initializePlayerBeacons(): Component {
+	private initializePlayerBeacons(playerData: PlayerDataStorage): Component {
 		const component = new Component();
 		const playerBeacons = component.parent(new ComponentKeyedChildren<number, Beacon>());
 
@@ -57,7 +57,7 @@ export class BeaconController extends HostedService {
 					task.wait(0.1);
 				}
 
-				playerBeacons.add(player.UserId, new Beacon(humanoid.RootPart, player.DisplayName));
+				playerBeacons.add(player.UserId, new Beacon(humanoid.RootPart, player.DisplayName, playerData));
 			});
 		};
 
