@@ -1,0 +1,23 @@
+import { ServerBlockLogic } from "server/blocks/ServerBlockLogic";
+import type { PlayModeController } from "server/modes/PlayModeController";
+import type { PassengerSeatBlockLogic } from "shared/blocks/blocks/grouped/PassengerSeatBlocks";
+import type { VehicleSeatBlocksLogic } from "shared/blocks/blocks/VehicleSeatBlocks";
+
+@injectable
+export class SeatBlocksServerLogic extends ServerBlockLogic<
+	typeof PassengerSeatBlockLogic | typeof VehicleSeatBlocksLogic
+> {
+	constructor(
+		logic: typeof PassengerSeatBlockLogic | typeof VehicleSeatBlocksLogic,
+		@inject playModeController: PlayModeController,
+	) {
+		super(logic, playModeController);
+
+		logic.events.sittable.invoked.Connect((player, { block, sittable }) => {
+			if (!this.isValidBlock(block, player)) return;
+			const seat = block.FindFirstChildOfClass("VehicleSeat");
+			if (!seat) return;
+			seat.Disabled = !sittable;
+		});
+	}
+}

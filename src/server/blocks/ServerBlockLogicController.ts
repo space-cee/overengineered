@@ -1,4 +1,6 @@
+// CURRENT VERSION
 import { HostedService } from "engine/shared/di/HostedService";
+import { Objects } from "engine/shared/fixes/Objects";
 import { ArmMountBlockServerLogic } from "server/blocks/logic/ArmMountBlockServerLogic";
 import { BackMountBlockServerLogic } from "server/blocks/logic/BackMountBlockServerLogic";
 import { BeaconServerLogic } from "server/blocks/logic/BeaconBlockServerLogic";
@@ -16,11 +18,14 @@ import { LimbMountBlockServerLogic } from "server/blocks/logic/LimbMountBlockSer
 import { ParticleServerLogic } from "server/blocks/logic/ParticleBlockServerLogic";
 import { PropellantBlockServerLogic } from "server/blocks/logic/PropellantBlocksServerLogic";
 import { ScreenServerLogic } from "server/blocks/logic/ScreenServerLogic";
+import { SeatBlocksServerLogic } from "server/blocks/logic/SeatBlocksLogic";
 import { SevenSegmentDisplayServerLogic } from "server/blocks/logic/SevenSegmentDisplayServerLogic";
 import { SpeakerServerLogic } from "server/blocks/logic/SpeakerBlockServerLogic";
 import { SquareButtonServerLogic } from "server/blocks/logic/SquareButtonServerLogic";
 import { UnscaledScreenServerLogic } from "server/blocks/logic/UnscaledScreenServerLogic";
 import { ServerBlockLogic } from "server/blocks/ServerBlockLogic";
+import { PassengerSeatBlocks } from "shared/blocks/blocks/grouped/PassengerSeatBlocks";
+import { VehicleSeatBlocks } from "shared/blocks/blocks/VehicleSeatBlocks";
 import type { PlayModeController } from "server/modes/PlayModeController";
 import type { GenericBlockLogicCtor } from "shared/blockLogic/BlockLogic";
 
@@ -85,6 +90,8 @@ export class ServerBlockLogicController extends HostedService {
 			unscaledscreen: UnscaledScreenServerLogic,
 			handle: HandleBlockServerLogic,
 			longhandle: HandleBlockServerLogic,
+			...Objects.fromEntries(VehicleSeatBlocks.map((b) => [b.id, SeatBlocksServerLogic] as const)),
+			...Objects.fromEntries(PassengerSeatBlocks.map((b) => [b.id, SeatBlocksServerLogic] as const)),
 		};
 
 		//

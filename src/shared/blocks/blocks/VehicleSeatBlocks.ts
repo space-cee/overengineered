@@ -38,10 +38,37 @@ type VehicleSeatModel = BlockModel & {
 	readonly VehicleSeat: VehicleSeat;
 };
 
-export type { Logic as VehicleSeatBlocksLogic };
+export { Logic as VehicleSeatBlocksLogic };
 
 @injectable
 class Logic extends InstanceBlockLogic<typeof definition, VehicleSeatModel> {
+	private static readonly originalJump = new Map<Humanoid, { useJumpPower: boolean; jumpHeight: number }>();
+
+	static setJumpLock(humanoid: Humanoid | undefined, locked = false) {
+		if (!humanoid) return;
+
+		if (!locked) {
+			const original = Logic.originalJump.get(humanoid);
+			if (!original) return;
+
+			Logic.originalJump.delete(humanoid);
+			humanoid.UseJumpPower = original.useJumpPower;
+			humanoid.JumpHeight = original.jumpHeight;
+			return;
+		}
+
+		if (!Logic.originalJump.has(humanoid)) {
+			Logic.originalJump.set(humanoid, {
+				useJumpPower: humanoid.UseJumpPower,
+				jumpHeight: humanoid.JumpHeight,
+			});
+			humanoid.Destroying.Once(() => Logic.originalJump.delete(humanoid));
+		}
+
+		humanoid.UseJumpPower = false;
+		humanoid.JumpHeight = 0;
+	}
+
 	static readonly events = {
 		sittable: new C2SRemoteEvent<{ readonly block: VehicleSeatModel; sittable: boolean }>("vehicleseat_sittable"),
 	} as const;
@@ -59,32 +86,35 @@ class Logic extends InstanceBlockLogic<typeof definition, VehicleSeatModel> {
 				this.output.occupied.set("bool", occupant !== undefined);
 				if (!occupant) {
 					this.output.occupant.unset();
-					const get = playerInfo.humanoid.get();
-					if (get) get.UseJumpPower = true;
+					Logic.setJumpLock(playerInfo.humanoid.get());
 					return;
 				}
 				const player = Players.GetPlayerFromCharacter(occupant.Parent as Model);
 				if (player) this.output.occupant.set("string", player.Name);
 				if (player === Players.LocalPlayer) {
-					occupant.UseJumpPower = !(lockCache.tryGet() ?? false);
-					occupant.JumpHeight = 0;
+					Logic.setJumpLock(occupant, lockCache.tryGet() ?? false);
 				}
 			},
-			true, // <-----
+			true,
 		);
 
-		this.onk(["lock"], ({ lock }) => {
-			const occupant = this.vehicleSeat.Occupant;
-			if (occupant !== playerInfo.humanoid.get()) return;
-			occupant!.UseJumpPower = !lock;
-			occupant!.JumpHeight = 0;
+		this.onk(["sittable"], ({ sittable }) => {
+			this.vehicleSeat.Disabled = !sittable;
+			if (RunService.IsClient()) Logic.events.sittable.send({ block: this.instance, sittable });
 		});
 
 		if (!RunService.IsClient()) return;
 
-		this.onk(["sittable"], ({ sittable }) => {
-			this.vehicleSeat.Disabled = !sittable;
-			Logic.events.sittable.send({ block: this.instance, sittable });
+		this.onDisable(() => {
+			Logic.setJumpLock(this.vehicleSeat.Occupant);
+			Logic.setJumpLock(playerInfo.humanoid.get());
+		});
+
+		this.onk(["lock"], ({ lock }) => {
+			const occupant = this.vehicleSeat.Occupant;
+			if (!occupant || occupant !== playerInfo.humanoid.get()) return;
+
+			Logic.setJumpLock(occupant, lock);
 		});
 
 		// This event is only registered seperately because it doesn't run immediately

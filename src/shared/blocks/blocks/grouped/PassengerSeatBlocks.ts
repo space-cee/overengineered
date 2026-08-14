@@ -2,6 +2,7 @@ import { Players, RunService } from "@rbxts/services";
 import { C2SRemoteEvent } from "engine/shared/event/PERemoteEvent";
 import { InstanceBlockLogic } from "shared/blockLogic/BlockLogic";
 import { BlockCreation } from "shared/blocks/BlockCreation";
+import { VehicleSeatBlocksLogic } from "shared/blocks/blocks/VehicleSeatBlocks";
 import type { BlockLogicFullBothDefinitions, InstanceBlockLogicArgs } from "shared/blockLogic/BlockLogic";
 import type { BlockBuildersWithoutIdAndDefaults } from "shared/blocks/Block";
 
@@ -57,32 +58,38 @@ class Logic extends InstanceBlockLogic<typeof definition, PassengerSeatModel> {
 				this.output.occupied.set("bool", occupant !== undefined);
 				if (!occupant) {
 					this.output.occupant.unset();
-					if (!RunService.IsClient()) return;
-					const get = Players.LocalPlayer.Character?.FindFirstChildOfClass("Humanoid");
-					if (get) get.UseJumpPower = true;
+					if (RunService.IsClient()) {
+						VehicleSeatBlocksLogic.setJumpLock(
+							Players.LocalPlayer.Character?.FindFirstChildOfClass("Humanoid"),
+						);
+					}
 					return;
 				}
 				const player = Players.GetPlayerFromCharacter(occupant.Parent as Model);
 				if (player) this.output.occupant.set("string", player.Name);
 				if (player === Players.LocalPlayer) {
-					occupant.UseJumpPower = !(lockCache.tryGet() ?? false);
-					occupant.JumpHeight = 0;
+					VehicleSeatBlocksLogic.setJumpLock(occupant, lockCache.tryGet() ?? false);
 				}
 			},
 			true,
 		);
 
-		if (!RunService.IsClient()) return;
-		this.onk(["lock"], ({ lock }) => {
-			const occupant = this.vehicleSeat.Occupant;
-			if (occupant !== Players.LocalPlayer.Character?.FindFirstChildOfClass("Humanoid")) return;
-			occupant!.UseJumpPower = !lock;
-			occupant!.JumpHeight = 0;
-		});
-
 		this.onk(["sittable"], ({ sittable }) => {
 			this.vehicleSeat.Disabled = !sittable;
-			Logic.events.sittable.send({ block: this.instance, sittable });
+			if (RunService.IsClient()) Logic.events.sittable.send({ block: this.instance, sittable });
+		});
+
+		if (!RunService.IsClient()) return;
+
+		this.onDisable(() => {
+			VehicleSeatBlocksLogic.setJumpLock(this.vehicleSeat.Occupant);
+			VehicleSeatBlocksLogic.setJumpLock(Players.LocalPlayer.Character?.FindFirstChildOfClass("Humanoid"));
+		});
+
+		this.onk(["lock"], ({ lock }) => {
+			const occupant = this.vehicleSeat.Occupant;
+			if (!occupant || occupant !== Players.LocalPlayer.Character?.FindFirstChildOfClass("Humanoid")) return;
+			VehicleSeatBlocksLogic.setJumpLock(occupant, lock);
 		});
 	}
 }
