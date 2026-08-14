@@ -37,9 +37,12 @@ export class PlayerDataStorage {
 	}
 
 	static convertData(data: PlayerDataResponse): PD {
+		const rawSettings = Config.addDefaults(data.settings ?? {}, PlayerConfigDefinition);
+		const refreshedSettings = Config.removeDeprecated(rawSettings, PlayerConfigDefinition);
+
 		return {
 			purchasedSlots: data.purchasedSlots ?? 0,
-			settings: Config.addDefaults(data.settings ?? {}, PlayerConfigDefinition),
+			settings: refreshedSettings,
 			slots: data.slots ?? Objects.empty,
 			data: data.data ?? {},
 			features: data.features ?? [],

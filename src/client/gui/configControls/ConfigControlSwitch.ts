@@ -36,11 +36,13 @@ export class ConfigControlSwitch<T extends string> extends ConfigControlBase<
 		if (this.parts.ChosenItemDescriptionLabel) {
 			const obj = Objects.fromEntries(items);
 			control.value.subscribe((value) => {
-				if (!value || obj[value].description === undefined) {
+				const item = value && obj[value];
+				if (!item || item.description === undefined) {
 					this.parts.ChosenItemDescriptionLabel.Visible = false;
+					this.parts.ChosenItemDescriptionLabel.Text = "";
 				} else {
 					this.parts.ChosenItemDescriptionLabel.Visible = true;
-					this.parts.ChosenItemDescriptionLabel.Text = `${obj[value].name ?? value}: ${obj[value].description}`;
+					this.parts.ChosenItemDescriptionLabel.Text = `${item.name ?? value}: ${item.description}`;
 				}
 			}, true);
 		}
