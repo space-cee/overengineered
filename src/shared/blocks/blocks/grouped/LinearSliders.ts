@@ -406,7 +406,6 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	tsliderdualplate: {
 		displayName: "Linear Rail Slider",
 		description: "It slides along, waiting to be destroyed like my sanity.", // gotta make sure it fits with the theme of depres.. warm happiness!
-		limitFamily: "slider",
 		search,
 		logic: { ctor: SliderBlockLogic, definition: sliderDefinition },
 	},
@@ -415,7 +414,6 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	tsliderfull: {
 		displayName: "Linear Carriage Slider",
 		description: "A slider but it gives the carriage a hug.",
-		limitFamily: "slider",
 		search,
 		logic: { ctor: SliderBlockLogic, definition: sliderDefinition },
 	},
@@ -425,7 +423,6 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	tslidercenter: {
 		displayName: "Linear Carriage Slider (Centered)",
 		description: "Slides linearly with a carriage in the center.",
-		limitFamily: "slider",
 		search,
 		logic: { ctor: Limit_SliderBlockLogic, definition: sliderDefinition },
 	},
@@ -434,7 +431,6 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	tslideredge: {
 		displayName: "Linear Carriage Slider (Edge)",
 		description: "Slides linearly with a carriage at the edge.",
-		limitFamily: "slider",
 		search,
 		logic: { ctor: Edge_Limit_SliderBlockLogic, definition: sliderDefinition_edge },
 	},
@@ -444,7 +440,6 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	tslidercenterwide: {
 		displayName: "Linear Wide Carriage Slider (Centered)",
 		description: "Slides linearly with a carriage in the center. But its a wide carriage.",
-		limitFamily: "slider",
 		search,
 		logic: { ctor: Limit_SliderBlockLogic_Wide, definition: sliderDefinition },
 	},
@@ -453,7 +448,6 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	tslideredgewide: {
 		displayName: "Linear Wide Carriage Slider (Edge)",
 		description: "Slides linearly with a carriage at the edge. But its a wide carriage.",
-		limitFamily: "slider",
 		search,
 		logic: { ctor: Edge_Limit_SliderBlockLogic_Wide, definition: sliderDefinition_edge },
 	},
