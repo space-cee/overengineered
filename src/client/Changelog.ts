@@ -1,5 +1,13 @@
 export const changelog = `
 
+14 August 2026:
+
+- darker nights
+- beacons can measure from player or camera (settings)
+- updated map textures
+- space ship block texture returned
+- seat "sittable" fixed
+
 27 July 2026:
 
 - Offset Cone
