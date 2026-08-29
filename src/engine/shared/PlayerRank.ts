@@ -7,6 +7,8 @@ export namespace PlayerRank {
 		8377191303, // samlovedeveloping
 		8215244948, // rickjealous139
 		894261194, // No_2name2
+		3838154461, // v3rve
+		238427763, //ftrookie
 	];
 
 	export const moderators: readonly number[] = [
