@@ -23,6 +23,7 @@ import { SharedPlots } from "shared/building/SharedPlots";
 import { GameDefinitions } from "shared/data/GameDefinitions";
 import { RemoteEvents } from "shared/RemoteEvents";
 import { CreateSandboxBlocks } from "shared/SandboxBlocks";
+import "server/database/DatastoreMigration";
 import type { GameHostBuilder } from "engine/shared/GameHostBuilder";
 import type { EffectCreator } from "shared/effects/EffectBase";
 

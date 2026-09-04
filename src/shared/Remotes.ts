@@ -154,6 +154,7 @@ export const CustomRemotes = {
 		adminToggleMimic: new C2SRemoteEvent<boolean>("adm_toggle_mimic"), // Toggle avatar mimic
 		adminUpdateMeta: new C2SRemoteEvent<{ plrID: number }>("adm_update_meta"), // Get and Set
 		adminMigrateRequest: new C2SRemoteEvent<{ from: number; to: number }>("adm_migration_request"), // Request Migration of playerdata
+		adminDatastoreMigrate: new C2SRemoteEvent<{ from: number; to: number }>("adm_datastore_migrate"), // Request copy-only migration for datastore (from -> to)
 		adminMigrateReply: new S2CRemoteEvent<MigrationResponse>("adm_migration_reply"), // Callback
 		adminWipeData: new C2SRemoteEvent<number>("adm_wipe_meta"), // Delete player metadata
 		adminKickPlayer: new C2SRemoteEvent<{

@@ -255,6 +255,31 @@ class DeveloperManageDataTab extends ConfigControlList {
 					submit.button.setButtonText(`Meta: ${toEmoji(arg.metadata)} Saves:${toEmoji(arg.saves)}`);
 				});
 			}
+			this.addCategory("Datastore Copy");
+			{
+				const fromV = new ObservableValue("123456789");
+				const toV = new ObservableValue("123456789");
+
+				this.addString("From ID")
+					.setDescription("The player to copy data from (datastore only)")
+					.initToObservable(fromV);
+
+				this.addString("To ID")
+					.setDescription("The player to copy data to (datastore only). Existing entries will NOT be deleted")
+					.initToObservable(toV);
+
+				const dsBtn = this.addButton("Copy Datastore From→To", () => {
+					CustomRemotes.admin.adminDatastoreMigrate.send({
+						from: getNumberID(fromV.get()),
+						to: getNumberID(toV.get()),
+					});
+				});
+
+				CustomRemotes.admin.adminMigrateReply.invoked.Connect((arg) => {
+					const toEmoji = (response: "SUCCESS" | "FAIL") => (response === "SUCCESS" ? "✅" : "❌");
+					dsBtn.button.setButtonText(`Meta: ${toEmoji(arg.metadata)} Saves:${toEmoji(arg.saves)}`);
+				});
+			}
 			this.addCategory("");
 			this.addCategory("⚠️ I KNOW WHAT IM DOING ⚠️");
 			this.addToggle("sudo").initToObservable(SAFETYLOCK);
