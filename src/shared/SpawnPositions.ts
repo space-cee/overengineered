@@ -36,6 +36,7 @@ const sps = [
 	["superstructure", { name: "Super Structure", pos: cf(-14037.3, -15104.9, -8119.7) }],
 	["jungleisland", { name: "Jungle Island", pos: cf(-6817, -16366, -10556) }],
 	["moon", { name: "MOON", pos: cf(-8270, 66950.117, -1477.37) }],
+	["underwater", { name: "Underwater", pos: cf(1250, -16493.559, 1750) }],
 ] as const satisfies readonly sps[];
 
 export const spawnPositions: readonly sps[] = sps;

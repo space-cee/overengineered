@@ -1,5 +1,10 @@
 export const changelog = `
 
+4 September 2026:
+
+- Linear Sliders bounds fixed (programthat)
+- Underwater spawn
+
 14 August 2026:
 
 - darker nights
