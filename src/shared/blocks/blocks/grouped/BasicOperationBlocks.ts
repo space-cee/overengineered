@@ -93,6 +93,11 @@ const defpartsf = {
 		types: BlockConfigDefinitions.vector3,
 		...(rest ?? {}),
 	}),
+	matrix3: (name: string, rest?: BLFID) => ({
+		displayName: name,
+		types: BlockConfigDefinitions.matrix3,
+		...(rest ?? {}),
+	}),
 	color: (name: string, rest?: BLFID) => ({
 		displayName: name,
 		types: BlockConfigDefinitions.color,
@@ -2262,8 +2267,9 @@ const other = {
 	},
 } as const satisfies BlockBuildersWithoutIdAndDefaults;
 
-const matrix = {
+const legacyMatrix = {
 	matrixadd: {
+		hidden: true,
 		displayName: "Matrix Addition",
 		description: "Adds two 3x3 matrices together element-by-element.",
 		modelSource: autoModel("MatrixLogicBlockPrefab", "M+M", categories.matrix),
@@ -2300,6 +2306,7 @@ const matrix = {
 		),
 	},
 	matrixsub: {
+		hidden: true,
 		displayName: "Matrix Subtraction",
 		description: "Subtracts Matrix B from Matrix A element-by-element.",
 		modelSource: autoModel("MatrixLogicBlockPrefab", "M-M", categories.matrix),
@@ -2336,6 +2343,7 @@ const matrix = {
 		),
 	},
 	matrixmultiply: {
+		hidden: true,
 		displayName: "Matrix Multiplication",
 		description: "Multiplies two 3x3 matrices together (Matrix A * Matrix B).",
 		modelSource: autoModel("MatrixLogicBlockPrefab", "M*M", categories.matrix),
@@ -2376,6 +2384,7 @@ const matrix = {
 		),
 	},
 	matrixinverse: {
+		hidden: true,
 		displayName: "Matrix Inverse",
 		description: "Calculates the inverse of a 3x3 matrix. Returns identity if non-invertible.",
 		modelSource: autoModel("MatrixLogicBlockPrefab", "M^-1", categories.matrix),
@@ -2433,6 +2442,7 @@ const matrix = {
 		),
 	},
 	matrixtransform: {
+		hidden: true,
 		displayName: "Matrix Transform Vector",
 		description: "Multiplies a 3x3 matrix by a 3D vector (Matrix * Vector).",
 		modelSource: autoModel("MatrixLogicBlockPrefab", "M*V", categories.matrix),
@@ -2459,6 +2469,7 @@ const matrix = {
 		),
 	},
 	matrixtranspose: {
+		hidden: true,
 		displayName: "Matrix Transpose",
 		description: "Swaps the rows and columns of a 3x3 matrix.",
 		modelSource: autoModel("MatrixLogicBlockPrefab", "M^T", categories.matrix),
@@ -2485,6 +2496,7 @@ const matrix = {
 		),
 	},
 	matrixdeterminant: {
+		hidden: true,
 		displayName: "Matrix Determinant",
 		description: "Calculates the determinant of a 3x3 matrix.",
 		modelSource: autoModel("MatrixLogicBlockPrefab", "det(M)", categories.matrix),
@@ -2510,6 +2522,7 @@ const matrix = {
 		),
 	},
 	matrixscale: {
+		hidden: true,
 		displayName: "Matrix Scale",
 		description: "Multiplies all elements of a matrix by a scalar value.",
 		modelSource: autoModel("MatrixLogicBlockPrefab", "M*s", categories.matrix),
@@ -2541,6 +2554,228 @@ const matrix = {
 					outRow3: scaleRow(i.row3),
 				};
 			},
+		),
+	},
+} as const satisfies BlockBuildersWithoutIdAndDefaults;
+
+const matrix = {
+	matrixcompose: {
+		displayName: "Compose Matrix",
+		description: "Combines three row vectors into a 3x3 matrix.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "3V>M", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["row1", "row2", "row3"],
+				input: {
+					row1: defpartsf.vector3("Row 1"),
+					row2: defpartsf.vector3("Row 2"),
+					row3: defpartsf.vector3("Row 3"),
+				},
+				output: { result: { displayName: "Matrix", types: ["matrix3"] } },
+			},
+			(i) => ({ result: { type: "matrix3", value: { row1: i.row1, row2: i.row2, row3: i.row3 } } }),
+		),
+	},
+	matrixdecompose: {
+		displayName: "Decompose Matrix",
+		description: "Extracts the three row vectors of a 3x3 matrix.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M>3V", categories.matrix),
+		logic: logic(
+			{
+				input: { matrix: defpartsf.matrix3("Matrix") },
+				outputOrder: ["row1", "row2", "row3"],
+				output: {
+					row1: { displayName: "Row 1", types: ["vector3"] },
+					row2: { displayName: "Row 2", types: ["vector3"] },
+					row3: { displayName: "Row 3", types: ["vector3"] },
+				},
+			},
+			(i) => ({
+				row1: { type: "vector3", value: i.matrix.row1 },
+				row2: { type: "vector3", value: i.matrix.row2 },
+				row3: { type: "vector3", value: i.matrix.row3 },
+			}),
+		),
+	},
+	matrix3add: {
+		displayName: "Matrix Addition",
+		description: "Adds two 3x3 matrices together element-by-element.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M+M", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["a", "b"],
+				input: { a: defpartsf.matrix3("Matrix A"), b: defpartsf.matrix3("Matrix B") },
+				output: { result: { displayName: "Result", types: ["matrix3"] } },
+			},
+			(i) => ({
+				result: {
+					type: "matrix3",
+					value: {
+						row1: i.a.row1.add(i.b.row1),
+						row2: i.a.row2.add(i.b.row2),
+						row3: i.a.row3.add(i.b.row3),
+					},
+				},
+			}),
+		),
+	},
+	matrix3sub: {
+		displayName: "Matrix Subtraction",
+		description: "Subtracts Matrix B from Matrix A element-by-element.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M-M", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["a", "b"],
+				input: { a: defpartsf.matrix3("Matrix A"), b: defpartsf.matrix3("Matrix B") },
+				output: { result: { displayName: "Result", types: ["matrix3"] } },
+			},
+			(i) => ({
+				result: {
+					type: "matrix3",
+					value: {
+						row1: i.a.row1.sub(i.b.row1),
+						row2: i.a.row2.sub(i.b.row2),
+						row3: i.a.row3.sub(i.b.row3),
+					},
+				},
+			}),
+		),
+	},
+	matrix3multiply: {
+		displayName: "Matrix Multiplication",
+		description: "Multiplies two 3x3 matrices together (Matrix A * Matrix B).",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M*M", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["a", "b"],
+				input: { a: defpartsf.matrix3("Matrix A"), b: defpartsf.matrix3("Matrix B") },
+				output: { result: { displayName: "Result", types: ["matrix3"] } },
+			},
+			(i) => {
+				const b = i.b;
+				const col1 = new Vector3(b.row1.X, b.row2.X, b.row3.X);
+				const col2 = new Vector3(b.row1.Y, b.row2.Y, b.row3.Y);
+				const col3 = new Vector3(b.row1.Z, b.row2.Z, b.row3.Z);
+				const row = (r: Vector3) => new Vector3(r.Dot(col1), r.Dot(col2), r.Dot(col3));
+				return {
+					result: {
+						type: "matrix3",
+						value: { row1: row(i.a.row1), row2: row(i.a.row2), row3: row(i.a.row3) },
+					},
+				};
+			},
+		),
+	},
+	matrix3inverse: {
+		displayName: "Matrix Inverse",
+		description: "Calculates the inverse of a 3x3 matrix. Returns identity if non-invertible.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M^-1", categories.matrix),
+		logic: logic(
+			{
+				input: { matrix: defpartsf.matrix3("Matrix") },
+				output: { result: { displayName: "Result", types: ["matrix3"] } },
+			},
+			(i) => {
+				const { row1, row2, row3 } = i.matrix;
+				const c1 = row2.Cross(row3);
+				const c2 = row3.Cross(row1);
+				const c3 = row1.Cross(row2);
+				const det = row1.Dot(c1);
+				if (math.abs(det) < 1e-6) {
+					return {
+						result: {
+							type: "matrix3",
+							value: { row1: Vector3.xAxis, row2: Vector3.yAxis, row3: Vector3.zAxis },
+						},
+					};
+				}
+				const invDet = 1 / det;
+				return {
+					result: {
+						type: "matrix3",
+						value: {
+							row1: new Vector3(c1.X, c2.X, c3.X).mul(invDet),
+							row2: new Vector3(c1.Y, c2.Y, c3.Y).mul(invDet),
+							row3: new Vector3(c1.Z, c2.Z, c3.Z).mul(invDet),
+						},
+					},
+				};
+			},
+		),
+	},
+	matrix3transform: {
+		displayName: "Matrix Transform Vector",
+		description: "Multiplies a 3x3 matrix by a 3D vector (Matrix * Vector).",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M*V", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["matrix", "vec"],
+				input: { matrix: defpartsf.matrix3("Matrix"), vec: defpartsf.vector3("Vector") },
+				output: { result: { displayName: "Vector", types: ["vector3"] } },
+			},
+			(i) => ({
+				result: {
+					type: "vector3",
+					value: new Vector3(i.matrix.row1.Dot(i.vec), i.matrix.row2.Dot(i.vec), i.matrix.row3.Dot(i.vec)),
+				},
+			}),
+		),
+	},
+	matrix3transpose: {
+		displayName: "Matrix Transpose",
+		description: "Swaps the rows and columns of a 3x3 matrix.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M^T", categories.matrix),
+		logic: logic(
+			{
+				input: { matrix: defpartsf.matrix3("Matrix") },
+				output: { result: { displayName: "Result", types: ["matrix3"] } },
+			},
+			(i) => ({
+				result: {
+					type: "matrix3",
+					value: {
+						row1: new Vector3(i.matrix.row1.X, i.matrix.row2.X, i.matrix.row3.X),
+						row2: new Vector3(i.matrix.row1.Y, i.matrix.row2.Y, i.matrix.row3.Y),
+						row3: new Vector3(i.matrix.row1.Z, i.matrix.row2.Z, i.matrix.row3.Z),
+					},
+				},
+			}),
+		),
+	},
+	matrix3determinant: {
+		displayName: "Matrix Determinant",
+		description: "Calculates the determinant of a 3x3 matrix.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "det(M)", categories.matrix),
+		logic: logic(
+			{
+				input: { matrix: defpartsf.matrix3("Matrix") },
+				output: { det: { displayName: "Determinant", types: ["number"] } },
+			},
+			(i) => ({
+				det: { type: "number", value: i.matrix.row1.Dot(i.matrix.row2.Cross(i.matrix.row3)) },
+			}),
+		),
+	},
+	matrix3scale: {
+		displayName: "Matrix Scale",
+		description: "Multiplies all elements of a matrix by a scalar value.",
+		modelSource: autoModel("MatrixLogicBlockPrefab", "M*s", categories.matrix),
+		logic: logic(
+			{
+				inputOrder: ["matrix", "scalar"],
+				input: { matrix: defpartsf.matrix3("Matrix"), scalar: defpartsf.number("Scalar") },
+				output: { result: { displayName: "Result", types: ["matrix3"] } },
+			},
+			(i) => ({
+				result: {
+					type: "matrix3",
+					value: {
+						row1: i.matrix.row1.mul(i.scalar),
+						row2: i.matrix.row2.mul(i.scalar),
+						row3: i.matrix.row3.mul(i.scalar),
+					},
+				},
+			}),
 		),
 	},
 } as const satisfies BlockBuildersWithoutIdAndDefaults;
@@ -2613,6 +2848,7 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 	...bool,
 	...byte,
 	...other,
+	...legacyMatrix,
 	...matrix,
 	...units,
 	...test,

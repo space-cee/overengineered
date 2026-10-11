@@ -874,7 +874,7 @@ namespace ShiftRegisterOutput {
 		constructor(block: InstanceBlockLogicArgs) {
 			super(definition, block);
 
-			const values: (string | number | boolean | Vector3 | Color3 | BlockLogicTypes.SoundValue)[] = [];
+			const values: BlockLogicTypes.TypeListOfType<typeof BlockConfigDefinitions.any>[] = [];
 
 			const shift = this.initializeInputCache("shift");
 			const lockOutput = this.initializeInputCache("lockOutput");
@@ -975,7 +975,7 @@ namespace ShiftRegisterInput {
 			super(definition, block);
 
 			type t = BlockLogicTypes.IdListOfType<typeof BlockConfigDefinitions.any> | undefined;
-			type t2 = string | number | boolean | Vector3 | Color3 | BlockLogicTypes.SoundValue;
+			type t2 = BlockLogicTypes.TypeListOfType<typeof BlockConfigDefinitions.any>;
 			// init values here
 
 			const filler = {};

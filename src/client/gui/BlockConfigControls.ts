@@ -7,6 +7,7 @@ import { ConfigControlCode } from "client/gui/configControls/ConfigControlCode";
 import { ConfigControlColor3 } from "client/gui/configControls/ConfigControlColor";
 import { ConfigControlEmpty } from "client/gui/configControls/ConfigControlEmpty";
 import { ConfigControlKeyOrString } from "client/gui/configControls/ConfigControlKey";
+import { ConfigControlMatrix3 } from "client/gui/configControls/ConfigControlMatrix3";
 import { ConfigControlMulti } from "client/gui/configControls/ConfigControlMulti";
 import { ConfigControlMultiKeys } from "client/gui/configControls/ConfigControlMultiKeys";
 import { ConfigControlNumber } from "client/gui/configControls/ConfigControlNumber";
@@ -510,6 +511,35 @@ namespace Controls {
 				cz.submitted.Connect((n) => this.submitted.Fire((config = vec(n, "Z"))));
 			}
 		}
+		export class matrix3 extends Base<GuiObject, "matrix3"> {
+			constructor(
+				templates: templates,
+				definition: MiniPrimitives["matrix3"],
+				config: ConfigParts<"matrix3">,
+				args: Args,
+			) {
+				super(templates.Multi());
+
+				const addRow = (key: keyof BlockLogicTypes.Matrix3Value, name: string) => {
+					const [, control] = addSingleTypeWrapperAuto(
+						this,
+						name,
+						{ type: "vector3", config: Vector3.zero },
+						map(config, (value) => value[key]),
+						args,
+					);
+					control.submitted.Connect((values) =>
+						this.submitted.Fire(
+							(config = map(config, (value, uuid) => ({ ...value, [key]: values[uuid] }))),
+						),
+					);
+				};
+
+				addRow("row1", "Row 1");
+				addRow("row2", "Row 2");
+				addRow("row3", "Row 3");
+			}
+		}
 
 		export class _enum extends Base<DropdownListDefinition, "enum"> {
 			constructor(templates: templates, definition: MiniPrimitives["enum"], config: ConfigParts<"enum">) {
@@ -923,6 +953,7 @@ namespace Controls {
 		code: (templates, definition, config, parent) => new Controls.code(templates, definition, config),
 		color: (templates, definition, config, parent) => new Controls.color(templates, definition, config),
 		vector3: (templates, definition, config, parent) => new Controls.vector3(templates, definition, config, parent),
+		matrix3: (templates, definition, config, parent) => new Controls.matrix3(templates, definition, config, parent),
 		enum: (templates, definition, config, parent) => new Controls._enum(templates, definition, config),
 		sound: (templates, definition, config, parent) => new Controls.sound(templates, definition, config, parent),
 		particle: (templates, definition, config, parent) =>
@@ -1415,6 +1446,13 @@ class ConfigAutoValueWrapper extends Control<ConfigValueWrapperDefinition> {
 					vector3: (values, blockdef) => {
 						return new ConfigControlVector3(clone(templates.Vector3), blockdef.displayName) //
 							.setValues(values);
+					},
+					matrix3: (values, blockdef) => {
+						return new ConfigControlMatrix3(
+							clone(templates.Multi),
+							templates.Vector3,
+							blockdef.displayName,
+						).setValues(values);
 					},
 					enum: (values, blockdef, stype) => {
 						const def = definition.types[stype];

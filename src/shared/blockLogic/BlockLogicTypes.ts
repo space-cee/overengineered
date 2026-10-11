@@ -105,6 +105,12 @@ export namespace BlockLogicTypes {
 	export type String = BCPrimitive<string>;
 	export type Key = BCPrimitive<string>;
 	export type Vec3 = BCPrimitive<Vector3>;
+	export type Matrix3Value = {
+		readonly row1: Vector3;
+		readonly row2: Vector3;
+		readonly row3: Vector3;
+	};
+	export type Matrix3 = BCPrimitive<Matrix3Value>;
 	export type Color = BCPrimitive<Color3>;
 	export type Byte = BCPrimitive<number>;
 	export type ByteArray = BCPrimitive<readonly number[]> & {
@@ -192,6 +198,7 @@ export namespace BlockLogicTypes {
 		readonly string: String;
 		readonly key: Key;
 		readonly vector3: Vec3;
+		readonly matrix3: Matrix3;
 		readonly color: Color;
 		readonly byte: Byte;
 		readonly bytearray: ByteArray;
@@ -221,6 +228,7 @@ export namespace BlockLogicTypes {
 			code: t.string,
 			enum: t.string,
 			vector3: t.vector3,
+			matrix3: t.interface({ row1: t.vector3, row2: t.vector3, row3: t.vector3 }),
 			color: t.color,
 			sound: t.interface({
 				id: t.string,
