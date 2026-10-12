@@ -294,7 +294,7 @@ class NewSaveItem extends Control<GuiButton> implements CurrentItem {
 						order: slot.order,
 					});
 
-					if (external && response.success && response.externalError !== undefined) {
+					if (response.success && response.externalError !== undefined) {
 						popupController.showPopup(
 							new AlertPopup(`Failed to save to the external database:\n${response.externalError}`),
 						);

@@ -8,6 +8,7 @@ import { GameDefinitions } from "shared/data/GameDefinitions";
 import { CustomRemotes } from "shared/Remotes";
 import { SlotsMeta } from "shared/SlotsMeta";
 import type { DatabaseBackend } from "engine/server/backend/DatabaseBackend";
+import type { ExternalError } from "server/database/ExternalDatabase";
 import type { PlayerDatabase } from "server/database/PlayerDatabase";
 import type { LatestSerializedBlocks } from "shared/building/BlocksSerializer";
 
@@ -64,7 +65,8 @@ export class SlotDatabase {
 		});
 	}
 
-	private ensureValidSlotIndex(userId: number, index: number) {
+	private ensureValidSlotIndex(userId: number, index: number, adminOverride = false) {
+		if (adminOverride) return;
 		if (SlotsMeta.getSpecial(index)) return;
 
 		const pdata = this.players.get(userId);
@@ -88,16 +90,29 @@ export class SlotDatabase {
 		arr !== undefined && arr.size() > 0;
 
 	private getMeta(userId: number) {
-		const get = this.players.get(userId)?.slots;
+		const playerData = this.players.get(userId);
+		const get = playerData?.slots;
 		if (this.notEmpty(get)) return get;
-		const external = ExternalDatabase.GetPlayer(userId)?.slots;
+		const external = ExternalDatabase.GetPlayer(userId, playerData?.settings?.useSpaceCee)?.slots;
 		if (this.notEmpty(external)) return external;
 		return [];
 	}
 
-	private setMeta(userId: number, slots: readonly SlotMeta[], external?: boolean) {
+	private setMeta(
+		userId: number,
+		slots: readonly SlotMeta[],
+		external?: boolean,
+		useSpaceCee = false,
+		debug = false,
+	) {
 		const shouldUseExternal = external || useExternalDatabaseOnly;
-		this.players.set(userId, { ...this.players.get(userId), slots }, shouldUseExternal);
+		const externalError = this.players.set(
+			userId,
+			{ ...this.players.get(userId), slots },
+			shouldUseExternal,
+			useSpaceCee,
+			debug,
+		);
 
 		if (!this.onlinePlayers.has(userId)) {
 			for (const slot of slots) {
@@ -107,14 +122,15 @@ export class SlotDatabase {
 
 			$log(`Saving data of the OFFLINE player ${userId}`);
 		}
+		return externalError;
 	}
 
 	getBlocks(userId: number, index: number): LatestSerializedBlocks {
 		this.ensureValidSlotIndex(userId, index);
 		return this.blocksdb.get([userId, index]);
 	}
-	setBlocks(userId: number, index: number, blocks: LatestSerializedBlocks | undefined) {
-		this.ensureValidSlotIndex(userId, index);
+	setBlocks(userId: number, index: number, blocks: LatestSerializedBlocks | undefined, adminOverride = false) {
+		this.ensureValidSlotIndex(userId, index, adminOverride);
 
 		blocks ??= { version: BlocksSerializer.latestVersion, blocks: [] };
 		this.blocksdb.set([userId, index], blocks);
@@ -143,11 +159,14 @@ export class SlotDatabase {
 		index: number,
 		metaUpdate: (meta: readonly SlotMeta[]) => readonly SlotMeta[],
 		external?: boolean,
-	): void {
-		this.ensureValidSlotIndex(userId, index);
+		useSpaceCee = false,
+		adminOverride = false,
+		debug = false,
+	): ExternalError | undefined {
+		this.ensureValidSlotIndex(userId, index, adminOverride);
 
 		const meta = metaUpdate(this.getMeta(userId));
-		this.setMeta(userId, meta, external);
+		return this.setMeta(userId, meta, external, useSpaceCee, debug);
 	}
 	delete(userId: number, index: number): void {
 		this.ensureValidSlotIndex(userId, index);

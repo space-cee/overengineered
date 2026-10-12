@@ -33,7 +33,9 @@ export class PlayerDataStorage {
 
 		const playerRemotes = PlayerDataRemotes.createPlayer(result.remotes);
 		const slotRemotes = PlayerDataRemotes.createSlots(result.remotes);
-		return new PlayerDataStorage(PlayerDataStorage.convertData(result.data), playerRemotes, slotRemotes);
+		const storage = new PlayerDataStorage(PlayerDataStorage.convertData(result.data), playerRemotes, slotRemotes);
+		storage.adminTarget = true;
+		return storage;
 	}
 
 	static convertData(data: PlayerDataResponse): PD {
@@ -51,6 +53,7 @@ export class PlayerDataStorage {
 	}
 
 	private readonly _slotLoading = new ArgsSignal();
+	private adminTarget = false;
 	readonly slotLoading = this._slotLoading.asReadonly();
 
 	private readonly _slotLoaded = new ArgsSignal();
@@ -111,6 +114,7 @@ export class PlayerDataStorage {
 	}
 
 	sendPlayerSlot(req: PlayerSaveSlotRequest) {
+		if (this.adminTarget) req = { ...req, external: true, useSpaceCee: true };
 		$log("Setting slot " + req.index + " to " + HttpService.JSONEncode(req));
 		this.loadedSlot.set(req.index);
 
