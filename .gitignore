@@ -9,4 +9,3 @@ sourcemap.json
 /.luaurc
 /.vscode/tasks.json
 /CLAUDE.md
-/src/server/database/studiotoken.json

@@ -1,5 +1,6 @@
 interface ReplicatedStorage {
 	Modules: Folder & {
+		Highlighter: ModuleScript;
 		vLuau: ModuleScript;
 	};
 	Assets: Folder & {

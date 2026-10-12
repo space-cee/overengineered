@@ -1,14 +1,21 @@
+import { ReplicatedStorage } from "@rbxts/services";
 import { TextButtonControl } from "engine/client/gui/Button";
 import { Control } from "engine/client/gui/Control";
 import { Interface } from "engine/client/gui/Interface";
-import { Instances } from "engine/shared/fixes/Instances";
 import { Colors } from "shared/Colors";
 import type { PlayerDataStorage } from "client/PlayerDataStorage";
+
+const highlighter = require(ReplicatedStorage.Modules.Highlighter) as {
+	highlight: (props: { textObject: TextBox }) => () => void;
+};
 
 type IDEPopupDefinition = GuiObject & {
 	readonly Heading: Frame & {
 		readonly CloseButton: TextButton;
 		readonly TitleLabel: TextLabel;
+		readonly Frame: Frame & {
+			SizeLabel: TextLabel;
+		};
 	};
 	readonly Content: Frame & {
 		LimitReached: TextLabel;
@@ -41,14 +48,12 @@ export class IDEPopup extends Control<IDEPopupDefinition> {
 		super(gui);
 
 		this.$onInjectAuto((dataStorage: PlayerDataStorage) => {
-			if (!dataStorage.config.get().syntaxHighlight) {
-				const tb = Instances.findChild<TextBox>(gui, "Content", "Content", "Code", "TextBox");
-				if (!tb) return;
-
-				tb.FindFirstChild("SyntaxHighlighting")?.Destroy();
-				tb.FindFirstChild("SyntaxHighlights")?.Destroy();
-				tb.TextColor3 = Colors.white;
-				tb.TextTransparency = 0;
+			const textBox = gui.Content.Content.Code.TextBox;
+			if (dataStorage.config.get().syntaxHighlight) {
+				highlighter.highlight({ textObject: textBox });
+			} else {
+				textBox.TextColor3 = Colors.white;
+				textBox.TextTransparency = 0;
 			}
 		});
 
@@ -77,9 +82,12 @@ export class IDEPopup extends Control<IDEPopupDefinition> {
 	}
 
 	updateHighlight() {
-		if (this.gui.Content.Content.Code.TextBox.Text.size() > this.lengthLimit) {
+		const byteCount = this.gui.Content.Content.Code.TextBox.Text.size();
+		this.gui.Heading.Frame.SizeLabel.Text = `(${byteCount}/${this.lengthLimit} bytes)`;
+
+		if (byteCount > this.lengthLimit) {
 			this.gui.Content.LimitReached.Visible = true;
-			this.gui.Content.LimitReached.Text = `⚠️ Limit of ${this.lengthLimit} characters reached. (${this.gui.Content.Content.Code.TextBox.Text.size()})`;
+			this.gui.Content.LimitReached.Text = `⚠️ Limit of ${this.lengthLimit} bytes reached. (${byteCount})`;
 			this.saveButton.buttonInteractabilityComponent().setInteractable(false);
 		} else {
 			this.gui.Content.LimitReached.Visible = false;
