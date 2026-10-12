@@ -60,33 +60,38 @@ export class ServerSlotRequestController extends Component {
 		let output: ResponseResult<SaveSlotResponse> | undefined;
 		let externalError: string | undefined;
 		const currentMeta = this.players.get(this.playerId).slots ?? [];
-		const useExternal = request.external && PlayerRank.isDev(player);
+		const isAdmin = PlayerRank.isDev(player) || PlayerRank.isMod(player);
+		const adminOverride = isAdmin && player.UserId !== this.playerId;
+		const useExternal = request.external && (PlayerRank.isDev(player) || adminOverride);
 		if (!request.save && !currentMeta.any((c) => c.index === request.index)) {
 			// new slot creation
 
-			this.slots.setBlocks(this.playerId, request.index, undefined);
+			this.slots.setBlocks(this.playerId, request.index, undefined, adminOverride);
 			output = { blocks: 0 };
 		} else if (request.save) {
 			const blocks = BlocksSerializer.serializeToObject(this.blocks);
-			this.slots.setBlocks(this.playerId, request.index, blocks);
+			this.slots.setBlocks(this.playerId, request.index, blocks, adminOverride);
 			output = { blocks: blocks.blocks.size() };
 
 			if (useExternal) {
-				const result = ExternalDatabase.SaveSlot(
-					this.playerId,
-					{
-						index: request.index,
-						blocks: BlocksSerializer.objectToJson(blocks),
-					},
-					request.useSpaceCee,
-				);
-				if ("error" in result) {
-					externalError = result.error;
+				try {
+					const result = ExternalDatabase.SaveSlot(
+						this.playerId,
+						{
+							index: request.index,
+							blocks: BlocksSerializer.objectToJson(blocks),
+						},
+						request.useSpaceCee,
+						isAdmin,
+					);
+					if ("error" in result) externalError = result.error;
+				} catch (e) {
+					externalError = tostring(e);
 				}
 			}
 		}
 
-		this.slots.updateMeta(
+		const metaError = this.slots.updateMeta(
 			this.playerId,
 			request.index,
 			(meta) => {
@@ -98,8 +103,12 @@ export class ServerSlotRequestController extends Component {
 					order: request.order ?? get.order,
 				});
 			},
-			useExternal,
+			useExternal && externalError === undefined,
+			request.useSpaceCee,
+			adminOverride,
+			isAdmin,
 		);
+		if (metaError) externalError = metaError.error;
 
 		return {
 			success: true,

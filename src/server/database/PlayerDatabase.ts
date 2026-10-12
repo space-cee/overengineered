@@ -5,6 +5,7 @@ import { t } from "engine/shared/t";
 import { ExternalDatabase } from "server/database/ExternalDatabase";
 import { PlayerConfigUpdater } from "server/PlayerConfigVersioning";
 import type { DatabaseBackend } from "engine/server/backend/DatabaseBackend";
+import type { ExternalError } from "server/database/ExternalDatabase";
 import type { AchievementData } from "shared/AchievementData";
 
 export type PlayerFeature = "lua_circuit";
@@ -75,17 +76,30 @@ export class PlayerDatabase {
 		return {};
 	}
 
-	set(userId: number, data: PlayerDatabaseData, external?: boolean) {
+	set(
+		userId: number,
+		data: PlayerDatabaseData,
+		external?: boolean,
+		useSpaceCee = false,
+		debug = false,
+	): ExternalError | undefined {
 		this.db.set([userId], data);
+		let externalError: ExternalError | undefined;
 		if (external) {
-			const result = ExternalDatabase.SetPlayer(userId, data);
-			if ("error" in result) {
-				$err(result.err_type, result.error);
+			try {
+				const result = ExternalDatabase.SetPlayer(userId, data, useSpaceCee, debug);
+				if ("error" in result) externalError = result;
+			} catch (e) {
+				externalError = { err_type: "HTTP", error: tostring(e) };
+			}
+			if (externalError) {
+				$warn(externalError.err_type, externalError.error);
 			}
 		}
 
 		if (!this.onlinePlayers.has(userId)) {
 			this.db.save([userId]);
 		}
+		return externalError;
 	}
 }

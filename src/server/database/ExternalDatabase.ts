@@ -1,4 +1,4 @@
-import { ConfigService, HttpService, ServerScriptService } from "@rbxts/services";
+import { ConfigService, HttpService, RunService, ServerScriptService } from "@rbxts/services";
 import { JSON } from "engine/shared/fixes/Json";
 import { isNotAdmin_AutoBanned } from "server/BanAdminExploiter";
 import { BlocksSerializer } from "shared/building/BlocksSerializer";
@@ -7,7 +7,7 @@ import type { PlayerDatabaseData } from "server/database/PlayerDatabase";
 import type { LatestSerializedBlocks } from "shared/building/BlocksSerializer";
 
 type errType = "HTTP" | "OUT_OF_INDEX" | "NOT_FOUND" | "INCORRECT_TOKEN";
-type ExternalError = {
+export type ExternalError = {
 	error: string;
 	err_type: errType;
 };
@@ -25,38 +25,51 @@ export type MigrationResponse = {
 const getExternalBaseUrl = (useSpaceCee = false) =>
 	useSpaceCee ? "https://api.space-cee.com/overengineered" : "https://www.ftrookie.com/overengineered";
 
+const parseExternalError = (body: string): (Partial<ExternalError> & { status?: string }) | undefined => {
+	try {
+		return JSON.deserialize<Partial<ExternalError> & { status?: string }>(body);
+	} catch {
+		return undefined;
+	}
+};
+
 const ParseData = (data: string): LatestSerializedBlocks | undefined => {
 	try {
 		const p1 = JSON.deserialize(data) as { data: string | BlocksSerializer.JsonSerializedBlocks };
 		const p2 = (
 			typeOf(p1.data) === "string" ? JSON.deserialize(p1.data as string) : p1.data
 		) as BlocksSerializer.JsonSerializedBlocks;
-		for (const [k, v] of pairs(p2)) print(k ?? "no key", v ?? "nothing");
 		return BlocksSerializer.jsonToObject(p2);
-	} catch (what) {
-		print(what);
+	} catch {
 		error("Failed to parse external save data");
 	}
 };
 
 let token: string | undefined;
-const getToken = () => {
+const getToken = (debug = false) => {
 	if (token) return token;
-	if (game.PlaceId === 0) {
-		return (token = (
-			require(
-				ServerScriptService.FindFirstChild("TS")
-					?.FindFirstChild("database")
-					?.FindFirstChild("studiotoken") as ModuleScript,
-			) as { writetoken: string }
-		).writetoken);
-	}
 	try {
-		token = ConfigService.GetConfigAsync().GetValue("TOKEN") as string | undefined;
-	} catch {
-		// local/Studio places have no config; treat as a missing token
+		const configured = ConfigService.GetConfigAsync().GetValue("TOKEN");
+		if (typeIs(configured, "string") && configured !== "") {
+			if (debug) print("[ExternalDatabase] Write token source: Roblox config TOKEN");
+			return (token = configured);
+		}
+	} catch (e) {
+		if (debug) $warn(`[ExternalDatabase] Could not read Roblox config TOKEN: ${tostring(e)}`);
 	}
-	return token;
+	if (RunService.IsStudio()) {
+		const studioToken = ServerScriptService.FindFirstChild("TS")
+			?.FindFirstChild("database")
+			?.FindFirstChild("studiotoken");
+		if (studioToken?.IsA("ModuleScript")) {
+			const value = (require(studioToken) as { writetoken?: string }).writetoken;
+			if (value) {
+				if (debug) print("[ExternalDatabase] Write token source: Studio token file");
+				return (token = value);
+			}
+		}
+	}
+	return undefined;
 };
 
 export namespace ExternalDatabase {
@@ -81,9 +94,18 @@ export namespace ExternalDatabase {
 		return val;
 	};
 
-	export const SetPlayer = (UID: number, data: PlayerDatabaseData, useSpaceCee = false) => {
-		const token = getToken();
-		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
+	export const SetPlayer = (
+		UID: number,
+		data: PlayerDatabaseData,
+		useSpaceCee = false,
+		debug = false,
+	): ExternalError | { status: string } => {
+		const token = getToken(debug);
+		if (!token) {
+			if (debug)
+				print(`[ExternalDatabase] POST ${getExternalBaseUrl(useSpaceCee)}/player ${UID} not sent: no token`);
+			return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
+		}
 		const requestResult = HttpService.RequestAsync({
 			Method: "POST",
 			Headers: {
@@ -96,6 +118,12 @@ export namespace ExternalDatabase {
 				token,
 			}),
 		});
+		if (debug) {
+			const response = parseExternalError(requestResult.Body);
+			print(
+				`[ExternalDatabase] POST ${getExternalBaseUrl(useSpaceCee)}/player ${UID} HTTP ${requestResult.StatusCode}: ${response?.status ?? response?.error ?? "no status in response"}`,
+			);
+		}
 		if (requestResult.StatusCode === 404) return { err_type: "HTTP", error: "404 Bad Request" };
 		if (requestResult.StatusCode !== 200) throw `Got HTTP ${requestResult.StatusCode}`;
 		return JSON.deserialize<ExternalError | { status: string }>(requestResult.Body);
@@ -122,47 +150,37 @@ export namespace ExternalDatabase {
 	// };
 
 	export const GetSave = ([ownerID, slotID]: SlotKeys, useSpaceCee = false): LatestSerializedBlocks | undefined => {
-		let result = "";
+		const firstResponse = HttpService.RequestAsync({
+			Method: "GET",
+			Url: `${getExternalBaseUrl(useSpaceCee)}/save/${ownerID}/${slotID}/0`,
+		});
+		if (firstResponse.StatusCode === 404) return;
+		if (firstResponse.StatusCode !== 200) throw `Got HTTP ${firstResponse.StatusCode}`;
+		const firstError = parseExternalError(firstResponse.Body);
+		if (firstError?.err_type === "NOT_FOUND") return;
+		if (firstError?.error) throw firstError.error;
+
+		let result = firstResponse.Body;
 		try {
-			// Attempt to parse the first call, on exception continue trying to load more pages
-			const response = HttpService.RequestAsync({
-				Method: "GET",
-				Url: `${getExternalBaseUrl(useSpaceCee)}/save/${ownerID}/${slotID}/${0}`,
-			});
-			if (response.StatusCode === 404) return;
-			if (response.StatusCode !== 200) throw `Got HTTP ${response.StatusCode}`;
-			result += response.Body;
-			const v = ParseData(response.Body);
-			print("Successfully loaded data on first try");
+			const v = ParseData(result);
 			return v;
 		} catch {
-			// First call did not parse, must be larger slot or invalid data
 			for (let pageIndex = 1; ; pageIndex++) {
 				const response = HttpService.RequestAsync({
 					Method: "GET",
 					Url: `${getExternalBaseUrl(useSpaceCee)}/save/${ownerID}/${slotID}/${pageIndex}`,
 				});
-				if (response.StatusCode === 404) return;
+				if (response.StatusCode === 404) break;
 				if (response.StatusCode !== 200) throw `Got HTTP ${response.StatusCode}`;
 
-				let parsedRequest;
-				try {
-					// Checks for error message
-					parsedRequest = JSON.deserialize<{ error?: string; err_type: errType }>(response.Body);
-					if (parsedRequest?.error) {
-						if (parsedRequest.err_type === "OUT_OF_INDEX") break;
-					}
-				} catch {
-					print(`Concatenated page #${pageIndex + 1}`);
-					result += response.Body;
-				}
+				const page = parseExternalError(response.Body);
+				if (page?.err_type === "OUT_OF_INDEX") break;
+				if (page?.error) throw page.error;
+				result += response.Body;
 			}
 		}
 
-		print("Parsing save data..");
 		const val = ParseData(result);
-
-		print("Save data parsing success!");
 		return val;
 	};
 
@@ -170,9 +188,16 @@ export namespace ExternalDatabase {
 		UID: number,
 		slot: ExternalSlot,
 		useSpaceCee = false,
+		debug = false,
 	): ExternalError | { status: string } => {
-		const token = getToken();
-		if (!token) return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
+		const token = getToken(debug);
+		if (!token) {
+			if (debug)
+				print(
+					`[ExternalDatabase] POST ${getExternalBaseUrl(useSpaceCee)}/save ${UID}/${slot.index} not sent: no token`,
+				);
+			return { error: "No token was found", err_type: "INCORRECT_TOKEN" };
+		}
 		const requestResult = HttpService.RequestAsync({
 			Method: "POST",
 			Headers: {
@@ -186,13 +211,19 @@ export namespace ExternalDatabase {
 				token,
 			}),
 		});
+		if (debug) {
+			const response = parseExternalError(requestResult.Body);
+			print(
+				`[ExternalDatabase] POST ${getExternalBaseUrl(useSpaceCee)}/save ${UID}/${slot.index} HTTP ${requestResult.StatusCode}: ${response?.status ?? response?.error ?? "no status in response"}`,
+			);
+		}
 		if (requestResult.StatusCode === 404) return { err_type: "HTTP", error: "404 Bad Request" };
 		if (requestResult.StatusCode !== 200) throw `Got HTTP ${requestResult.StatusCode}`;
 		return JSON.deserialize<ExternalError | { status: string }>(requestResult.Body);
 	};
 
 	export const MigratePlayer = (fromPlayer: number, toPlayer: number, useSpaceCee = false): MigrationResponse => {
-		const token = getToken();
+		const token = getToken(true);
 		if (!token) return { metadata: "FAIL", saves: "FAIL" } as MigrationResponse;
 		print(`Migrating saves from ${fromPlayer} to ${toPlayer}`);
 
