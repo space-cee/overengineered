@@ -2,11 +2,11 @@ import { ReplicatedStorage } from "@rbxts/services";
 import { TextButtonControl } from "engine/client/gui/Button";
 import { Control } from "engine/client/gui/Control";
 import { Interface } from "engine/client/gui/Interface";
-import { Colors } from "shared/Colors";
 import type { PlayerDataStorage } from "client/PlayerDataStorage";
 
 const highlighter = require(ReplicatedStorage.Modules.Highlighter) as {
 	highlight: (props: { textObject: TextBox }) => () => void;
+	setTokenColors: (colors: Record<string, Color3>) => void;
 };
 
 type IDEPopupDefinition = GuiObject & {
@@ -48,13 +48,43 @@ export class IDEPopup extends Control<IDEPopupDefinition> {
 		super(gui);
 
 		this.$onInjectAuto((dataStorage: PlayerDataStorage) => {
-			const textBox = gui.Content.Content.Code.TextBox;
-			if (dataStorage.config.get().syntaxHighlight) {
-				highlighter.highlight({ textObject: textBox });
-			} else {
-				textBox.TextColor3 = Colors.white;
-				textBox.TextTransparency = 0;
-			}
+			const editor = gui.Content.Content;
+			const textBox = editor.Code.TextBox;
+			let cleanupHighlight: (() => void) | undefined;
+			this.onDestroy(() => cleanupHighlight?.());
+			this.event.subscribeObservable(
+				dataStorage.config,
+				(config) => {
+					const colors = config.visuals.ide;
+					highlighter.setTokenColors({
+						declaration: colors.declaration.color,
+						functionDeclaration: colors.functionDeclaration.color,
+						property: colors.property.color,
+						bracket1: colors.bracket1.color,
+						bracket2: colors.bracket2.color,
+						bracket3: colors.bracket3.color,
+
+						iden: colors.iden.color,
+						keyword: colors.keyword.color,
+						builtin: colors.builtin.color,
+						string: colors.string.color,
+						number: colors.number.color,
+						comment: colors.comment.color,
+						operator: colors.operator.color,
+						custom: colors.custom.color,
+					});
+					if (config.syntaxHighlight) {
+						cleanupHighlight ??= highlighter.highlight({ textObject: textBox });
+					} else {
+						cleanupHighlight?.();
+						cleanupHighlight = undefined;
+					}
+					textBox.TextColor3 = colors.iden.color;
+					textBox.TextTransparency = config.syntaxHighlight ? 0.5 : 0;
+					editor.Rows.TextLabel.TextColor3 = colors.lineNumbers.color;
+				},
+				true,
+			);
 		});
 
 		gui.Content.Content.Code.TextBox.Text = code;

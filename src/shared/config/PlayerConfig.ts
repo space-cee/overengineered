@@ -1,4 +1,5 @@
 import { Colors } from "shared/Colors";
+import { IDEColorDefaults } from "shared/config/IDEColorDefaults";
 import { GameEnvironment } from "shared/data/GameEnvironment";
 import { GetUnloadables } from "shared/MapLoadingConfigurator";
 
@@ -56,7 +57,26 @@ declare global {
 		readonly numberNegative: Color4;
 		readonly colorAsColor: boolean;
 	};
+	type IDEColorConfiguration = {
+		readonly declaration: Color4;
+		readonly functionDeclaration: Color4;
+		readonly property: Color4;
+		readonly bracket1: Color4;
+		readonly bracket2: Color4;
+		readonly bracket3: Color4;
+
+		readonly lineNumbers: Color4;
+		readonly iden: Color4;
+		readonly keyword: Color4;
+		readonly builtin: Color4;
+		readonly string: Color4;
+		readonly number: Color4;
+		readonly comment: Color4;
+		readonly operator: Color4;
+		readonly custom: Color4;
+	};
 	type VisualsConfiguration = {
+		readonly ide: IDEColorConfiguration;
 		readonly selection: VisualsSelectionBox;
 		readonly multiSelection: VisualsSelectionBox;
 		readonly wires: WireSelectionConfig;
@@ -342,6 +362,7 @@ export const PlayerConfigDefinition = {
 				limitEnabled: false as boolean,
 				maxWires: 200 as number,
 			},
+			ide: IDEColorDefaults,
 			logicDebug: {
 				fontSize: 14,
 				textStroke: { color: Colors.white, alpha: 0 },

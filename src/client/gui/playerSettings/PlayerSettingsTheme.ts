@@ -63,6 +63,35 @@ export class PlayerSettingsTheme extends ConfigControlList {
 				.initToObjectPart(value, ["visuals", "multiSelection", "borderThickness"]);
 		}
 
+		this.addCategory("IDE");
+		{
+			const labels: Record<keyof IDEColorConfiguration, string> = {
+				declaration: "Local declarations",
+				functionDeclaration: "Function declarations",
+				property: "Properties",
+				bracket1: "Brackets: level 1",
+				bracket2: "Brackets: level 2",
+				bracket3: "Brackets: level 3",
+
+				lineNumbers: "Line numbers",
+				iden: "Text / identifiers",
+				keyword: "Control flow / function keywords",
+				builtin: "Functions",
+				string: "Strings",
+				number: "Numbers",
+				comment: "Comments",
+				operator: "Operators",
+				custom: "Custom tokens",
+			};
+			this.addButton("Reset IDE colors", () => {
+				const config = value.get();
+				value.set({ ...config, visuals: { ...config.visuals, ide: { ...df.ide } } });
+			}).button.setButtonText("Reset");
+			for (const [key, label] of pairs(labels)) {
+				this.addColor(label, df.ide[key], false).initToObjectPart(value, ["visuals", "ide", key]);
+			}
+		}
+
 		this.addCategory("Logic Debug");
 		{
 			//UnderEngineered
