@@ -102,12 +102,12 @@ do
 		local prevPrev = false
 		local owner = Players.LocalPlayer
 		local offset = Vector3.new(0, -GameDefinitions.HEIGHT_OFFSET, 0)
-		local origin = block.instance:GetPivot().Position
 
 local _event = self.event
         local _stepped = RunService.Stepped
         local _a = _event
         local _1 = function()
+            local origin = block.instance:GetPivot().Position
             -- Build player list
             local playerList = {}
             for _, p in Players:GetPlayers() do
