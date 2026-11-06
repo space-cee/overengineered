@@ -106,6 +106,12 @@ const list: BlockBuildersWithoutIdAndDefaults = {
 		logic,
 		physics,
 	},
+	dirtbikewheel: {
+		displayName: "Dirt Bike Wheel ",
+		description: "Darwinism's favorite mode of transportation",
+		logic,
+		physics,
+	},
 	tire: {
 		displayName: "tire",
 		description: "woah! tire with no brim!",
